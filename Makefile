@@ -42,6 +42,7 @@ $(LIBFT) :
 
 $(MINILIB) :
 	make -C $(MINILIB_PATH)
+	cp $(MINILIB) ./libmlx.dylib
 
 clean :
 	make clean -C $(LIBFT_PATH)
@@ -50,8 +51,7 @@ clean :
 
 fclean : clean
 	make fclean -C $(LIBFT_PATH)
-	make clean -C $(MINILIB_PATH)
-	$(RM) $(NAME)
+	$(RM) ./libmlx.dylib $(NAME)
 
 debug: CFLAGS += -DDEBUG
 debug: re

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/08 14:26:40 by nfukuma           #+#    #+#              #
-#    Updated: 2022/11/02 00:16:17 by nfukuma          ###   ########.fr        #
+#    Updated: 2023/01/13 11:49:10 by kyamagis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCNAMES = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 					ft_isspace.c ft_safe_free.c ft_puthex_fd.c
 
 CFLAGS = -Wall -Wextra -Werror
-CC = gcc
+CC = cc
 
 OBJDIR = ./obj/
 OBJS = $(SRCNAMES:%.c=$(OBJDIR)%.o)
