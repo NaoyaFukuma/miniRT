@@ -16,14 +16,14 @@ DEPENDS = $(OBJS:.o=.d)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-MINILIB_PATH = ./minilibx_opengl_20191021
-MINILIB = $(MINILIB_PATH)/libmlx.a
+MINILIB_PATH = ./minilibx_mms_20200219
+MINILIB = $(MINILIB_PATH)/libmlx.dylib
 
 
 ifeq ($(shell uname),Darwin)
-MINILIB = $(MINILIB_PATH)/libmlx.a
+MINILIB = $(MINILIB_PATH)/libmlx.dylib
 FRMEWORK = -framework OpenGL -framework Appkit
-LIBS = $(MINILIB_PATH)/libmlx.a -L/usr/X11R6/lib -lXext -lX11
+LIBS = $(MINILIB_PATH)/libmlx.dylib -L/usr/X11R6/lib -lXext -lX11
 endif
 
 all : $(NAME)
