@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 14:58:22 by nfukuma          ###   ########.fr       */
+/*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
+/*   Updated: 2023/01/14 15:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h" // for struct t_rt_data
-#include "rt_check_arg.h" // for rt_check_arg()
-#include "rt_init.h" // for rt_init()
+#include "rt_strucs.h"
+#include "mlx.h"
 
-int	main(int ac, char **av)
+void	rt_init(t_rt_data *rt, char *file)
 {
-	t_rt_data	rt;
-
-	rt_check_arg(ac, av);
-	rt_init(&rt, av[1]);
-	// rt_draw(rt);
-	return (ac);
+	// rt_import_scene(rt, file);
+	(void)file;
+	rt->mlx.mlx = mlx_init();
+	rt->mlx.win = mlx_new_window(rt->mlx.mlx, 465, 262, "miniRT");
+	mlx_loop(rt->mlx.mlx);
 }

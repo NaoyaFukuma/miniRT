@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_strucs.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 14:58:22 by nfukuma          ###   ########.fr       */
+/*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
+/*   Updated: 2023/01/14 14:56:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h" // for struct t_rt_data
-#include "rt_check_arg.h" // for rt_check_arg()
-#include "rt_init.h" // for rt_init()
+#ifndef RT_STRUCS_H
+# define RT_STRUCS_H
 
-int	main(int ac, char **av)
+typedef struct s_scene
 {
-	t_rt_data	rt;
+	// t_camera	camara;
+	// t_lites		*lites;
+	// t_objs		*objs;
+}				t_scene;
 
-	rt_check_arg(ac, av);
-	rt_init(&rt, av[1]);
-	// rt_draw(rt);
-	return (ac);
-}
+typedef struct s_mlx
+{
+	void		*mlx;
+	void		*win;
+}				t_mlx;
+
+typedef struct s_rt_data
+{
+	t_mlx		mlx;
+	t_scene		scene;
+}				t_rt_data;
+
+#endif

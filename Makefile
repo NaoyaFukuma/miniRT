@@ -2,16 +2,23 @@ NAME = miniRT
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
-INLCUDE = -I ./include -I /usr/X11R6/inxlude -I$(MINILIB_PATH)
+INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 
-#以下の項目はベタ打ち
-SRCS = main.c
-VPATH = srcs:srcs/init
+#以下の2項目はベタ打ち
+SRCS =	main.c \
+		rt_check_arg.c \
+		rt_put_error.c \
+		rt_init.c
+
+VPATH =	srcs:\
+		srcs/init:\
+		srcs/arg:\
+		srcs/error
 
 OBJDIR = ./obj
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-DEPENDS = $(OBJS:.o=.d)
--include $(DEPENDS)
+# DEPENDS = $(OBJS:.o=.d)
+# -include $(DEPENDS)
 
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a

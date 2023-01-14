@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_put_error.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 14:58:22 by nfukuma          ###   ########.fr       */
+/*   Created: 2023/01/13 22:56:52 by nfukuma           #+#    #+#             */
+/*   Updated: 2023/01/13 23:07:07 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h" // for struct t_rt_data
-#include "rt_check_arg.h" // for rt_check_arg()
-#include "rt_init.h" // for rt_init()
+#ifndef RT_PUT_ERROR_H
+# define RT_PUT_ERROR_H
 
-int	main(int ac, char **av)
-{
-	t_rt_data	rt;
+void	rt_put_error_exit(char *msg);
+void	rt_perror_exit(char *msg);
 
-	rt_check_arg(ac, av);
-	rt_init(&rt, av[1]);
-	// rt_draw(rt);
-	return (ac);
-}
+#endif
