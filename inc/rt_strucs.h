@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 12:21:19 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 12:49:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,14 @@ typedef struct s_point_lite_source
 
 typedef struct s_camera
 {
-	double				position[3];
-	double				unit_direction[3];
+	double				camara_position[3];
+	double				unit_camera_direction[3];
+
+	double				screen_distance;
+	double				screen_center_position[3];
+
+	double				unit_screen_direction_x_vec[3];
+	double				unit_screen_direction_y_vec[3];
 }						t_camera;
 typedef struct s_scene
 {
