@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 10:56:33 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 11:09:21 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	rt_import(t_rt_data *rt, const char *file);
 int rt_KeyPress(int keycode, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_KeyPress");
+	printf("rt_KeyPress\n");
 	printf("keycode == %d\n", keycode);
 	return (0);
 }
@@ -69,7 +69,7 @@ int rt_KeyPress(int keycode, t_rt_data *rt)
 int rt_KeyRelease(int keycode, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_KeyRelease");
+	printf("rt_KeyRelease\n");
 	printf("keycode == %d\n", keycode);
 
 	return (0);
@@ -78,7 +78,7 @@ int rt_KeyRelease(int keycode, t_rt_data *rt)
 int rt_ButtonPress(int b, int x, int y, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ButtonPress");
+	printf("rt_ButtonPress\n");
 	printf("bottom == %d\n", b);
 	printf("x == %d\n", x);
 	printf("y == %d\n", y);
@@ -89,7 +89,7 @@ int rt_ButtonPress(int b, int x, int y, t_rt_data *rt)
 int rt_ButtonRelease(int b, int x, int y, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ButtonRelease");
+	printf("rt_ButtonRelease\n");
 	printf("bottom == %d\n", b);
 	printf("x == %d\n", x);
 	printf("y == %d\n", y);
@@ -100,7 +100,7 @@ int rt_ButtonRelease(int b, int x, int y, t_rt_data *rt)
 int rt_MotionNotify(int x, int y, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_MotionNotify");
+	printf("rt_MotionNotify\n");
 	printf("x == %d\n", x);
 	printf("y == %d\n", y);
 
@@ -110,7 +110,7 @@ int rt_MotionNotify(int x, int y, t_rt_data *rt)
 int rt_EnterNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_EnterNotify");
+	printf("rt_EnterNotify\n");
 
 	return (0);
 }
@@ -118,7 +118,7 @@ int rt_EnterNotify(t_rt_data *rt)
 int rt_LeaveNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_LeaveNotify");
+	printf("rt_LeaveNotify\n");
 
 	return (0);
 }
@@ -126,7 +126,7 @@ int rt_LeaveNotify(t_rt_data *rt)
 int rt_FocusIn(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_FocusIn");
+	printf("rt_FocusIn\n");
 
 	return (0);
 }
@@ -134,7 +134,7 @@ int rt_FocusIn(t_rt_data *rt)
 int rt_FocusOut(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_FocusOut");
+	printf("rt_FocusOut\n");
 
 	return (0);
 }
@@ -142,7 +142,7 @@ int rt_FocusOut(t_rt_data *rt)
 int rt_KeymapNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_KeymapNotify");
+	printf("rt_KeymapNotify\n");
 
 	return (0);
 }
@@ -150,7 +150,7 @@ int rt_KeymapNotify(t_rt_data *rt)
 int rt_Expose(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_Expose");
+	printf("rt_Expose\n");
 
 	return (0);
 }
@@ -158,7 +158,7 @@ int rt_Expose(t_rt_data *rt)
 int rt_GraphicsExpose(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_GraphicsExpose");
+	printf("rt_GraphicsExpose\n");
 
 	return (0);
 }
@@ -166,7 +166,7 @@ int rt_GraphicsExpose(t_rt_data *rt)
 int rt_NoExpose(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_NoExpose");
+	printf("rt_NoExpose\n");
 
 	return (0);
 }
@@ -174,7 +174,7 @@ int rt_NoExpose(t_rt_data *rt)
 int rt_VisibilityNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_VisibilityNotif");
+	printf("rt_VisibilityNotif\n");
 
 	return (0);
 }
@@ -182,7 +182,7 @@ int rt_VisibilityNotify(t_rt_data *rt)
 int rt_CreateNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_CreateNotify");
+	printf("rt_CreateNotify\n");
 
 	return (0);
 }
@@ -190,15 +190,15 @@ int rt_CreateNotify(t_rt_data *rt)
 int rt_DestroyNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_DestroyNotify");
-
+	printf("rt_DestroyNotify\n");
+	//exit(0);
 	return (0);
 }
 
 int rt_UnmapNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_UnmapNotify");
+	printf("rt_UnmapNotify\n");
 
 	return (0);
 }
@@ -206,7 +206,7 @@ int rt_UnmapNotify(t_rt_data *rt)
 int rt_MapNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_MapNotify");
+	printf("rt_MapNotify\n");
 
 	return (0);
 }
@@ -214,7 +214,7 @@ int rt_MapNotify(t_rt_data *rt)
 int rt_MapRequest(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_MapRequest");
+	printf("rt_MapRequest\n");
 
 	return (0);
 }
@@ -222,7 +222,7 @@ int rt_MapRequest(t_rt_data *rt)
 int rt_ReparentNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ReparentNotify");
+	printf("rt_ReparentNotify\n");
 
 	return (0);
 }
@@ -230,7 +230,7 @@ int rt_ReparentNotify(t_rt_data *rt)
 int rt_ConfigureNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ConfigureNotify");
+	printf("rt_ConfigureNotify\n");
 
 	return (0);
 }
@@ -238,7 +238,7 @@ int rt_ConfigureNotify(t_rt_data *rt)
 int rt_ConfigureRequest(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ConfigureReques");
+	printf("rt_ConfigureReques\n");
 
 	return (0);
 }
@@ -246,7 +246,7 @@ int rt_ConfigureRequest(t_rt_data *rt)
 int rt_GravityNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_GravityNotify");
+	printf("rt_GravityNotify\n");
 
 	return (0);
 }
@@ -254,7 +254,7 @@ int rt_GravityNotify(t_rt_data *rt)
 int rt_ResizeRequest(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ResizeRequest");
+	printf("rt_ResizeRequest\n");
 
 	return (0);
 }
@@ -262,7 +262,7 @@ int rt_ResizeRequest(t_rt_data *rt)
 int rt_CirculateNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_CirculateNotify");
+	printf("rt_CirculateNotify\n");
 
 	return (0);
 }
@@ -270,7 +270,7 @@ int rt_CirculateNotify(t_rt_data *rt)
 int rt_CirculateRequest(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_CirculateReques");
+	printf("rt_CirculateReques\n");
 
 	return (0);
 }
@@ -278,7 +278,7 @@ int rt_CirculateRequest(t_rt_data *rt)
 int rt_PropertyNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_PropertyNotify");
+	printf("rt_PropertyNotify\n");
 
 	return (0);
 }
@@ -286,7 +286,7 @@ int rt_PropertyNotify(t_rt_data *rt)
 int rt_SelectionClear(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_SelectionClear");
+	printf("rt_SelectionClear\n");
 
 	return (0);
 }
@@ -294,7 +294,7 @@ int rt_SelectionClear(t_rt_data *rt)
 int rt_SelectionRequest(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_SelectionReques");
+	printf("rt_SelectionReques\n");
 
 	return (0);
 }
@@ -302,7 +302,7 @@ int rt_SelectionRequest(t_rt_data *rt)
 int rt_SelectionNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_SelectionNotify");
+	printf("rt_SelectionNotify\n");
 
 	return (0);
 }
@@ -310,7 +310,7 @@ int rt_SelectionNotify(t_rt_data *rt)
 int rt_ColormapNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ColormapNotify");
+	printf("rt_ColormapNotify\n");
 
 	return (0);
 }
@@ -318,7 +318,7 @@ int rt_ColormapNotify(t_rt_data *rt)
 int rt_ClientMessage(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_ClientMessage");
+	printf("rt_ClientMessage\n");
 
 	return (0);
 }
@@ -326,7 +326,7 @@ int rt_ClientMessage(t_rt_data *rt)
 int rt_MappingNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_MappingNotify");
+	printf("rt_MappingNotify\n");
 
 	return (0);
 }
@@ -334,7 +334,7 @@ int rt_MappingNotify(t_rt_data *rt)
 int rt_LASTEvent(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_LASTEvent");
+	printf("rt_LASTEvent\n");
 
 	return (0);
 }
@@ -342,7 +342,7 @@ int rt_LASTEvent(t_rt_data *rt)
 int rt_StructureNotifyMask(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_StructureNotifyMask");
+	printf("rt_StructureNotifyMask\n");
 	return (0);
 }
 
@@ -367,7 +367,7 @@ void	rt_hooks(t_rt_data *rt)
 	mlx_hook(rt->mlx.win, NoExpose, INT32_MAX, rt_NoExpose, rt);
 	mlx_hook(rt->mlx.win, VisibilityNotify, INT32_MAX, rt_VisibilityNotify, rt);
 	mlx_hook(rt->mlx.win, CreateNotify, INT32_MAX, rt_CreateNotify, rt);
-	mlx_hook(rt->mlx.win, DestroyNotify, 0, rt_DestroyNotify, rt);
+	mlx_hook(rt->mlx.win, DestroyNotify, INT32_MAX, rt_DestroyNotify, rt);
 	mlx_hook(rt->mlx.win, UnmapNotify, INT32_MAX, rt_UnmapNotify, rt);
 	mlx_hook(rt->mlx.win, MapNotify, INT32_MAX, rt_MapNotify, rt);
 	mlx_hook(rt->mlx.win, MapRequest, INT32_MAX, rt_MapRequest, rt);
@@ -396,7 +396,7 @@ void	rt_init(t_rt_data *rt, const char *file)
 	rt_import(rt, file);
 	rt_mlx(rt);
 	rt_hooks(rt);
-	// mlx_loop(rt->mlx.mlx);
+	mlx_loop(rt->mlx.mlx);
 
 	(void)file;
 }
@@ -408,13 +408,13 @@ void	rt_mlx(t_rt_data *rt)
 
 	rt->mlx.mlx = mlx_init();
 	if (!rt->mlx.mlx)
-		rt_put_error_exit("mlx_init() fatal.");
+		rt_put_error_exit("mlx_init() fatal.\n");
 	mlx_get_screen_size(rt->mlx.mlx, &x, &y);
 	// 指定されたFOVと実行環境のディスプレイを比較して、実行環境のディスプレイが小さければ、その大きさで描画する。ということは、、、
 	printf("width == %d height == %d\n", x, y);
-	rt->mlx.win = mlx_new_window(rt->mlx.mlx, 1440, 900, "miniRT");
+	rt->mlx.win = mlx_new_window(rt->mlx.mlx, 1440, 900, "miniRT\n");
 	if (!rt->mlx.win)
-		rt_put_error_exit("mlx_new_window() fatal.");
+		rt_put_error_exit("mlx_new_window() fatal.\n");
 	// image 作成
 	// image のアドレス取得
 }
