@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 11:09:21 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:53:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,388 +17,276 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <limits.h>
+#include "rt_define.h"
+#include <math.h>
 
-
-#define KeyPress		2
-#define KeyRelease		3
-#define ButtonPress		4
-#define ButtonRelease		5
-#define MotionNotify		6
-#define EnterNotify		7
-#define LeaveNotify		8
-#define FocusIn			9
-#define FocusOut		10
-#define KeymapNotify		11
-#define Expose			12
-#define GraphicsExpose		13
-#define NoExpose		14
-#define VisibilityNotify	15
-#define CreateNotify		16
-#define DestroyNotify		17
-#define UnmapNotify		18
-#define MapNotify		19
-#define MapRequest		20
-#define ReparentNotify		21
-#define ConfigureNotify		22
-#define ConfigureRequest	23
-#define GravityNotify		24
-#define ResizeRequest		25
-#define CirculateNotify		26
-#define CirculateRequest	27
-#define PropertyNotify		28
-#define SelectionClear		29
-#define SelectionRequest	30
-#define SelectionNotify		31
-#define ColormapNotify		32
-#define ClientMessage		33
-#define MappingNotify		34
-#define LASTEvent		35
-#define StructureNotifyMask (1L << 17)
 
 void	rt_mlx(t_rt_data *rt);
-void	rt_import(t_rt_data *rt, const char *file);
+void	rt_import_rt_file(t_rt_data *rt, const char *file);
+void	rt_hooks(t_rt_data *rt);
 
 int rt_KeyPress(int keycode, t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_KeyPress\n");
-	printf("keycode == %d\n", keycode);
-	return (0);
-}
-
-int rt_KeyRelease(int keycode, t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_KeyRelease\n");
-	printf("keycode == %d\n", keycode);
-
-	return (0);
-}
-
-int rt_ButtonPress(int b, int x, int y, t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ButtonPress\n");
-	printf("bottom == %d\n", b);
-	printf("x == %d\n", x);
-	printf("y == %d\n", y);
-
-	return (0);
-}
-
-int rt_ButtonRelease(int b, int x, int y, t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ButtonRelease\n");
-	printf("bottom == %d\n", b);
-	printf("x == %d\n", x);
-	printf("y == %d\n", y);
-
-	return (0);
-}
-
-int rt_MotionNotify(int x, int y, t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_MotionNotify\n");
-	printf("x == %d\n", x);
-	printf("y == %d\n", y);
-
-	return (0);
-}
-
-int rt_EnterNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_EnterNotify\n");
-
-	return (0);
-}
-
-int rt_LeaveNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_LeaveNotify\n");
-
-	return (0);
-}
-
-int rt_FocusIn(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_FocusIn\n");
-
-	return (0);
-}
-
-int rt_FocusOut(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_FocusOut\n");
-
-	return (0);
-}
-
-int rt_KeymapNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_KeymapNotify\n");
-
-	return (0);
-}
-
-int rt_Expose(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_Expose\n");
-
-	return (0);
-}
-
-int rt_GraphicsExpose(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_GraphicsExpose\n");
-
-	return (0);
-}
-
-int rt_NoExpose(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_NoExpose\n");
-
-	return (0);
-}
-
-int rt_VisibilityNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_VisibilityNotif\n");
-
-	return (0);
-}
-
-int rt_CreateNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_CreateNotify\n");
-
+	if (keycode == KEY_ESC)
+		exit(EXIT_SUCCESS);
 	return (0);
 }
 
 int rt_DestroyNotify(t_rt_data *rt)
 {
 	(void)rt;
-	printf("rt_DestroyNotify\n");
-	//exit(0);
+	exit(0);
 	return (0);
-}
-
-int rt_UnmapNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_UnmapNotify\n");
-
-	return (0);
-}
-
-int rt_MapNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_MapNotify\n");
-
-	return (0);
-}
-
-int rt_MapRequest(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_MapRequest\n");
-
-	return (0);
-}
-
-int rt_ReparentNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ReparentNotify\n");
-
-	return (0);
-}
-
-int rt_ConfigureNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ConfigureNotify\n");
-
-	return (0);
-}
-
-int rt_ConfigureRequest(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ConfigureReques\n");
-
-	return (0);
-}
-
-int rt_GravityNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_GravityNotify\n");
-
-	return (0);
-}
-
-int rt_ResizeRequest(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ResizeRequest\n");
-
-	return (0);
-}
-
-int rt_CirculateNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_CirculateNotify\n");
-
-	return (0);
-}
-
-int rt_CirculateRequest(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_CirculateReques\n");
-
-	return (0);
-}
-
-int rt_PropertyNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_PropertyNotify\n");
-
-	return (0);
-}
-
-int rt_SelectionClear(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_SelectionClear\n");
-
-	return (0);
-}
-
-int rt_SelectionRequest(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_SelectionReques\n");
-
-	return (0);
-}
-
-int rt_SelectionNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_SelectionNotify\n");
-
-	return (0);
-}
-
-int rt_ColormapNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ColormapNotify\n");
-
-	return (0);
-}
-
-int rt_ClientMessage(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_ClientMessage\n");
-
-	return (0);
-}
-
-int rt_MappingNotify(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_MappingNotify\n");
-
-	return (0);
-}
-
-int rt_LASTEvent(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_LASTEvent\n");
-
-	return (0);
-}
-
-int rt_StructureNotifyMask(t_rt_data *rt)
-{
-	(void)rt;
-	printf("rt_StructureNotifyMask\n");
-	return (0);
-}
-
-
-void	rt_hooks(t_rt_data *rt)
-{
-	// mlx_do_key_autorepeaton(rt->mlx.mlx);
-	// mlx_do_sync(rt->mlx.mlx);
-
-	mlx_hook(rt->mlx.win, KeyRelease, INT32_MAX, rt_KeyRelease, rt);
-	mlx_hook(rt->mlx.win, KeyPress, INT32_MAX, rt_KeyPress, rt);
-	mlx_hook(rt->mlx.win, ButtonPress, INT32_MAX, rt_ButtonPress, rt);
-	mlx_hook(rt->mlx.win, ButtonRelease, INT32_MAX, rt_ButtonRelease, rt);
-	mlx_hook(rt->mlx.win, MotionNotify, INT32_MAX, rt_MotionNotify, rt);
-	mlx_hook(rt->mlx.win, EnterNotify, INT32_MAX, rt_EnterNotify, rt);
-	mlx_hook(rt->mlx.win, LeaveNotify, INT32_MAX, rt_LeaveNotify, rt);
-	mlx_hook(rt->mlx.win, FocusIn, INT32_MAX, rt_FocusIn, rt);
-	mlx_hook(rt->mlx.win, FocusOut, INT32_MAX, rt_FocusOut, rt);
-	mlx_hook(rt->mlx.win, KeymapNotify, INT32_MAX, rt_KeymapNotify, rt);
-	mlx_hook(rt->mlx.win, Expose	, INT32_MAX, rt_Expose	, rt);
-	mlx_hook(rt->mlx.win, GraphicsExpose, INT32_MAX, rt_GraphicsExpose, rt);
-	mlx_hook(rt->mlx.win, NoExpose, INT32_MAX, rt_NoExpose, rt);
-	mlx_hook(rt->mlx.win, VisibilityNotify, INT32_MAX, rt_VisibilityNotify, rt);
-	mlx_hook(rt->mlx.win, CreateNotify, INT32_MAX, rt_CreateNotify, rt);
-	mlx_hook(rt->mlx.win, DestroyNotify, INT32_MAX, rt_DestroyNotify, rt);
-	mlx_hook(rt->mlx.win, UnmapNotify, INT32_MAX, rt_UnmapNotify, rt);
-	mlx_hook(rt->mlx.win, MapNotify, INT32_MAX, rt_MapNotify, rt);
-	mlx_hook(rt->mlx.win, MapRequest, INT32_MAX, rt_MapRequest, rt);
-	mlx_hook(rt->mlx.win, ReparentNotify, INT32_MAX, rt_ReparentNotify, rt);
-	mlx_hook(rt->mlx.win, ConfigureNotify, INT32_MAX, rt_ConfigureNotify, rt);
-	mlx_hook(rt->mlx.win, ConfigureRequest, INT32_MAX, rt_ConfigureRequest, rt);
-	mlx_hook(rt->mlx.win, GravityNotify, INT32_MAX, rt_GravityNotify, rt);
-	mlx_hook(rt->mlx.win, ResizeRequest, INT32_MAX, rt_ResizeRequest, rt);
-	mlx_hook(rt->mlx.win, CirculateNotify, INT32_MAX, rt_CirculateNotify, rt);
-	mlx_hook(rt->mlx.win, CirculateRequest, INT32_MAX, rt_CirculateRequest, rt);
-	mlx_hook(rt->mlx.win, PropertyNotify, INT32_MAX, rt_PropertyNotify, rt);
-	mlx_hook(rt->mlx.win, SelectionClear, INT32_MAX, rt_SelectionClear, rt);
-	mlx_hook(rt->mlx.win, SelectionRequest, INT32_MAX, rt_SelectionRequest, rt);
-	mlx_hook(rt->mlx.win, SelectionNotify, INT32_MAX, rt_SelectionNotify, rt);
-	// mlx_hook(rt->mlx.win, ColormapNotify, StructureNotifyMask, rt_ColormapNotify, rt);
-	// mlx_hook(rt->mlx.win, ClientMessage, INT32_MAX, rt_ClientMessage, rt);
-	// mlx_hook(rt->mlx.win, MappingNotify, INT32_MAX, rt_MappingNotify, rt);
-	// mlx_hook(rt->mlx.win, LASTEvent, INT32_MAX, rt_LASTEvent, rt);
-	// mlx_hook(rt->mlx.win, StructureNotifyMask, INT32_MAX, rt_StructureNotifyMask, rt);
-
-	// mlx_loop_hook(rt->mlx.mlx, draw_loop, rt);
 }
 
 void	rt_init(t_rt_data *rt, const char *file)
 {
-	rt_import(rt, file);
+	rt_import_rt_file(rt, file);
 	rt_mlx(rt);
 	rt_hooks(rt);
-	mlx_loop(rt->mlx.mlx);
+	// mlx_loop(rt->mlx.mlx);
+}
 
-	(void)file;
+void	rt_double_ptr_free(const char **d_ptr)
+{
+	size_t	i;
+
+	i = 0;
+	while (d_ptr[i])
+	{
+		free((void *)d_ptr[i]);
+		d_ptr[i] = NULL;
+	}
+	free((void *)d_ptr);
+	d_ptr = NULL;
+}
+
+enum id
+{
+	A,
+	C,
+	L,
+	sp,
+	pl,
+	cy,
+	cn,
+};
+
+int	rt_check_id(const char *str)
+{
+	int	id;
+	const char	*id_set[] = {"A", "C", "L", "sp", "pl", "cy", "cn"};
+
+	id = 0;
+	while (id_set[id])
+		if (!ft_strcmp(str, id_set[id]))
+			break ;
+	if (id_set[id] == NULL)
+		return (-1);
+	return (id);
+}
+
+int	rt_count_str(const char **strs)
+{
+	int	i;
+
+	if (strs == NULL)
+		return (-1);
+	i = 0;
+	while (strs[i])
+		++i;
+	return (i);
+}
+
+double		ft_atof(const char *str)
+{
+	double	ans;
+	double	i;
+	int		sign;
+
+	if (!str)
+		return 0;
+	sign = 1;
+	while (!ft_isalnum(*str))
+		if (*str++ == '-')
+			sign = -1;
+	ans = 0;
+	while (ft_isdigit(*str))
+		ans = ans * 10 + *str++ - '0';
+	i = 0.1;
+	if (*str == '.')
+	{
+		str++;
+		while(ft_isdigit(*str))
+		{
+			ans += (*str - '0') * i;
+			i *= 0.1;
+			str++;
+		}
+	}
+	return (sign * ans);
+}
+
+void	rt_set_3d_vec(t_3d_vec *vec, double x, double y, double z)
+{
+	vec->x = x;
+	vec->y = y;
+	vec->z = z;
+}
+
+void	rt_set_rgb_vec(t_rgb_vec *vec, double r, double g, double b)
+{
+	vec->r = r;
+	vec->g = g;
+	vec->b = b;
+}
+
+void	rt_3d_vec_mult(t_3d_vec *vec, double k)
+{
+	vec->x *= k;
+	vec->y *= k;
+	vec->z *= k;
+}
+
+void	rt_rgb_vec_mult(t_rgb_vec *vec, double k)
+{
+	vec->r *= k;
+	vec->g *= k;
+	vec->b *= k;
+}
+
+
+void	rt_fill_struct_A(t_rt_data *rt, const char **tokens)
+{
+	int	i;
+	double	ratio;
+	double	tmp;
+	char	**rgb;
+
+	if (rt_count_str(tokens) != 3)
+		rt_put_error_exit("rt file invalid format");
+	ratio = ft_atof(tokens[1]);
+	if (!(0.0 <= ratio && ratio <= 1.0))
+		rt_put_error_exit("rt file invalid format");
+	rgb = ft_split(tokens[2], ',');
+	if (rgb == NULL)
+		rt_perror_exit(NULL);
+	if (rt_count_str((const char **)rgb) != 3)
+		rt_put_error_exit("rt file invalid format");
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(rgb[i]);
+		if (!(0 <= tmp && tmp <= 255))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+	rt_set_rgb_vec(&rt->scene.ambient_color, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
+	rt_double_ptr_free((const char **)rgb);
+}
+
+void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
+{
+	int	i;
+	char	**position;
+	char	**direction;
+	int		fov;
+	double	tmp;
+
+	if (rt_count_str(tokens) != 4)
+		rt_put_error_exit("rt file invalid format");
+
+	position = ft_split(tokens[1], ',');
+	if (rt_count_str((const char **)position) != 3)
+		rt_put_error_exit("rt file invalid format");
+	rt_set_3d_vec(&CAMERA_POSITION, ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
+
+
+	direction = ft_split(tokens[2], ',');
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(direction[i]);
+		if (!(-1.0 <= tmp && tmp <= 1.0))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+	if (rt_count_str((const char **)direction) != 3)
+		rt_put_error_exit("rt file invalid format");
+	rt_set_3d_vec(&UNIT_CAMERA_DIRECTION, ft_atof(direction[0]),  ft_atof(direction[1]),  ft_atof(direction[2]));
+
+
+	fov = ft_atoi(tokens[3]);
+	if (!(0 < fov && fov <= 180))
+		rt_put_error_exit("rt file invalid format");
+
+	SCREEN_DISTANCE = (1440 / 2) / tan(fov / 2);
+	rt_vec_mult(&SCREEN_CENTER_POSITION, SCREEN_DISTANCE);
+
+	t_3d_vec	ey;
+	rt_set_3d_vec(&ey, 0, 1, 0);
+
+	rt_vec_cross(&UNIT_SCREEN_DIRECTION_X_VEC, ey, UNIT_CAMERA_DIRECTION);
+	rt_vec_cross(&UNIT_SCREEN_DIRECTION_Y_VEC, UNIT_SCREEN_DIRECTION_X_VEC, UNIT_CAMERA_DIRECTION);
+
+	rt_double_ptr_free((const char **)position);
+	rt_double_ptr_free((const char **)direction);
+}
+// void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)
+// {
+// }
+// void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
+// {
+// }
+// void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
+// {
+// }
+// void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
+// {
+// }
+// void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
+// {
+// }
+
+void	rt_fill_struct(t_rt_data *rt, const char *line)
+{
+	int		id;
+	char	**tokens;
+	// const void	(*fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L, rt_fill_struct_sp, rt_fill_struct_pl, rt_fill_struct_cy, rt_fill_struct_cn};
+	const void	(*fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C};
+
+
+	tokens = ft_split(line, ' ');
+	if (tokens == NULL)
+		rt_perror_exit(NULL);
+	id = rt_check_id(tokens[0]);
+	if (id < 0)
+		rt_put_error_exit("rt file invalid format");
+	if (id < 1)
+		fill_funcs[id](rt, (const char **)tokens);
+	rt_double_ptr_free((const char **)tokens);
+}
+
+void	rt_import_rt_file(t_rt_data *rt, const char *file)
+{
+	char	*line;
+	int		fd;
+
+	(void)rt;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		rt_perror_exit(NULL);
+	line = get_next_line(fd);
+	while (line)
+	{
+		rt_fill_struct(rt, line);
+		printf("%s\n", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (close(fd) < 0)
+		rt_perror_exit(NULL);
 }
 
 void	rt_mlx(t_rt_data *rt)
@@ -419,21 +307,10 @@ void	rt_mlx(t_rt_data *rt)
 	// image のアドレス取得
 }
 
-void	rt_import(t_rt_data *rt, const char *file)
+void	rt_hooks(t_rt_data *rt)
 {
-	int		fd;
-	char	*line;
-
-	(void)rt;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		rt_perror_exit(NULL);
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		printf("%s\n", line);
-	}
+	mlx_hook(rt->mlx.win, KeyPress, 0, rt_KeyPress, rt);
+	mlx_hook(rt->mlx.win, DestroyNotify, 0, rt_DestroyNotify, rt);
+	// mlx_loop_hook(rt->mlx.mlx, draw, rt);
 }
+
