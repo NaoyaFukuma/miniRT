@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_check_arg.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 14:58:22 by nfukuma          ###   ########.fr       */
+/*   Created: 2023/01/13 22:51:55 by nfukuma           #+#    #+#             */
+/*   Updated: 2023/01/16 10:43:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h" // for struct t_rt_data
-#include "rt_check_arg.h" // for rt_check_arg()
-#include "rt_init.h" // for rt_init()
+#ifndef RT_CHECK_ARG_H
+# define RT_CHECK_ARG_H
 
-int	main(int ac, char **av)
-{
-	t_rt_data	rt;
+void	rt_check_arg(int ac, const char **av);
 
-	rt_check_arg(ac, av);
-	rt_init(&rt, av[1]);
-	// rt_draw(rt);
-	return (ac);
-}
+#endif
