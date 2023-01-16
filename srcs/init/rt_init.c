@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 10:09:09 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 10:35:45 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,10 +393,10 @@ void	rt_hooks(t_rt_data *rt)
 
 void	rt_init(t_rt_data *rt, char *file)
 {
-	// rt_import(rt, file);
+	rt_import(rt, file);
 	rt_mlx(rt);
 	rt_hooks(rt);
-	mlx_loop(rt->mlx.mlx);
+	// mlx_loop(rt->mlx.mlx);
 
 	(void)file;
 }

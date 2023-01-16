@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:49:09 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 13:04:12 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 10:44:30 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-static bool	rt_extension(char *file);
-bool		rt_open(char *file);
+static bool	rt_extension(const char *file);
+bool		rt_open(const char *file);
 
-void	rt_check_arg(int ac, char **av)
+void	rt_check_arg(int ac, const char **av)
 {
 	if (ac != 2)
 		rt_put_error_exit("Only two arguments are required");
@@ -33,7 +33,7 @@ static bool	rt_extension(char *file)
 	size_t	len;
 
 	len = ft_strlen(file);
-	if (len < 3)
+	if (len < 4)
 		return (true);
 	if (file[len - 1] != 't')
 		return (true);
@@ -44,13 +44,14 @@ static bool	rt_extension(char *file)
 	return (false);
 }
 
-bool	rt_open(char *file)
+bool	rt_open(const char *file)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (true);
-	close(fd);
+	if (close(fd) < 0)
+		return (true);
 	return (false);
 }

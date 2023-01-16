@@ -6,13 +6,13 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:55:47 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/14 14:56:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 10:43:34 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_INIT_H
 # define RT_INIT_H
 
-void	rt_init(t_rt_data *rt, char *file);
+void	rt_init(t_rt_data *rt, const char *file);
 
 #endif
