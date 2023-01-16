@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 10:48:37 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 10:56:33 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 #define StructureNotifyMask (1L << 17)
 
 void	rt_mlx(t_rt_data *rt);
-void	rt_import(t_rt_data *rt, char *file);
+void	rt_import(t_rt_data *rt, const char *file);
 
 int rt_KeyPress(int keycode, t_rt_data *rt)
 {
