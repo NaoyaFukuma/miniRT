@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 10:35:45 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/16 10:48:37 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,7 +391,7 @@ void	rt_hooks(t_rt_data *rt)
 	// mlx_loop_hook(rt->mlx.mlx, draw_loop, rt);
 }
 
-void	rt_init(t_rt_data *rt, char *file)
+void	rt_init(t_rt_data *rt, const char *file)
 {
 	rt_import(rt, file);
 	rt_mlx(rt);
@@ -419,7 +419,7 @@ void	rt_mlx(t_rt_data *rt)
 	// image のアドレス取得
 }
 
-void	rt_import(t_rt_data *rt, char *file)
+void	rt_import(t_rt_data *rt, const char *file)
 {
 	int		fd;
 	char	*line;
