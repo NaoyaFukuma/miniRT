@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = miniRT
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
