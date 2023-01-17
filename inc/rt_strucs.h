@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 17:19:49 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:53:41 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_point_lite_source
 
 typedef struct s_camera
 {
-	t_3d_vec					camara_position;
+	t_3d_vec					camera_position;
 	t_3d_vec					unit_camera_direction;
 
 	double						screen_distance;
@@ -115,13 +115,12 @@ typedef struct s_camera
 	t_3d_vec					unit_screen_direction_x_vec;
 	t_3d_vec					unit_screen_direction_y_vec;
 }								t_camera;
-#define CAMERA_POSITION rt->scene.camara.camara_position
+#define CAMERA_POSITION rt->scene.camara.camera_position
 #define UNIT_CAMERA_DIRECTION rt->scene.camara.unit_camera_direction
 #define SCREEN_DISTANCE rt->scene.camara.screen_distance
 #define SCREEN_CENTER_POSITION rt->scene.camara.screen_center_position
 #define UNIT_SCREEN_DIRECTION_X_VEC rt->scene.camara.unit_screen_direction_x_vec
 #define UNIT_SCREEN_DIRECTION_Y_VEC rt->scene.camara.unit_screen_direction_y_vec
-
 
 typedef struct s_scene
 {

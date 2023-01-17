@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 16:53:21 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 09:46:14 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <limits.h>
 #include "rt_define.h"
 #include <math.h>
-
+#include "rt_vector.h"
 
 void	rt_mlx(t_rt_data *rt);
 void	rt_import_rt_file(t_rt_data *rt, const char *file);
@@ -42,10 +42,10 @@ int rt_DestroyNotify(t_rt_data *rt)
 
 void	rt_init(t_rt_data *rt, const char *file)
 {
-	rt_import_rt_file(rt, file);
 	rt_mlx(rt);
+	rt_import_rt_file(rt, file);
 	rt_hooks(rt);
-	// mlx_loop(rt->mlx.mlx);
+	mlx_loop(rt->mlx.mlx);
 }
 
 void	rt_double_ptr_free(const char **d_ptr)
@@ -80,8 +80,11 @@ int	rt_check_id(const char *str)
 
 	id = 0;
 	while (id_set[id])
+	{
 		if (!ft_strcmp(str, id_set[id]))
 			break ;
+		++id;
+	}
 	if (id_set[id] == NULL)
 		return (-1);
 	return (id);
@@ -128,35 +131,6 @@ double		ft_atof(const char *str)
 	return (sign * ans);
 }
 
-void	rt_set_3d_vec(t_3d_vec *vec, double x, double y, double z)
-{
-	vec->x = x;
-	vec->y = y;
-	vec->z = z;
-}
-
-void	rt_set_rgb_vec(t_rgb_vec *vec, double r, double g, double b)
-{
-	vec->r = r;
-	vec->g = g;
-	vec->b = b;
-}
-
-void	rt_3d_vec_mult(t_3d_vec *vec, double k)
-{
-	vec->x *= k;
-	vec->y *= k;
-	vec->z *= k;
-}
-
-void	rt_rgb_vec_mult(t_rgb_vec *vec, double k)
-{
-	vec->r *= k;
-	vec->g *= k;
-	vec->b *= k;
-}
-
-
 void	rt_fill_struct_A(t_rt_data *rt, const char **tokens)
 {
 	int	i;
@@ -182,7 +156,8 @@ void	rt_fill_struct_A(t_rt_data *rt, const char **tokens)
 			rt_put_error_exit("rt file invalid format");
 		++i;
 	}
-	rt_set_rgb_vec(&rt->scene.ambient_color, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
+	rt->scene.ambient_color = rt_rgb_vec_constructor(ratio * ft_atof(rgb[0]), ratio * ft_atof(rgb[1]), ratio * ft_atof(rgb[2]));
+	printf("ambient r = %f g = %f b = %f\n", rt->scene.ambient_color.r, rt->scene.ambient_color.g, rt->scene.ambient_color.b);
 	rt_double_ptr_free((const char **)rgb);
 }
 
@@ -194,13 +169,15 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 	int		fov;
 	double	tmp;
 
+
 	if (rt_count_str(tokens) != 4)
 		rt_put_error_exit("rt file invalid format");
 
 	position = ft_split(tokens[1], ',');
 	if (rt_count_str((const char **)position) != 3)
 		rt_put_error_exit("rt file invalid format");
-	rt_set_3d_vec(&CAMERA_POSITION, ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
+
+	CAMERA_POSITION = rt_vector_constructor(ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
 
 
 	direction = ft_split(tokens[2], ',');
@@ -214,28 +191,37 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 	}
 	if (rt_count_str((const char **)direction) != 3)
 		rt_put_error_exit("rt file invalid format");
-	rt_set_3d_vec(&UNIT_CAMERA_DIRECTION, ft_atof(direction[0]),  ft_atof(direction[1]),  ft_atof(direction[2]));
-
+	UNIT_CAMERA_DIRECTION = rt_vector_constructor(ft_atof(direction[0]),  ft_atof(direction[1]),  ft_atof(direction[2]));
 
 	fov = ft_atoi(tokens[3]);
 	if (!(0 < fov && fov <= 180))
 		rt_put_error_exit("rt file invalid format");
+	SCREEN_DISTANCE = (rt->scene.screean_width / 2) / tan((long double)fov * M_PI / 180.0l / 2.0l);
 
-	SCREEN_DISTANCE = (1440 / 2) / tan(fov / 2);
-	rt_vec_mult(&SCREEN_CENTER_POSITION, SCREEN_DISTANCE);
+	SCREEN_CENTER_POSITION = rt_vector_add(CAMERA_POSITION, rt_vector_mult(UNIT_CAMERA_DIRECTION, SCREEN_DISTANCE));
 
-	t_3d_vec	ey;
-	rt_set_3d_vec(&ey, 0, 1, 0);
+	t_3d_vec	ey = rt_vector_constructor(0, 1, 0);
+	UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_cross(UNIT_CAMERA_DIRECTION, ey);
+	UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_cross(UNIT_SCREEN_DIRECTION_X_VEC, UNIT_CAMERA_DIRECTION);
 
-	rt_vec_cross(&UNIT_SCREEN_DIRECTION_X_VEC, ey, UNIT_CAMERA_DIRECTION);
-	rt_vec_cross(&UNIT_SCREEN_DIRECTION_Y_VEC, UNIT_SCREEN_DIRECTION_X_VEC, UNIT_CAMERA_DIRECTION);
+	printf("camera posi x = %f  y = %f z = %f\n", CAMERA_POSITION.x,CAMERA_POSITION.y,CAMERA_POSITION.z);
+	printf("camera dir x = %f  y = %f z = %f\n", UNIT_CAMERA_DIRECTION.x,UNIT_CAMERA_DIRECTION.y,UNIT_CAMERA_DIRECTION.z);
+	printf("fov == %d\n", fov);
+	printf("rt->scene.screean_width / 2 == %d * tan((long double)fov * M_PI / 180.0l / 2.0l) == %f   ", rt->scene.screean_width / 2, tan((long double)fov * M_PI / 180.0l / 2.0l));
+	printf("distance = %f\n",SCREEN_DISTANCE);
+	printf("screen center position x = %f  y = %f z = %f\n", SCREEN_CENTER_POSITION.x,SCREEN_CENTER_POSITION.y,SCREEN_CENTER_POSITION.z);
+	printf("screen dir_x x = %f  y = %f z = %f\n", UNIT_SCREEN_DIRECTION_X_VEC.x,UNIT_SCREEN_DIRECTION_X_VEC.y,UNIT_SCREEN_DIRECTION_X_VEC.z);
+	printf("screen dir_y  x = %f  y = %f z = %f\n", UNIT_SCREEN_DIRECTION_Y_VEC.x,UNIT_SCREEN_DIRECTION_Y_VEC.y,UNIT_SCREEN_DIRECTION_Y_VEC.z);
 
 	rt_double_ptr_free((const char **)position);
 	rt_double_ptr_free((const char **)direction);
 }
-// void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)
-// {
-// }
+
+void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)
+{
+
+}
+
 // void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 // {
 // }
@@ -253,8 +239,8 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 {
 	int		id;
 	char	**tokens;
-	// const void	(*fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L, rt_fill_struct_sp, rt_fill_struct_pl, rt_fill_struct_cy, rt_fill_struct_cn};
-	const void	(*fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C};
+	// void	(* const fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L, rt_fill_struct_sp, rt_fill_struct_pl, rt_fill_struct_cy, rt_fill_struct_cn};
+	void	(* const fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L};
 
 
 	tokens = ft_split(line, ' ');
@@ -263,7 +249,7 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 	id = rt_check_id(tokens[0]);
 	if (id < 0)
 		rt_put_error_exit("rt file invalid format");
-	if (id < 1)
+	if (id < 3)
 		fill_funcs[id](rt, (const char **)tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
@@ -280,8 +266,8 @@ void	rt_import_rt_file(t_rt_data *rt, const char *file)
 	line = get_next_line(fd);
 	while (line)
 	{
+		printf("\n%s", line);
 		rt_fill_struct(rt, line);
-		printf("%s\n", line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -291,26 +277,30 @@ void	rt_import_rt_file(t_rt_data *rt, const char *file)
 
 void	rt_mlx(t_rt_data *rt)
 {
-	int	x;
-	int	y;
-
 	rt->mlx.mlx = mlx_init();
 	if (!rt->mlx.mlx)
 		rt_put_error_exit("mlx_init() fatal.\n");
-	mlx_get_screen_size(rt->mlx.mlx, &x, &y);
-	// 指定されたFOVと実行環境のディスプレイを比較して、実行環境のディスプレイが小さければ、その大きさで描画する。ということは、、、
-	printf("width == %d height == %d\n", x, y);
-	rt->mlx.win = mlx_new_window(rt->mlx.mlx, 1440, 900, "miniRT\n");
+	mlx_get_screen_size(rt->mlx.mlx, &rt->scene.screean_width, &rt->scene.screean_height);
+	rt->scene.screean_width /= 2;
+	rt->scene.screean_height /= 2;
+	rt->mlx.win = mlx_new_window(rt->mlx.mlx, rt->scene.screean_width, rt->scene.screean_height, "Bravo! Bravo!! Bravo!!!!!");
+	rt->mlx.image.width = rt->scene.screean_width;
+	rt->mlx.image.height = rt->scene.screean_height;
+
 	if (!rt->mlx.win)
 		rt_put_error_exit("mlx_new_window() fatal.\n");
-	// image 作成
-	// image のアドレス取得
+	rt->mlx.image.img = mlx_new_image(rt->mlx.mlx, rt->mlx.image.width, rt->mlx.image.height);
+	if (!rt->mlx.image.img)
+		rt_put_error_exit("mlx_new_window() fatal.\n");
+	rt->mlx.image.addr = mlx_get_data_addr(rt->mlx.image.img, &rt->mlx.image.bits_per_pixel, &rt->mlx.image.line_length, &rt->mlx.image.endian);
+	if (!rt->mlx.image.addr)
+		rt_put_error_exit("mlx_new_window() fatal.\n");
 }
 
 void	rt_hooks(t_rt_data *rt)
 {
 	mlx_hook(rt->mlx.win, KeyPress, 0, rt_KeyPress, rt);
 	mlx_hook(rt->mlx.win, DestroyNotify, 0, rt_DestroyNotify, rt);
-	// mlx_loop_hook(rt->mlx.mlx, draw, rt);
+
 }
 
