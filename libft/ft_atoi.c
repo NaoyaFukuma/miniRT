@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 22:10:28 by nfukuma           #+#    #+#             */
-/*   Updated: 2022/12/28 11:27:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 13:06:41 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_atoi(const char *str)
 			return ((int)LONG_MAX);
 		}
 		else if (sign_flag == -1 && (res < ((LONG_MIN - (*str - '0'))
-					* sign_flag) / 10))
+						* sign_flag) / 10))
 		{
 			errno = ERANGE;
 			return ((int)LONG_MIN);
@@ -75,7 +75,7 @@ bool	ft_atoi_limit(const char *str, int *return_value)
 		i++;
 	while (str[i] && ('0' <= str[i] && str[i] <= '9'))
 	{
-		if (((div < res || (div == res && str[i] > '7')) && sign == 1) \
+		if (((div < res || (div == res && str[i] > '7')) && sign == 1)
 			|| ((div < res || (div == res && str[i] > '8')) && sign == -1))
 			return (false);
 		res *= 10;
@@ -83,4 +83,33 @@ bool	ft_atoi_limit(const char *str, int *return_value)
 	}
 	*return_value = (int)res * sign;
 	return (true);
+}
+
+double	ft_atof(const char *str)
+{
+	double ans;
+	double i;
+	int sign;
+
+	if (!str)
+		return (0);
+	sign = 1;
+	while (!ft_isalnum(*str))
+		if (*str++ == '-')
+			sign = -1;
+	ans = 0;
+	while (ft_isdigit(*str))
+		ans = ans * 10 + *str++ - '0';
+	i = 0.1;
+	if (*str == '.')
+	{
+		str++;
+		while (ft_isdigit(*str))
+		{
+			ans += (*str - '0') * i;
+			i *= 0.1;
+			str++;
+		}
+	}
+	return (sign * ans);
 }

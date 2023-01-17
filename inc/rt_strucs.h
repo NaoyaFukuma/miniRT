@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 11:17:34 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:28:36 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ enum							color
 
 enum							shapes
 {
-	E_PLANE,
 	E_SPHERE,
+	E_PLANE,
 	E_CYLINDER,
 	E_CONE,
 };
@@ -79,6 +79,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_3d_vec					center_position;
+	t_3d_vec					unit_orientation_vec;
 	double						radius;
 	double						height;
 	t_rgb_vec					color;
@@ -87,6 +88,7 @@ typedef struct s_cylinder
 typedef struct s_cone
 {
 	t_3d_vec					center_position;
+	t_3d_vec					unit_orientation_vec;
 	double						radius;
 	double						height;
 	t_rgb_vec					color;
@@ -107,10 +109,10 @@ typedef struct s_point_lite_source
 {
 	t_3d_vec					position;
 	t_rgb_vec					lite_color;
-	// struct s_point_lite_source	*next;
+	struct s_point_lite_source	*next;
 }								t_point_lite_source;
-#define POINT_LITE_POSITION rt->scene.pls_s.position
-#define POINT_LITE_COLOR rt->scene.pls_s.lite_color
+#define POINT_LITE_POSITION rt->scene.pls_s->position
+#define POINT_LITE_COLOR rt->scene.pls_s->lite_color
 
 
 typedef struct s_camera
@@ -136,7 +138,7 @@ typedef struct s_scene
 	int							screean_width; // default mlx_getdispley_sizeのwidthの半分
 	int							screean_height; // default mlx_getdispley_sizeのheightの半分
 	t_camera					camara;
-	t_point_lite_source			pls_s;
+	t_point_lite_source			*pls_s;
 	t_obj						*objs;
 	t_rgb_vec					ambient_color;
 	t_material					material;
