@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 00:53:41 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:17:34 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ enum							color
 
 enum							shapes
 {
-	plane,
-	sphere,
-	cylinder,
-	cone,
+	E_PLANE,
+	E_SPHERE,
+	E_CYLINDER,
+	E_CONE,
 };
 
 typedef struct s_3d_vec
@@ -55,26 +55,33 @@ typedef struct s_material
 	t_rgb_vec					specularFactor;
 	double						shininess;
 }								t_material;
+#define MATERIAL_AMBIENTFACTOR rt->scene.material.ambientFactor
+#define MATERIAL_DIFFUSEFACTOR rt->scene.material.diffuseFactor
+#define MATERIAL_SPECULARFACTOR rt->scene.material.specularFactor
+#define MATERIAL_SHININESS rt->scene.material.shininess
+
 
 typedef struct s_plane
 {
 	t_3d_vec					position;
 	t_3d_vec					unit_normal_vec;
-	t_material					material;
+	t_rgb_vec					color;
 }								t_plane;
 typedef struct s_sphere
 {
 	t_3d_vec					center_position;
 	double						radius;
-	t_material					material;
+	t_rgb_vec					color;
 }								t_sphere;
+#define SPHERE_CENTER rt->scene.objs->sphere->center_position
+#define SPHERE_RADIUS rt->scene.objs->sphere->radius
 
 typedef struct s_cylinder
 {
 	t_3d_vec					center_position;
 	double						radius;
 	double						height;
-	t_material					material;
+	t_rgb_vec					color;
 }								t_cylinder;
 
 typedef struct s_cone
@@ -82,7 +89,7 @@ typedef struct s_cone
 	t_3d_vec					center_position;
 	double						radius;
 	double						height;
-	t_material					material;
+	t_rgb_vec					color;
 }								t_cone;
 
 typedef struct s_obj
@@ -99,10 +106,12 @@ typedef struct s_obj
 typedef struct s_point_lite_source
 {
 	t_3d_vec					position;
-	t_3d_vec					unit_direction;
-	t_3d_vec					lite_color;
-	struct s_point_lite_source	*next;
+	t_rgb_vec					lite_color;
+	// struct s_point_lite_source	*next;
 }								t_point_lite_source;
+#define POINT_LITE_POSITION rt->scene.pls_s.position
+#define POINT_LITE_COLOR rt->scene.pls_s.lite_color
+
 
 typedef struct s_camera
 {
@@ -127,9 +136,10 @@ typedef struct s_scene
 	int							screean_width; // default mlx_getdispley_sizeのwidthの半分
 	int							screean_height; // default mlx_getdispley_sizeのheightの半分
 	t_camera					camara;
-	t_point_lite_source			*pls_s;
+	t_point_lite_source			pls_s;
 	t_obj						*objs;
 	t_rgb_vec					ambient_color;
+	t_material					material;
 }								t_scene;
 
 
