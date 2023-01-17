@@ -8,12 +8,15 @@ INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 SRCS =	main.c \
 		rt_check_arg.c \
 		rt_put_error.c \
-		rt_init.c
+		rt_init.c \
+		rt_vector_operation.c
 
 VPATH =	srcs:\
 		srcs/init:\
 		srcs/arg:\
-		srcs/error
+		srcs/error:\
+		srcs/vector_operation
+
 
 OBJDIR = ./obj
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
