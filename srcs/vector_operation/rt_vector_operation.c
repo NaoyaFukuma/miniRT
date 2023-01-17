@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:24:34 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/16 16:33:08 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:58:03 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ t_3d_vec	rt_vector_normalize(t_3d_vec a)
 	vector.x = a.x / magnitude;
 	vector.y = a.y / magnitude;
 	vector.z = a.z / magnitude;
+	return (vector);
+}
+
+t_3d_vec    rt_vector_copy(t_3d_vec a)
+{
+	t_3d_vec	vector;
+
+	vector.x = a.x;
+	vector.y = a.y;
+	vector.z = a.z;
 	return (vector);
 }
 
