@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 15:28:01 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:18:18 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,16 @@
 #include "rt_vector.h"
 #include "rt_draw.h"
 
-t_3d_vec	rt_calculate_pw(t_rt_data *rt, double fx, double fy)
+int	rt_rgb_vec_to_int_color(t_rgb_vec col)
 {
-	PVector upDir = new PVector(0, 1, 0); // 上方向（ey_vec）
-	PVector forwardDir = PVector.sub(scene.lookAt , scene.eyePosition); // df
-	forwardDir.normalize(); // df'
-	PVector xDir = upDir.cross(forwardDir);
-	PVector yDir = forwardDir.cross(xDir);
+	int	r;
+	int	g;
+	int	b;
 
-	t_3d_vec	center_position_on_screen;
-	t_3d_vec	variation_form_center_position_on_screen;
-	
-	center_position_on_screen = rt_vector_add(CAMERA_POSITION, \
-											rt_vector_mult(forwardDir, SCREEN_DISTANCE));
-	variation_form_center_position_on_screen = \
-		rt_vector_add(rt_vector_mult(UNIT_SCREEN_DIRECTION_X_VEC , fx), rt_vector_mult(UNIT_SCREEN_DIRECTION_Y_VEC , fy));
-	return (rt_vector_add(center_position_on_screen, variation_form_center_position_on_screen));
-}
-
-int	rgb_vec_p_to_int_color(t_rgb_vec *col)
-{
-	return (col->r * 0xffff + col->g * 0xff + col->b);
-}
-
-int	rgb_vec_to_int_color(t_rgb_vec col)
-{
-	return (col.r * 0xffff + col.g * 0xff + col.b);
+	r = (int)(col.r);
+	g = (int)(col.g);
+	b = (int)(col.b);
+	return (r * 0xffff + g * 0xff + b);
 }
 
 void	rt_pixel_put(t_rt_data *rt, int x, int y, int color)
@@ -53,29 +37,34 @@ void	rt_pixel_put(t_rt_data *rt, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	rt_to_color(t_rgb_vec *col)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)(255 * rt_constrain(col->r,   0.0, 1.0));
+	g = (int)(255 * rt_constrain(col->g, 0.0, 1.0));
+	b = (int)(255 * rt_constrain(col->b,  0.0, 1.0));
+	return (r * 0xffff + g * 0xff + b);
+}
+
 void	rt_x_draw(t_rt_data *rt, int y, int width, double fy)
 {
 	int			x;
 	double		fx;
-	t_3d_vec	position_on_screen;
+	int			color;
+	t_rgb_vec	*col;
 
 	x = 0;
 	while (x < width)
 	{
 		fx = (2.0 * (x / (double)(width - 1))) - 1.0;
-		position_on_screen = rt_calculate_pw(rt, fx, fy);//スクリーン上の点 𝐩𝐞→+𝑚𝐝′𝐟→+𝑓𝑥𝐝𝐱→+𝑓𝑦𝐝𝐲→
-
-		t_3d_vec	eyeDir  = rt_vector_sub(position_on_screen, CAMERA_POSITION); // 視線方向 pw - eyePos
-		t_ray		eyeRay;
-	
-		eyeRay.start = CAMERA_POSITION;
-		eyeRay.direction = eyeDir;
-
-		int color = rgb_vec_to_int_color(rt_rgb_vec_constructor(100, 149, 237));// 背景色だよ
-		t_rgb_vec *col = rt_raytrace(rt, eyeRay);
+		color = rt_rgb_vec_to_int_color(rt_rgb_vec_constructor(100, 149, 237));// 背景色だよ
+		col = rt_eye_raytrace(rt, fx, fy);
 		if (col != NULL)
 		{	
-			color = rgb_vec_p_to_int_color(col);// colをcolorに変換して描画色を設定する.
+			color = rt_to_color(col);// colをcolorに変換して描画色を設定する.
 			free(col);
 		} 
 		rt_pixel_put(rt, x, y, color);
@@ -87,12 +76,16 @@ void	rt_draw(t_rt_data *rt)
 {
 	int		y;
 	double	fy;
+	int 	height;
+	int 	width;
 
+	height = SCREEEAN_HEIGHT;
+	width  = SCREEEAN_WIDTH;
 	y = 0;
-	while (y < SCREEEAN_HEIGHT)
+	while (y < height)
 	{
-		fy = ( - 2.0 * (y / (double)(SCREEEAN_HEIGHT - 1))) + 1.0;
-		rt_x_draw(rt, y, SCREEEAN_WIDTH, fy);
+		fy = ( - 2.0 * (y / (double)(height - 1))) + 1.0;
+		rt_x_draw(rt, y, width, fy);
 		++y;
 	}
 }

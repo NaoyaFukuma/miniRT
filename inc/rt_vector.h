@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 10:23:31 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:12:48 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_3d_vec	rt_vector_normalize(t_3d_vec a);
 
 t_3d_vec	rt_vector_copy(t_3d_vec a);
 
-t_rgb_vec   rt_rgb_vec_copy(t_rgb_vec a);
+t_rgb_vec	rt_rgb_vec_copy(t_rgb_vec a);
 
-t_rgb_vec   rt_rgb_vec_constructor(double r, double g, double b);
-t_rgb_vec   rt_rgb_vec_add(t_rgb_vec a, t_rgb_vec b);
-t_rgb_vec   rt_rgb_vec_mult(t_rgb_vec a, double t);
+t_rgb_vec	rt_rgb_vec_constructor(double r, double g, double b);
+t_rgb_vec	rt_rgb_vec_add(t_rgb_vec a, t_rgb_vec b);
+t_rgb_vec	rt_rgb_vec_mult(t_rgb_vec a, double t);
 // "x,y,z" の形式のテキストをパースしてvecポインタに格納して, ステータスを返す(0は成功. -1以外ならエラー)
-//int                gedouble_*from_str(double **vec, char *str);
+//int	          gedouble_*from_str(double **vec, char *str);
 
 #endif

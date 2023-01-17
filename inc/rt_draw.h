@@ -6,12 +6,18 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 10:55:18 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:17:37 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_DRAW_H
 # define RT_DRAW_H
+
+# define IMAGE_ADDR	rt->mlx.image.addr
+# define IMAGE_LINE_LENGTH rt->mlx.image.line_length
+# define IMAGE_BITS_PER_PIXEL rt->mlx.image.bits_per_pixel
+# define SCREEEAN_HEIGHT rt->scene.screean_height
+# define SCREEEAN_WIDTH rt->scene.screean_width
 
 typedef struct s_ray
 {
@@ -25,8 +31,11 @@ t_3d_vec	rt_calculate_pw(t_rt_data *rt, double fx, double fy);
 
 /////////////////////////////////////////
 
+/*rt_eye_raytrace*/
+t_rgb_vec	*rt_eye_raytrace(t_rt_data *rt, double fx, double fy);
 
-#define C_EPSILON ((1.0f) / (512f))
+////////////////////////////////////////
+#define C_EPSILON ((1.0) / (512))
 typedef struct s_intersection_point
 {
 	double		distance;
@@ -51,9 +60,13 @@ typedef struct lighting
 
 
 
-t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray);
+
+
+t_rgb_vec	*rt_raytrace(t_rt_data *rt, t_ray ray);
 
 /////////////////////////////////////////
+
+
 
 t_intersection_point	*rt_pl_test_intersection(t_plane *plane, t_ray ray);
 t_intersection_point	*rt_sp_test_intersection(t_sphere *sphere, t_ray ray);
@@ -61,6 +74,9 @@ t_intersection_point	*rt_cy_test_intersection(t_cylinder *cylinder, t_ray ray);
 t_intersection_point	*rt_co_test_intersection(t_cone *cone, t_ray ray);
 
 
-
+/*util*/
+double	rt_min(double a, double b);
+double	rt_max(double a, double b);
+double	rt_constrain(double	num, double low, double high);
 
 #endif
