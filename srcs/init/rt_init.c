@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 09:46:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:53:47 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void	rt_init(t_rt_data *rt, const char *file)
 	rt_import_rt_file(rt, file);
 	rt_hooks(rt);
 	mlx_loop(rt->mlx.mlx);
+	MATERIAL_AMBIENTFACTOR = rt_rgb_vec_constructor(1.00f, 1.00f, 1.00f);
+	MATERIAL_DIFFUSEFACTOR = rt_rgb_vec_constructor(0.69f, 0.69f, 0.69f);
+	MATERIAL_SPECULARFACTOR = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
+	MATERIAL_SHININESS = 8.0f;
+	printf("MATERIAL_AMBIENTFACTOR r[%f] g[%f] b[%f]\n", MATERIAL_AMBIENTFACTOR.r, MATERIAL_AMBIENTFACTOR.g, MATERIAL_AMBIENTFACTOR.b );
+	printf("MATERIAL_DIFFUSEFACTOR r[%f] g[%f] b[%f]\n", MATERIAL_DIFFUSEFACTOR.r, MATERIAL_DIFFUSEFACTOR.g, MATERIAL_DIFFUSEFACTOR.b );
+	printf("MATERIAL_SPECULARFACTOR r[%f] g[%f] b[%f]\n", MATERIAL_SPECULARFACTOR.r, MATERIAL_SPECULARFACTOR.g, MATERIAL_SPECULARFACTOR.b );
+	printf("MATERIAL_SHININESS [%f]\n", MATERIAL_SHININESS);
 }
 
 void	rt_double_ptr_free(const char **d_ptr)
@@ -102,11 +110,26 @@ int	rt_count_str(const char **strs)
 	return (i);
 }
 
+void	rt_addback_objs_list(t_obj **begin, t_obj *new)
+{
+	t_obj *tmp;
+	if (*begin == NULL)
+	{
+		*begin = new;
+		return;
+	}
+	tmp = *begin;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+}
+
 double		ft_atof(const char *str)
 {
 	double	ans;
 	double	i;
 	int		sign;
+
 
 	if (!str)
 		return 0;
@@ -219,29 +242,194 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 
 void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)
 {
+	int	i;
+	char	**position;
+	double	ratio;
+	char	**rgb;
 
+	double	tmp;
+
+
+	if (rt_count_str(tokens) != 4)
+		rt_put_error_exit("rt file invalid format");
+
+	position = ft_split(tokens[1], ',');
+	if (rt_count_str((const char **)position) != 3)
+		rt_put_error_exit("rt file invalid format");
+
+	POINT_LITE_POSITION = rt_vector_constructor(ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
+
+
+
+	ratio = ft_atof(tokens[2]);
+	if (!(0.0 <= ratio && ratio <= 1.0))
+		rt_put_error_exit("rt file invalid format");
+	rgb = ft_split(tokens[3], ',');
+	if (rgb == NULL)
+		rt_perror_exit(NULL);
+	if (rt_count_str((const char **)rgb) != 3)
+		rt_put_error_exit("rt file invalid format");
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(rgb[i]);
+		if (!(0 <= tmp && tmp <= 255))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+	POINT_LITE_COLOR = rt_rgb_vec_constructor(ratio * ft_atof(rgb[0]), ratio * ft_atof(rgb[1]), ratio * ft_atof(rgb[2]));
+
+	printf("point lite souce\nposition x[%f] y[%f] z[%f]\n", POINT_LITE_POSITION.x,POINT_LITE_POSITION.y,POINT_LITE_POSITION.z);
+	printf("color r[%f] g[%f] b[%f]\n", POINT_LITE_POSITION.x,POINT_LITE_POSITION.y,POINT_LITE_POSITION.z);
+
+	rt_double_ptr_free((const char **)position);
 }
 
-// void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
-// {
-// }
-// void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
-// {
-// }
-// void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
-// {
-// }
-// void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
-// {
-// }
+void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
+{
+	int	i;
+	double	tmp;
+	char	**rgb;
+	char	**position;
+	t_obj *obj_ptr;
+
+	obj_ptr = malloc(sizeof (t_obj));
+	rt_addback_objs_list(&rt->scene.objs, obj_ptr);
+	if (obj_ptr == NULL)
+		rt_perror_exit(NULL);
+	obj_ptr->next = NULL;
+	obj_ptr->plane = NULL;
+	obj_ptr->cylinder = NULL;
+	obj_ptr->cone = NULL;
+	obj_ptr->shape = E_SPHERE;
+	obj_ptr->sphere = malloc(sizeof(t_sphere));
+	if (obj_ptr->sphere == NULL)
+		rt_perror_exit(NULL);
+
+
+	if (rt_count_str(tokens) != 4)
+		rt_put_error_exit("rt file invalid format");
+
+	position = ft_split(tokens[1], ',');
+	if (rt_count_str((const char **)position) != 3)
+		rt_put_error_exit("rt file invalid format");
+
+	obj_ptr->sphere->center_position = rt_vector_constructor(ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
+
+	obj_ptr->sphere->radius = ft_atof(tokens[2]);
+
+	rgb = ft_split(tokens[3], ',');
+	if (rgb == NULL)
+		rt_perror_exit(NULL);
+	if (rt_count_str((const char **)rgb) != 3)
+		rt_put_error_exit("rt file invalid format");
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(rgb[i]);
+		if (!(0 <= tmp && tmp <= 255))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+	rt->scene.objs->sphere->color = rt_rgb_vec_constructor(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
+
+	printf("obj_ptr->sphere->center_position x[%f] y[%f] z[%f]\n", obj_ptr->sphere->center_position.x, obj_ptr->sphere->center_position.y,obj_ptr->sphere->center_position.z);
+	printf("obj_ptr->sphere->radius [%f]\n", obj_ptr->sphere->radius);
+	printf("rt->scene.objs->sphere->color r = %f g = %f b = %f\n", rt->scene.objs->sphere->color.r, rt->scene.objs->sphere->color.g, rt->scene.objs->sphere->color.b);
+
+	rt_double_ptr_free((const char **)position);
+	rt_double_ptr_free((const char **)rgb);
+}
+
+void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
+{
+	int	i;
+	double	tmp;
+	char	**rgb;
+	char	**position;
+	char	**orient_vec;
+	t_obj *obj_ptr;
+
+	obj_ptr = malloc(sizeof (t_obj));
+	rt_addback_objs_list(&rt->scene.objs, obj_ptr);
+	if (obj_ptr == NULL)
+		rt_perror_exit(NULL);
+	obj_ptr->next = NULL;
+	obj_ptr->sphere = NULL;
+	obj_ptr->cylinder = NULL;
+	obj_ptr->cone = NULL;
+	obj_ptr->shape = E_PLANE;
+	obj_ptr->plane = malloc(sizeof(t_plane));
+	if (obj_ptr->plane == NULL)
+		rt_perror_exit(NULL);
+
+
+	if (rt_count_str(tokens) != 4)
+		rt_put_error_exit("rt file invalid format");
+
+	position = ft_split(tokens[1], ',');
+	if (rt_count_str((const char **)position) != 3)
+		rt_put_error_exit("rt file invalid format");
+
+	obj_ptr->plane->position = rt_vector_constructor(ft_atof(position[0]),  ft_atof(position[1]),  ft_atof(position[2]));
+
+	orient_vec = ft_split(tokens[2], ',');
+	if (rt_count_str((const char **)position) != 3)
+		rt_put_error_exit("rt file invalid format");
+
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(orient_vec[i]);
+		if (!(-1.0 <= tmp && tmp <= 1.0))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+
+	obj_ptr->plane->unit_normal_vec = rt_vector_constructor(ft_atof(orient_vec[0]),  ft_atof(orient_vec[1]),  ft_atof(orient_vec[2]));
+
+
+
+	rgb = ft_split(tokens[3], ',');
+	if (rgb == NULL)
+		rt_perror_exit(NULL);
+	if (rt_count_str((const char **)rgb) != 3)
+		rt_put_error_exit("rt file invalid format");
+	i = 0;
+	while (i < 3)
+	{
+		tmp = ft_atof(rgb[i]);
+		if (!(0 <= tmp && tmp <= 255))
+			rt_put_error_exit("rt file invalid format");
+		++i;
+	}
+	obj_ptr->plane->color = rt_rgb_vec_constructor(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
+
+	printf("obj_ptr->plane->position x[%f] y[%f] z[%f]\n", obj_ptr->plane->position.x, obj_ptr->plane->position.y,obj_ptr->plane->position.z);
+	printf("obj_ptr->plane->unit_normal_vec x[%f] y[%f] z[%f]\n", obj_ptr->plane->unit_normal_vec.x, obj_ptr->plane->unit_normal_vec.y,obj_ptr->plane->unit_normal_vec.z);
+	printf("rt->scene.objs->plane->color r = %f g = %f b = %f\n", rt->scene.objs->plane->color.r, rt->scene.objs->plane->color.g, rt->scene.objs->plane->color.b);
+
+	rt_double_ptr_free((const char **)position);
+	rt_double_ptr_free((const char **)orient_vec);
+	rt_double_ptr_free((const char **)rgb);
+
+}
+void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
+{
+	(void)rt;
+	(void)tokens;
+}
+void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
+{
+	(void)rt;
+	(void)tokens;
+}
 
 void	rt_fill_struct(t_rt_data *rt, const char *line)
 {
 	int		id;
 	char	**tokens;
-	// void	(* const fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L, rt_fill_struct_sp, rt_fill_struct_pl, rt_fill_struct_cy, rt_fill_struct_cn};
-	void	(* const fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L};
-
+	void	(* const fill_funcs[])(t_rt_data *rt, const char **tokens) = {rt_fill_struct_A, rt_fill_struct_C, rt_fill_struct_L, rt_fill_struct_sp, rt_fill_struct_pl, rt_fill_struct_cy, rt_fill_struct_cn};
 
 	tokens = ft_split(line, ' ');
 	if (tokens == NULL)
@@ -249,8 +437,7 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 	id = rt_check_id(tokens[0]);
 	if (id < 0)
 		rt_put_error_exit("rt file invalid format");
-	if (id < 3)
-		fill_funcs[id](rt, (const char **)tokens);
+	fill_funcs[id](rt, (const char **)tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
 
@@ -259,7 +446,6 @@ void	rt_import_rt_file(t_rt_data *rt, const char *file)
 	char	*line;
 	int		fd;
 
-	(void)rt;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		rt_perror_exit(NULL);
@@ -303,4 +489,3 @@ void	rt_hooks(t_rt_data *rt)
 	mlx_hook(rt->mlx.win, DestroyNotify, 0, rt_DestroyNotify, rt);
 
 }
-

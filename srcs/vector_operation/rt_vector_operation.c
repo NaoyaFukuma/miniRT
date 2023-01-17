@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector_operation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:24:34 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 09:58:30 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:29:30 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_rgb_vec    rt_rgb_vec_mult(t_rgb_vec a, double t)
     vector.b = a.b * t;
     return (vector);
 }
-/* 
+/*
 #include <stdio.h>
 int	main(void)
 {
@@ -136,7 +136,7 @@ int	main(void)
 
 	t_3d_vec add = rt_vector_add(a, b);
 	printf("add : x = %f, y = %f, z = %f\n", add.x, add.y, add.z);
-	
+
 	t_3d_vec sub = rt_vector_sub(a, b);
 	printf("sub : x = %f, y = %f, z = %f\n", sub.x, sub.y, sub.z);
 
@@ -156,5 +156,5 @@ int	main(void)
 	printf("magnitude = %f\n", magnitude);
 	t_3d_vec normalize = rt_vector_normalize(One_third);
 	printf("normalize : x = %f, y = %f, z = %f\n", normalize.x, normalize.y, normalize.z);
-} 
+}
 */
