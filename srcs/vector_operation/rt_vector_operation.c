@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector_operation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:24:34 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 11:29:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:31:42 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ t_3d_vec    rt_vector_copy(t_3d_vec a)
 	vector.x = a.x;
 	vector.y = a.y;
 	vector.z = a.z;
+	return (vector);
+}
+
+t_rgb_vec	rt_rgb_vec_copy(t_rgb_vec a)
+{
+	t_rgb_vec	vector;
+
+	vector.r = a.r;
+	vector.g = a.g;
+	vector.b = a.b;
 	return (vector);
 }
 
