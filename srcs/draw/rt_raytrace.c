@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/16 21:49:16 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:58:34 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,29 @@ t_intersection_testresult	*malloc_intersection_testresult(t_obj *nearest_shape, 
 	return (it);
 }
 
+t_intersection_point	*rt_get_intersection_point_form_objs(t_obj *objs, t_ray ray)
+{
+	t_intersection_point 	*res;
+
+	if (plane == objs)
+	{
+		res = rt_pl_test_intersection(objs->plane, ray);
+	}
+	else if (sphere == objs)
+	{
+		res = rt_sp_test_intersection(objs->sphere, ray);
+	}
+	else if (cylinder == objs)
+	{
+		res = rt_cy_test_intersection(objs->cylinder, ray);
+	}
+	else if (cone == objs)
+	{
+		res = rt_co_test_intersection(objs->cone, ray);
+	}
+	return (NULL);
+}
+
 t_intersection_testresult	*testIntersectionWithAll(t_obj *objs, t_ray ray, double maxDist, bool exitFound)
 {
 	t_obj 					*nearest_shape = NULL; // 最も近い物体
@@ -41,22 +64,7 @@ t_intersection_testresult	*testIntersectionWithAll(t_obj *objs, t_ray ray, doubl
 
 	while (objs)//tmpでなくて良いか？
 	{
-		if (plane == objs)
-		{
-			res = rt_pl_test_intersection(objs->plane, ray);
-		}
-		else if (sphere == objs)
-		{
-			res = rt_sp_test_intersection(objs->sphere, ray);
-		}
-		else if (cylinder == objs)
-		{
-			res = rt_cy_test_intersection(objs->cylinder, ray);
-		}
-		else if (cone == objs)
-		{
-			res = rt_co_test_intersection(objs->cone, ray);
-		}
+		res = rt_get_intersection_point_form_objs(objs, ray);
 		if (res != NULL && maxDist >= res->distance)
 		{
 			if (nearest_intp == NULL || nearest_intp->distance > res->distance)
@@ -133,25 +141,51 @@ t_rgb_vec	rt_rgb_vec_pi_2(t_rgb_vec intensity, t_rgb_vec factor)
 	return (color);
 }
 
-t_lighting	rt_calculate_lighting_at_intersection(t_light_source *light_source, t_3d_vec intersection_position)
+t_lighting	rt_calculate_lighting_at_intersection(t_point_lite_source *pls, t_3d_vec intersection_position)
 {
 	t_lighting	res;
+	t_3d_vec	tmp_direction;
 
-	if (pls == light_source->kind_of_light)
+	tmp_direction = rt_vector_sub(pls->position, intersection_position);
+	res.distance = rt_vector_magnitude(tmp_direction);
+	res.unit_direction = rt_vector_normalize(tmp_direction);
+	res.intensity = rt_rgb_vec_copy(pls->intensity);
+	return (res);
+}
+
+t_ray	rt_shadow_ray(t_3d_vec intersection_position, t_lighting lighting)
+{
+	t_3d_vec	microincrease;
+
+	microincrease = rt_vector_mult(lighting.unit_direction, (1.0f + C_EPSILON));
+	return (rt_vector_add(intersection_position, microincrease));
+}
+
+
+t_intersection_testresult *rt_testIntersectionWithAll_ray(t_obj *objs, t_ray ray, double maxDist, bool exitFound)
+{
+	t_intersection_testresult *nearest_intp = NULL; // 最も近い交点位置
+	t_obj 						*nearestShape = NULL; // 最も近い物体
+
+	while(objs)
 	{
-		res.direction = rt_vector_sub(position, pos);
-		res.distance = rt_vector_magnitude(res.direction);
-		res.direction = rt_vector_normalize(res.direction);
-		res.intensity = intensity.copy();
-		return res;
+		t_intersection_testresult *res = rt_get_intersection_point_form_objs(objs, ray);;
+
+		if (res != NULL && maxDist >= res.distance)
+		{
+			if (nearestIntP == null || nearestIntP.distance > res.distance)
+			{
+				nearestIntP = res;
+				nearestShape = sh;
+				if (exitFound == true)
+					return new IntersectionTestResult(nearestShape, nearestIntP);
+			}
+		}
+		objs = objs->next;
 	}
-	else if (dls == light_source->kind_of_light)
-	{
-		res.direction = PVector.mult(direction, -1);
-		res.intensity = intensity.copy();
-		res.distance = Float.MAX_VALUE;
-		return res;
-	}
+	if (nearestIntP != null)
+		return new IntersectionTestResult(nearestShape, nearestIntP);
+	return null;
 }
 
 t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
@@ -164,20 +198,21 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 	if (test_result != NULL) // 交点があったとき
 	{
 		t_obj					*obj = test_result->obj; // 最も近い交点を持つ物体
-		t_intersection_point	*res = test_result->intersectionPoint; // 最も近い交点の情報
+		t_intersection_point	*res = test_result->intersection_point; // 最も近い交点の情報
 		t_material				mat = rt_get_obj_material(obj); // // 最も近い交点を持つ物体の材質情報
 		t_rgb_vec				*col = rt_malloc_rgb_vec(0, 0, 0);// 放射輝度を保存するためのFColorのインスタンスを生成
 
 		rt_rgb_vec_add(col, rt_rgb_vec_pi_2(scene.ambientIntensity, mat.ambientFactor));// 環境光の反射光の放射輝度を計算する ambientIntensityがない
 
-		light = rt->scene.lightSources;
-		while (light)// 全ての光源に対して処理を行う
+		t_point_lite_source	*pls = rt->scene.pls_s;
+		
+		while (pls)// 全ての光源に対して処理を行う
 		{
-			t_lighting	ltg = light.lightingAt(res.position);// 交点におけるライティングを計算する
-			Ray shadowRay = new Ray(PVector.add(res.position, PVector.mult(ltg.direction, C_EPSILON)), ltg.direction);// シャドウレイを作る
+			t_lighting	lighting = rt_calculate_lighting_at_intersection(pls, res->position);// 交点におけるライティングを計算する
+			t_ray 		shadow_ray =  rt_shadow_ray(res->position, lighting);// シャドウレイを作る
 
-			IntersectionTestResult shadowRes = scene.testIntersectionWithAll(shadowRay, ltg.distance - C_EPSILON, true);
-			if (shadowRes != null) // 交点が見つかった＝影になるので、次の点光源へ（continue）
+			t_intersection_testresult *shadow_res = rt_testIntersectionWithAll_ray(rt->scene.objs, shadow_ray, lighting.distance - C_EPSILON, true);
+			if (shadow_res != NULL) // 交点が見つかった＝影になるので、次の点光源へ（continue）
 				continue;
 
 			// 法線ベクトルと入射ベクトルの内積を計算して,値の範囲を[0, 1]に制限する.
@@ -201,11 +236,11 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 				// 鏡面反射光の放射輝度を計算する.
 				col.add(colorPi(ltg.intensity, shape.material.specularFactor, new FColor(pow(vrDot, shape.material.shininess))));
 			}
-			ligft = light->next;
+			pls = pls->next;
 		}
 
-		return col;
+		return (col);
 	}
 
-	return NULL;
+	return (NULL);
 }
