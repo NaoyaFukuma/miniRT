@@ -9,7 +9,14 @@ SRCS =	main.c \
 		rt_check_arg.c \
 		rt_put_error.c \
 		rt_init.c \
-		rt_vector_operation.c
+		rt_vector_operation.c \
+		rt_fill_struct_A_C_L.c \
+		rt_fill_struct_sp_pl_cy_cn.c \
+		rt_init_fill_struct.c \
+		rt_init_hook.c \
+		rt_init_utils.c \
+		rt_init_utils2.c
+
 
 VPATH =	srcs:\
 		srcs/init:\
