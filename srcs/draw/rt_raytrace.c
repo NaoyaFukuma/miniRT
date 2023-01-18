@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 19:43:16 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:16:28 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,10 +198,10 @@ double	rt_constrain(double	num, double low, double high)
 
 
 //////////////////////////////////////////////////////////////////////
-void	rt_calculate_specular()
-{
+// void	rt_calculate_specular()
+// {
 
-}
+// }
 
 
 t_rgb_vec	*rt_raytrace(t_rt_data *rt, t_ray ray)
