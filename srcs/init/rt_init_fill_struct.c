@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 13:40:03 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 11:16:26 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 		rt_perror_exit(NULL);
 	id = rt_check_id(tokens[0]);
 	if (id < 0)
-		rt_put_error_exit("rt file invalid format");
+		rt_put_rt_file_format_error_exit("Contains invalid identifier");
 	fill_funcs[id](rt, (const char **)tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
@@ -51,13 +51,13 @@ int	rt_check_id(const char *str)
 	const char	*id_set[] = {"A", "C", "L", "sp", "pl", "cy", "cn"};
 
 	id = 0;
-	while (id_set[id])
+	while (id < 7)
 	{
 		if (!ft_strcmp(str, id_set[id]))
 			break ;
 		++id;
 	}
-	if (id_set[id] == NULL)
+	if (id == 7)
 		return (-1);
 	return (id);
 }

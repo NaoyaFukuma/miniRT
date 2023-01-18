@@ -6,12 +6,13 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 22:10:28 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 13:06:41 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 15:51:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <errno.h>
+#include <float.h>
 #include <limits.h>
 
 static const char	*ft_sign_flag(const char *str, int *sign_flag)
@@ -85,11 +86,38 @@ bool	ft_atoi_limit(const char *str, int *return_value)
 	return (true);
 }
 
+static void	calc_abs(const char *str, double *ans)
+{
+	double	i;
+
+	while (ft_isdigit(*str))
+	{
+		if ((*ans > ((DBL_MAX - (double)(*str - '0'))) / 10))
+		{
+			errno = ERANGE;
+			*ans = DBL_MAX;
+			return ;
+		}
+		*ans = *ans * 10 + *str++ - '0';
+	}
+	i = 0.1;
+	if (*str == '.')
+	{
+		str++;
+		while (ft_isdigit(*str))
+		{
+			*ans += (*str - '0') * i;
+			i *= 0.1;
+			str++;
+		}
+	}
+	return;
+}
+
 double	ft_atof(const char *str)
 {
-	double ans;
-	double i;
-	int sign;
+	double	ans;
+	int		sign;
 
 	if (!str)
 		return (0);
@@ -98,18 +126,8 @@ double	ft_atof(const char *str)
 		if (*str++ == '-')
 			sign = -1;
 	ans = 0;
-	while (ft_isdigit(*str))
-		ans = ans * 10 + *str++ - '0';
-	i = 0.1;
-	if (*str == '.')
-	{
-		str++;
-		while (ft_isdigit(*str))
-		{
-			ans += (*str - '0') * i;
-			i *= 0.1;
-			str++;
-		}
-	}
+	calc_abs(str, &ans);
+	if (errno == ERANGE)
+		return (sign * ans);
 	return (sign * ans);
 }
