@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/18 09:16:03 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:22:35 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_ray	rt_eye_ray_constructor(t_3d_vec position_on_screen, t_rt_data *rt)
 	return (eye_ray);
 }
 
-t_rgb_vec	*rt_eye_raytrace(t_rt_data *rt, double fx, double fy)
+t_rgb_vec	rt_eye_raytrace(t_rt_data *rt, double fx, double fy)
 {
 	t_3d_vec	position_on_screen;
 	t_ray		eye_ray;
