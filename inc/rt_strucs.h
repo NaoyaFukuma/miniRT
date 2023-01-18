@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 15:28:36 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:51:44 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ typedef struct s_scene
 	t_rgb_vec					ambient_color;
 	t_material					material;
 }								t_scene;
+#define SCREEAN_HEIGHT rt->scene.screean_height
+#define SCREEAN_WIDTH rt->scene.screean_width
+
 
 
 typedef struct s_img
@@ -155,6 +158,10 @@ typedef struct s_img
 	int							width;
 	int							height;
 }								t_img;
+#define IMAGE_ADDR rt->mlx.image.addr
+#define IMAGE_LINE_LENGTH rt->mlx.image.line_length
+#define IMAGE_BITS_PER_PIXEL rt->mlx.image.bits_per_pixel
+
 
 typedef struct s_mlx
 {
