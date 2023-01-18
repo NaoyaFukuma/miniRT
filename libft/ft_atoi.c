@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 22:10:28 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 15:51:51 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:18:01 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,5 @@ double	ft_atof(const char *str)
 			sign = -1;
 	ans = 0;
 	calc_abs(str, &ans);
-	if (errno == ERANGE)
-		return (sign * ans);
 	return (sign * ans);
 }

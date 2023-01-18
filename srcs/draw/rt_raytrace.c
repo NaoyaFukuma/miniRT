@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_raytrace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/18 15:38:12 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:36:22 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "rt_draw.h"
 #include "libft.h"
 #include <stdbool.h>
+#include <math.h>
 #include <float.h>
 
 t_intersection_testresult	rt_intersection_testresult(t_obj *nearest_shape, t_intersection_point nearest_intp, bool t_or_f)
@@ -35,19 +36,19 @@ t_intersection_point	rt_get_intersection_point_form_objs(t_obj *objs, t_ray ray)
 	t_intersection_point 	res;
 
 	res.normal.x = NOT_INTERSECT;
-	if (E_PLANE == objs)
+	if (E_PLANE == objs->shape)
 	{
 		res = rt_pl_test_intersection(objs->plane, ray);
 	}
-	else if (E_SPHERE == objs)
+	else if (E_SPHERE == objs->shape)
 	{
 		res = rt_sp_test_intersection(objs->sphere, ray);
 	}
-	else if (E_CYLINDER == objs)
+	else if (E_CYLINDER == objs->shape)
 	{
 		res = rt_cy_test_intersection(objs->cylinder, ray);
 	}
-	else if (E_CONE == objs)
+	else if (E_CONE == objs->shape)
 	{
 		res = rt_co_test_intersection(objs->cone, ray);
 	}
@@ -88,19 +89,19 @@ t_intersection_testresult rt_test_intersection_with_all_ambient(t_obj *objs, t_r
 
 t_rgb_vec	rt_get_obj_color(t_obj *obj)
 {
-	if (E_PLANE == obj)
+	if (E_PLANE == obj->shape)
 	{
 		return (obj->plane->color);
 	}
-	else if (E_SPHERE == obj)
+	else if (E_SPHERE == obj->shape)
 	{
 		return (obj->sphere->color);
 	}
-	else if (E_CYLINDER == obj)
+	else if (E_CYLINDER == obj->shape)
 	{
 		return (obj->cylinder->color);
 	}
-	else if (E_CONE == obj)
+	else
 	{
 		return (obj->cone->color);
 	}
@@ -120,13 +121,6 @@ t_rgb_vec	*rt_malloc_rgb_vec(double r, double g, double b)
 	col->g = g;
 	col->b = b;
 	return (col);
-}
-
-void	rt_rgb_vec_add(t_rgb_vec *col, t_rgb_vec reflected_light)
-{
-	col->r += reflected_light.r;
-	col->g += reflected_light.g;
-	col->b += reflected_light.b;
 }
 
 t_rgb_vec	rt_rgb_vec_pi(t_rgb_vec intensity, t_rgb_vec factor, t_rgb_vec nldot)
@@ -153,10 +147,16 @@ t_lighting	rt_calculate_lighting_at_intersection(t_point_lite_source *pls, t_3d_
 
 t_ray	rt_make_shadow_ray(t_3d_vec intersection_position, t_lighting lighting)
 {
-	t_3d_vec	microincrease;
+	t_ray		shadow_ray;
 
-	microincrease = rt_vector_mult(lighting.unit_direction, (1.0f + C_EPSILON));
-	return (rt_vector_add(intersection_position, microincrease));
+	shadow_ray.start = rt_vector_add(intersection_position, rt_vector_mult(lighting.unit_direction, C_EPSILON));
+	shadow_ray.direction = lighting.unit_direction;
+	return (shadow_ray);
+
+	// t_3d_vec	microincrease;
+
+	// microincrease = rt_vector_mult(lighting.unit_direction, (1.0f + C_EPSILON));
+	// return (rt_vector_add(intersection_position, microincrease));
 }
 
 
@@ -171,7 +171,7 @@ double	rt_constrain(double	num, double low, double high)
 //////////////////////////////////////////////////////////////////////
 void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_vec *col, t_intersection_point res)
 {
-	t_3d_vec			eye_dir = ray.direction;	
+	t_3d_vec			eye_dir = ray.direction;
 	t_point_lite_source	*pls = rt->scene.pls_s;
 	while (pls)// 全ての光源に対して処理を行う
 	{
@@ -182,7 +182,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_
 		if (shadow_res.intersection_point.normal.x != NOT_INTERSECT) // 交点が見つかった＝影になるので、次の点光源へ（continue）
 			continue;
 		double nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);// 法線ベクトルと入射ベクトルの内積を計算して,値の範囲を[0, 1]に制限する.
-		rt_rgb_vec_add(col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.diffuseFactor, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));// 拡散反射光の放射輝度を計算する.
+		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.diffuseFactor, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));// 拡散反射光の放射輝度を計算する.
 
 		if (nlDot > 0.0)
 		{
@@ -191,7 +191,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_
 
 			double	vrDot = rt_constrain(rt_vector_dot(unit_invEyeDir, ref_dir), 0, 1);// 視線ベクトルの逆ベクトルと正反射ベクトルの内積を計算して,値を[0, 1]に制限する.
 			double	cosine_phi = pow(vrDot, rt->scene.material.shininess);
-			rt_rgb_vec_add(col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.specularFactor, rt_rgb_vec_constructor(cosine_phi, cosine_phi, cosine_phi)));// 鏡面反射光の放射輝度を計算する.
+			*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.specularFactor, rt_rgb_vec_constructor(cosine_phi, cosine_phi, cosine_phi)));// 鏡面反射光の放射輝度を計算する.
 		}
 		pls = pls->next;
 	}
@@ -210,7 +210,8 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 	res = test_result.intersection_point; // 最も近い交点の情報
 	mat = rt_get_obj_color(test_result.obj); // // 最も近い交点を持つ物体の材質情報
 	col = rt_rgb_vec_constructor(0, 0, 0);// 放射輝度を保存するためのFColorのインスタンスを生成
-	rt_rgb_vec_add(&col, rt_rgb_vec_pi(rt->scene.ambient_color, mat, rt_rgb_vec_constructor(1, 1, 1)));// 環境光の反射光の放射輝度を計算する
+	col =  rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, mat, rt_rgb_vec_constructor(1, 1, 1)));
+	// 環境光の反射光の放射輝度を計算する
 	rt_calculate_specular_and_diffuse_with_all(rt, ray, &col, res);//  拡散と反射の反射光の放射輝度を計算する
 	return (col);
 }
@@ -223,22 +224,22 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 
 // t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 // {
-// 	t_3d_vec					eyeDir = ray.direction;	
+// 	t_3d_vec					eyeDir = ray.direction;
 // 	t_intersection_testresult	test_result = rt_test_intersection_with_all_ambient(rt->scene.objs, ray);// 全ての物体との交差判定をしてるよ
 // 	t_rgb_vec					col = rt_rgb_vec_constructor(NOT_INTERSECT, 0, 0);// 放射輝度を保存するためのFColorのインスタンスを生成
-	
+
 // 	if (test_result.intersection_point.normal.x == NOT_INTERSECT) // 交点がなかったとき
 // 		return (col);
-	
+
 // 	t_obj					*obj = test_result.obj; // 最も近い交点を持つ物体
 // 	t_intersection_point	res = test_result.intersection_point; // 最も近い交点の情報
 // 	t_rgb_vec				mat = rt_get_obj_color(obj); // // 最も近い交点を持つ物体の材質情報
-	
+
 // 	col.r = 0;
 // 	rt_rgb_vec_add(&col, rt_rgb_vec_pi(rt->scene.ambient_color, mat, rt_rgb_vec_constructor(1, 1, 1)));// 環境光の反射光の放射輝度を計算する
 
 // 	t_point_lite_source	*pls = rt->scene.pls_s;
-	
+
 // 	while (pls)// 全ての光源に対して処理を行う
 // 	{
 // 		t_lighting	lighting = rt_calculate_lighting_at_intersection(pls, res.position);// 交点におけるライティングを計算する

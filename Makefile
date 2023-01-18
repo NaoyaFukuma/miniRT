@@ -16,17 +16,22 @@ SRCS =	main.c \
 		rt_init_hook.c \
 		rt_init_utils.c \
 		rt_init_utils2.c \
-		# rt_draw.c \
-		# rt_raytrace.c \
-		# rt_testIntersection.c
-
+		rt_draw.c \
+		rt_draw_utils.c \
+		rt_eye_raytrace.c \
+		rt_raytrace.c \
+		rt_co_test_intersection.c \
+		rt_cy_test_intersection.c \
+		rt_pl_test_intersection.c \
+		rt_sp_test_intersection.c
 
 VPATH =	srcs:\
 		srcs/init:\
 		srcs/arg:\
 		srcs/error:\
+		srcs/draw: \
+		srcs/draw/test_intersection: \
 		srcs/vector_operation
-# srcs/draw:
 
 
 OBJDIR = ./obj

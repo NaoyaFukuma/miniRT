@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 15:53:42 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 01:40:12 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft.h"
 #include "rt_put_error.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include <stdio.h>
 
@@ -74,4 +75,31 @@ void	rt_addback_lite_list(t_point_lite_source **begin,
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+}
+
+
+bool	rt_check_camera_or_lite_in_sphere(t_rt_data *rt)
+{
+	t_obj	*obj_ptr;
+	t_point_lite_source	*lite_ptr;
+
+	obj_ptr = rt->scene.objs;
+	lite_ptr = rt->scene.pls_s;
+	while (obj_ptr)
+	{
+		if (obj_ptr->shape == E_SPHERE
+			&& rt_vector_magnitude(rt_vector_sub(rt->scene.camara.camera_position,
+					obj_ptr->sphere->center_position)) <= obj_ptr->sphere->radius)
+			return (true);
+		while (obj_ptr->shape == E_SPHERE && lite_ptr)
+		{
+			if (rt_vector_magnitude(rt_vector_sub(lite_ptr->position,
+						obj_ptr->sphere->center_position)) <= obj_ptr->sphere->radius)
+				return (true);
+			lite_ptr = lite_ptr->next;
+		}
+		lite_ptr = rt->scene.pls_s;
+		obj_ptr = obj_ptr->next;
+	}
+	return (false);
 }

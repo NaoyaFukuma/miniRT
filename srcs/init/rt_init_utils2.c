@@ -6,20 +6,19 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 15:17:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:51:01 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h"
-#include "rt_init_utils.h"
-#include "rt_vector.h"
 #include "libft.h"
+#include "rt_init_utils.h"
 #include "rt_put_error.h"
-#include <stdlib.h>
+#include "rt_strucs.h"
+#include "rt_vector.h"
 #include <errno.h>
 #include <math.h>
-
 #include <stdio.h>
+#include <stdlib.h>
 
 #define VEC_MAX 1000000.000000 // 基準がわからない！とりあえず拾ってきたNGファイルの数値を入れている
 
@@ -47,32 +46,41 @@ t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 	return (new_obj);
 }
 
-t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
+static void	rt_check_value(const char **elements, double min, double max)
 {
-	int		i;
 	double	tmp;
-	char	**elements;
 	double	mod;
+	int		i;
 
-	elements = ft_split(str, ',');
-	if (elements == NULL)
-		rt_perror_exit(NULL);
-	if (rt_count_str((const char **)elements) != 3)
-		rt_put_rt_file_format_error_exit("Not 3 vector elements");
 	i = 0;
 	while (i < 3)
 	{
 		tmp = ft_atof(elements[i]);
-		mod = fmod(tmp / 0.01 , 10);
+		if (errno == ERANGE)
+			rt_put_rt_file_format_error_exit("Vector elements value are overflow");
+		mod = fmod(tmp / 0.01, 10);
 		if (mod != 0)
-			rt_put_rt_file_format_error_exit("Point light ratio are not to the first decimal place");
+			rt_put_rt_file_format_error_exit("Vector elements value are not to the first decimal place");
 		if (!(min <= tmp && tmp <= max))
 			rt_put_rt_file_format_error_exit("Vector elements not in range");
 		if (!(-VEC_MAX < tmp && tmp < VEC_MAX))
 			rt_put_rt_file_format_error_exit("Vector elements value range is lower or greater");
 		++i;
 	}
-	return (rt_vector_constructor(ft_atof(elements[0]), ft_atof(elements[1]), ft_atof(elements[2])));
+}
+
+t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
+{
+	char	**elements;
+
+	elements = ft_split(str, ',');
+	if (elements == NULL)
+		rt_perror_exit("ft_split() failure");
+	if (rt_count_str((const char **)elements) != 3)
+		rt_put_rt_file_format_error_exit("Not 3 vector elements");
+	rt_check_value((const char **)elements, min, max);
+	return (rt_vector_constructor(ft_atof(elements[0]), ft_atof(elements[1]),
+			ft_atof(elements[2])));
 	rt_double_ptr_free((const char **)elements);
 }
 
@@ -99,6 +107,7 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 			rt_put_rt_file_format_error_exit("RGB value range is not [0 - 255]");
 		++i;
 	}
-	return (rt_rgb_vec_constructor(ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2])));
+	return (rt_rgb_vec_constructor(ft_atof(rgb[0]), ft_atof(rgb[1]),
+			ft_atof(rgb[2])));
 	rt_double_ptr_free((const char **)rgb);
 }
