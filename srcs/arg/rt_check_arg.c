@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:49:09 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/16 10:48:24 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 10:39:22 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	rt_check_arg(int ac, const char **av)
 	if (rt_extension(av[1]))
 		rt_put_error_exit("The file name format is *.rt");
 	if (rt_open(av[1]))
-		rt_perror_exit(NULL);
+		rt_perror_exit("File open failure");
 }
 
 static bool	rt_extension(const char *file)

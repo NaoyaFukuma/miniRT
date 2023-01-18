@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 15:52:29 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 15:08:34 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,18 @@
 void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
+	double	mod;
 
 	if (rt_count_str(tokens) != 4)
-		rt_put_error_exit("rt file invalid format");
+		rt_put_rt_file_format_error_exit("Not four sphere light elements");
 	obj_ptr = rt_new_obj(rt, E_SPHERE);
 	obj_ptr->sphere->center_position = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
-	obj_ptr->sphere->radius = ft_atof(tokens[2]) / 2;
+	obj_ptr->sphere->radius = ft_atof(tokens[2]);
+	mod = fmod(obj_ptr->sphere->radius / 0.01, 10);
+	if (mod != 0)
+		rt_put_rt_file_format_error_exit("Sphere diameter are not to the first decimal place");
+	obj_ptr->sphere->radius /= 2.0;
 	obj_ptr->sphere->color = rt_str_to_rbg(tokens[3]);
-
 	printf("obj_ptr->sphere->center_position x[%f] y[%f] z[%f]\n",
 			obj_ptr->sphere->center_position.x,
 			obj_ptr->sphere->center_position.y,
@@ -48,7 +52,7 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 	t_obj	*obj_ptr;
 
 	if (rt_count_str(tokens) != 4)
-		rt_put_error_exit("rt file invalid format");
+		rt_put_rt_file_format_error_exit("");
 	obj_ptr = rt_new_obj(rt, E_PLANE);
 	obj_ptr->plane->position = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->plane->unit_normal_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
@@ -71,14 +75,22 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
+	double	mod;
 
 	if (rt_count_str(tokens) != 6)
-		rt_put_error_exit("rt file invalid format");
+		rt_put_rt_file_format_error_exit("rt file invalid format");
 	obj_ptr = rt_new_obj(rt, E_CYLINDER);
 	obj_ptr->cylinder->center_position = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cylinder->unit_orientation_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	obj_ptr->cylinder->radius = ft_atof(tokens[3]) / 2;
+	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
+	mod = fmod(obj_ptr->cylinder->radius / 0.01, 10);
+	if (mod != 0)
+		rt_put_rt_file_format_error_exit("Cylinder diameter are not to the first decimal place");
+	obj_ptr->cylinder->radius /= 2;
 	obj_ptr->cylinder->height = ft_atof(tokens[4]);
+	mod = fmod(obj_ptr->cylinder->height / 0.01, 10);
+	if (mod != 0)
+		rt_put_rt_file_format_error_exit("Cylinder height are not to the first decimal place");
 	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
 
 	printf("obj_ptr->cylinder->center_position x[%f] y[%f] z[%f]\n",
@@ -101,15 +113,23 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
+	double	mod;
 
 	if (rt_count_str(tokens) != 6)
-		rt_put_error_exit("rt file invalid format");
+		rt_put_rt_file_format_error_exit("rt file invalid format");
 	obj_ptr = rt_new_obj(rt, E_CONE);
 	obj_ptr->cone->center_position = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cone->unit_orientation_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	obj_ptr->cone->radius = ft_atof(tokens[3]) / 2;
-	obj_ptr->cone->height = ft_atof(tokens[4]);
-	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);
+	obj_ptr->cone->radius = ft_atof(tokens[3]);
+	mod = fmod(obj_ptr->cylinder->radius / 0.01, 10);
+	if (mod != 0)
+		rt_put_rt_file_format_error_exit("Cylinder diameter are not to the first decimal place");
+	obj_ptr->cylinder->radius /= 2;
+	obj_ptr->cylinder->height = ft_atof(tokens[4]);
+	mod = fmod(obj_ptr->cylinder->height / 0.01, 10);
+	if (mod != 0)
+		rt_put_rt_file_format_error_exit("Cylinder height are not to the first decimal place");
+	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
 
 	printf("obj_ptr->cone->center_position x[%f] y[%f] z[%f]\n",
 			obj_ptr->cone->center_position.x,

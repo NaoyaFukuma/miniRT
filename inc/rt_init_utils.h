@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:26:35 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/17 16:02:26 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/18 10:33:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void		rt_double_ptr_free(const char **d_ptr);
 int			rt_count_str(const char **strs);
 void		rt_addback_objs_list(t_obj **begin, t_obj *new);
-void		rt_addback_lite_list(t_point_lite_soFurce **begin,
+void		rt_addback_lite_list(t_point_lite_source **begin,
 				t_point_lite_source *new);
 
 // in init/rt_init_utils2.c
