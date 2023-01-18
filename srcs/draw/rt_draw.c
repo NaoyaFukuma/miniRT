@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 19:18:18 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:23:38 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	rt_pixel_put(t_rt_data *rt, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	rt_to_color(t_rgb_vec *col)
+int	rt_to_color(t_rgb_vec col)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	r = (int)(255 * rt_constrain(col->r,   0.0, 1.0));
-	g = (int)(255 * rt_constrain(col->g, 0.0, 1.0));
-	b = (int)(255 * rt_constrain(col->b,  0.0, 1.0));
+	r = (int)(255 * rt_constrain(col.r,   0.0, 1.0));
+	g = (int)(255 * rt_constrain(col.g, 0.0, 1.0));
+	b = (int)(255 * rt_constrain(col.b,  0.0, 1.0));
 	return (r * 0xffff + g * 0xff + b);
 }
 
@@ -54,7 +54,7 @@ void	rt_x_draw(t_rt_data *rt, int y, int width, double fy)
 	int			x;
 	double		fx;
 	int			color;
-	t_rgb_vec	*col;
+	t_rgb_vec	col;
 
 	x = 0;
 	while (x < width)
@@ -62,10 +62,9 @@ void	rt_x_draw(t_rt_data *rt, int y, int width, double fy)
 		fx = (2.0 * (x / (double)(width - 1))) - 1.0;
 		color = rt_rgb_vec_to_int_color(rt_rgb_vec_constructor(100, 149, 237));// 背景色だよ
 		col = rt_eye_raytrace(rt, fx, fy);
-		if (col != NULL)
+		if (col.r != NOT_INTERSECT)
 		{	
 			color = rt_to_color(col);// colをcolorに変換して描画色を設定する.
-			free(col);
 		} 
 		rt_pixel_put(rt, x, y, color);
 		++x;

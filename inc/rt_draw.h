@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 19:17:37 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:37:46 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_3d_vec	rt_calculate_pw(t_rt_data *rt, double fx, double fy);
 /////////////////////////////////////////
 
 /*rt_eye_raytrace*/
-t_rgb_vec	*rt_eye_raytrace(t_rt_data *rt, double fx, double fy);
+t_rgb_vec	rt_eye_raytrace(t_rt_data *rt, double fx, double fy);
 
 ////////////////////////////////////////
-#define C_EPSILON ((1.0) / (512))
+#define C_EPSILON ((1.0) / (512.0))
 typedef struct s_intersection_point
 {
 	double		distance;
@@ -46,7 +46,7 @@ typedef struct s_intersection_point
 typedef struct s_intersection_testresult
 {
 	t_obj 					*obj;
-	t_intersection_point	*intersection_point;
+	t_intersection_point	intersection_point;
 }							t_intersection_testresult;
 
 typedef struct lighting
@@ -62,16 +62,18 @@ typedef struct lighting
 
 
 
-t_rgb_vec	*rt_raytrace(t_rt_data *rt, t_ray ray);
+t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray);
 
 /////////////////////////////////////////
 
+#define NOT_INTERSECT 256.0
 
+t_3d_vec				rt_get_point(t_ray ray, double t);
 
-t_intersection_point	*rt_pl_test_intersection(t_plane *plane, t_ray ray);
-t_intersection_point	*rt_sp_test_intersection(t_sphere *sphere, t_ray ray);
-t_intersection_point	*rt_cy_test_intersection(t_cylinder *cylinder, t_ray ray);
-t_intersection_point	*rt_co_test_intersection(t_cone *cone, t_ray ray);
+t_intersection_point	rt_pl_test_intersection(t_plane *plane, t_ray ray);
+t_intersection_point	rt_sp_test_intersection(t_sphere *sphere, t_ray ray);
+t_intersection_point	rt_cy_test_intersection(t_cylinder *cylinder, t_ray ray);
+t_intersection_point	rt_co_test_intersection(t_cone *cone, t_ray ray);
 
 
 /*util*/
