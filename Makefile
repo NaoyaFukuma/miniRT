@@ -15,13 +15,17 @@ SRCS =	main.c \
 		rt_init_fill_struct.c \
 		rt_init_hook.c \
 		rt_init_utils.c \
-		rt_init_utils2.c
+		rt_init_utils2.c \
+		rt_draw.c \
+		rt_raytrace.c \
+		rt_testIntersection.c
 
 
 VPATH =	srcs:\
 		srcs/init:\
 		srcs/arg:\
 		srcs/error:\
+		srcs/draw:\
 		srcs/vector_operation
 
 
