@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_pl_test_intersection.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/18 11:41:14 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:03:20 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_intersection_point	rt_pl_test_intersection(t_plane *plane, t_ray ray)
 	res.normal.x = NOT_INTERSECT;
 	if (dn_dot != 0)
 	{
-		double t = (rt_vector_dot(ray.direction, plane->position) - \
+
+		double t = (rt_vector_dot(plane->position, plane->unit_normal_vec) - \
 					rt_vector_dot(ray.start, plane->unit_normal_vec)) / dn_dot;
 		if (t > 0)
 		{

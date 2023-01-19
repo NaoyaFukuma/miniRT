@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 01:36:22 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 15:06:35 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include <math.h>
 #include <float.h>
+
+#include <stdio.h>
 
 t_intersection_testresult	rt_intersection_testresult(t_obj *nearest_shape, t_intersection_point nearest_intp, bool t_or_f)
 {
@@ -64,6 +66,7 @@ t_intersection_testresult	rt_test_intersection_with_all(t_obj *objs, t_ray ray, 
 	nearest_intp.normal.x = NOT_INTERSECT;
 	while (objs)
 	{
+
 		res = rt_get_intersection_point_form_objs(objs, ray);
 		if (res.normal.x != NOT_INTERSECT && maxDist >= res.distance)
 		{
@@ -173,14 +176,18 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_
 {
 	t_3d_vec			eye_dir = ray.direction;
 	t_point_lite_source	*pls = rt->scene.pls_s;
+
 	while (pls)// 全ての光源に対して処理を行う
 	{
 		t_lighting	lighting = rt_calculate_lighting_at_intersection(pls, res.position);// 交点におけるライティングを計算する
 		t_ray 		shadow_ray =  rt_make_shadow_ray(res.position, lighting);// シャドウレイを作る
 
 		t_intersection_testresult shadow_res = rt_test_intersection_with_all(rt->scene.objs, shadow_ray, lighting.distance - C_EPSILON, true);
-		if (shadow_res.intersection_point.normal.x != NOT_INTERSECT) // 交点が見つかった＝影になるので、次の点光源へ（continue）
+		if (shadow_res.intersection_point.normal.x != NOT_INTERSECT)
+		{
+			pls = pls->next;
 			continue;
+		} // 交点が見つかった＝影になるので、次の点光源へ（continue）
 		double nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);// 法線ベクトルと入射ベクトルの内積を計算して,値の範囲を[0, 1]に制限する.
 		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.diffuseFactor, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));// 拡散反射光の放射輝度を計算する.
 
