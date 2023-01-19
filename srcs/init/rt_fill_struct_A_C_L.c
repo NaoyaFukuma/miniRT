@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 15:36:42 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 01:11:07 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Not four camera elements");
 	CAMERA_POSITION = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	UNIT_CAMERA_DIRECTION = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
+	if (rt_vector_magnitude(UNIT_CAMERA_DIRECTION) != 1.0)
+		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a camera is not 1");
 	if (ft_strchar((char *)tokens[3], '.'))
 			rt_put_rt_file_format_error_exit("FOV is not integer type");
 	fov = ft_atoi(tokens[3]);
@@ -63,9 +65,9 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 	SCREEN_CENTER_POSITION = rt_vector_add(CAMERA_POSITION,
 			rt_vector_mult(UNIT_CAMERA_DIRECTION, SCREEN_DISTANCE));
 	ey = rt_vector_constructor(0, 1, 0);
-	UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_cross(UNIT_CAMERA_DIRECTION, ey);
-	UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_cross(UNIT_SCREEN_DIRECTION_X_VEC,
-			UNIT_CAMERA_DIRECTION);
+	UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_normalize(rt_vector_cross(UNIT_CAMERA_DIRECTION, ey));
+	UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_normalize(rt_vector_cross(UNIT_SCREEN_DIRECTION_X_VEC,
+			UNIT_CAMERA_DIRECTION));
 
 	printf("camera posi x = %f  y = %f z = %f\n", CAMERA_POSITION.x,
 			CAMERA_POSITION.y, CAMERA_POSITION.z);
@@ -92,6 +94,10 @@ void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)
 	double				mod;
 	t_point_lite_source	*lite_ptr;
 
+#ifndef BONUS
+	if (rt->scene.pls_s != NULL)
+		rt_put_rt_file_format_error_exit("Multiple point lites");
+#endif
 	lite_ptr = malloc(sizeof(t_point_lite_source));
 	lite_ptr->next = NULL;
 	rt_addback_lite_list(&rt->scene.pls_s, lite_ptr);

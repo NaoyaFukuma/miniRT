@@ -6,34 +6,33 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 15:32:25 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 01:40:44 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mlx.h"
 #include "rt_define.h"
+#include "rt_init_utils.h"
 #include "rt_put_error.h"
 #include "rt_strucs.h"
 #include "rt_vector.h"
-#include "rt_init_utils.h"
 #include <fcntl.h>
 #include <limits.h>
 #include <math.h>
-
 #include <stdio.h> // for debug
 
 static void	rt_mlx_init(t_rt_data *rt);
 static void	rt_import_rt_file(t_rt_data *rt, const char *file);
-void	rt_hooks(t_rt_data *rt); // in rt_init_hook.c
-void	rt_fill_struct(t_rt_data *rt, const char *line); // in rt_init_fill_struct.c
+void	rt_hooks(t_rt_data *rt);                         // in rt_init_hook.c
+void	rt_fill_struct(t_rt_data *rt, const char *line);
+			// in rt_init_fill_struct.c
 
 void	rt_init(t_rt_data *rt, const char *file)
 {
 	rt_mlx_init(rt);
 	rt_import_rt_file(rt, file);
 	rt_hooks(rt);
-	mlx_loop(rt->mlx.mlx);
 	MATERIAL_AMBIENTFACTOR = rt_rgb_vec_constructor(1.00f, 1.00f, 1.00f);
 	MATERIAL_DIFFUSEFACTOR = rt_rgb_vec_constructor(0.69f, 0.69f, 0.69f);
 	MATERIAL_SPECULARFACTOR = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
@@ -98,6 +97,8 @@ static void	rt_import_rt_file(t_rt_data *rt, const char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (rt_check_camera_or_lite_in_sphere(rt))
+		rt_put_rt_file_format_error_exit("The camera or lite is inside the sphere");
 	if (rt->scene.ambient_color.r == -1)
 		rt_put_rt_file_format_error_exit("No ambient light");
 	if (rt->scene.camara.screen_distance == -1)

@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vector.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/17 17:12:48 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:35:06 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_VECTOR_H
 # define RT_VECTOR_H
+
+# include "rt_strucs.h"
 
 t_3d_vec	rt_vector_constructor(double x, double y, double z);
 t_3d_vec	rt_vector_add(t_3d_vec a, t_3d_vec b);
@@ -34,6 +36,6 @@ t_rgb_vec	rt_rgb_vec_constructor(double r, double g, double b);
 t_rgb_vec	rt_rgb_vec_add(t_rgb_vec a, t_rgb_vec b);
 t_rgb_vec	rt_rgb_vec_mult(t_rgb_vec a, double t);
 // "x,y,z" の形式のテキストをパースしてvecポインタに格納して, ステータスを返す(0は成功. -1以外ならエラー)
-//int	          gedouble_*from_str(double **vec, char *str);
+//int		       gedouble_*from_str(double **vec, char *str);
 
 #endif
