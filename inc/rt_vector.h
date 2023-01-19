@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 01:35:06 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:14:18 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define RT_VECTOR_H
 
 # include "rt_strucs.h"
+
+void	rt_vector_elements_put(t_3d_vec a); // デバック用
 
 t_3d_vec	rt_vector_constructor(double x, double y, double z);
 t_3d_vec	rt_vector_add(t_3d_vec a, t_3d_vec b);

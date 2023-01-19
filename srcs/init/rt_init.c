@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 01:40:44 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:07:52 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ static void	rt_import_rt_file(t_rt_data *rt, const char *file)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%s", line);
+		printf("\e[32m");
+		fflush(stdout);
+		printf("\n%s", line);
+		printf("\e[m");
+		fflush(stdout);
 		rt_fill_struct(rt, line);
 		free(line);
 		line = get_next_line(fd);

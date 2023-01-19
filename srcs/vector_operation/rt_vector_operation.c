@@ -14,6 +14,13 @@
 #include "rt_vector.h"
 #include <math.h>
 
+#include <stdio.h>
+
+void	rt_vector_elements_put(t_3d_vec a) // デバック用
+{
+	printf("x[%f] y[%f] z[%f]\n", a.x, a.y, a.z);
+}
+
 t_3d_vec	rt_vector_constructor(double x, double y, double z)
 {
 	t_3d_vec	vector;
@@ -65,7 +72,7 @@ t_3d_vec	rt_vector_cross(t_3d_vec a, t_3d_vec b)
 
 	vector.x = a.y * b.z - a.z * b.y;
 	vector.y = a.z * b.x - a.x * b.z;
-	vector.z = a.x * b.y - a.y * b.z;
+	vector.z = a.x * b.y - a.y * b.x;
 	return (vector);
 }
 

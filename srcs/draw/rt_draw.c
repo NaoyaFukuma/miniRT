@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 01:47:19 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:05:45 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	rt_draw(t_rt_data *rt)
 		rt_x_draw(rt, y, width, fy);
 		++y;
 	}
+	mlx_put_image_to_window(rt->mlx.mlx, rt->mlx.win, rt->mlx.image.img, 0, 0);
 }

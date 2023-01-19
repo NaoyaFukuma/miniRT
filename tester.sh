@@ -5,60 +5,60 @@ set +e
 #NG cace
 printf "\n\e[33m -- test NG case -- \e[m\n\n\e[m"
 
-# printf "\n\e[33mtest color_is_greater\n\e[m"
-# ./miniRT rt_files/ng/color_is_greater.rt || true
-# printf "\n\e[33mtest color_is_greter_than_intmax\n\e[m"
-# ./miniRT rt_files/ng/color_is_greter_than_intmax.rt || true
-# printf "\n\e[33mtest color_is_lower\n\e[m"
-# ./miniRT rt_files/ng/color_is_lower.rt || true
-# printf "\n\e[33mtest color_is_not_integer\n\e[m"
-# ./miniRT rt_files/ng/color_is_not_integer.rt || true
-# printf "\n\e[33mtest directory\n\e[m"
-# ./miniRT rt_files/ng/directory.rt || true
-# printf "\n\e[33mtest double_is_lower\n\e[m"
-# ./miniRT rt_files/ng/double_is_lower.rt || true
-# printf "\n\e[33mtest double_is_greater\n\e[m"
-# ./miniRT rt_files/ng/double_is_greater.rt || true
-# printf "\n\e[33mtest multi_ambient\n\e[m"
-# ./miniRT rt_files/ng/multi_ambient.rt || true
-# printf "\n\e[33mtest multi_camera\n\e[m"
-# ./miniRT rt_files/ng/multi_camera.rt || true
-# printf "\n\e[33mtest double_long_precision\n\e[m"
-# ./miniRT rt_files/ng/double_long_precision.rt || true
-# printf "\n\e[33mtest invalid_identifier\n\e[m"
-# ./miniRT rt_files/ng/invalid_identifier.rt || true
-# printf "\n\e[33mtest empty\n\e[m"
-# ./miniRT rt_files/ng/empty.rt || true
-# printf "\n\e[33mtest fov_is_greater\n\e[m"
-# ./miniRT rt_files/ng/fov_is_greater.rt || true
-# printf "\n\e[33mtest fov_is_lower\n\e[m"
-# ./miniRT rt_files/ng/fov_is_lower.rt || true
-# printf "\n\e[33mtest fov_is_not_integer\n\e[m"
-# ./miniRT rt_files/ng/fov_is_not_integer.rt || true
-# printf "\n\e[33mtest light_ration_is_greater\n\e[m"
-# ./miniRT rt_files/ng/light_ration_is_greater.rt || true
-# printf "\n\e[33mtest light_ration_is_lower\n\e[m"
-# ./miniRT rt_files/ng/light_ration_is_lower.rt || true
-# printf "\n\e[33mtest line_with_only_spaces\n\e[m"
-# ./miniRT rt_files/ng/line_with_only_spaces.rt || true
-# printf "\n\e[33mtest missing_color_value\n\e[m"
-# ./miniRT rt_files/ng/missing_color_value.rt || true
-# printf "\n\e[33mtest no_ambient\n\e[m"
-# ./miniRT rt_files/ng/no_ambient.rt || true
-# printf "\n\e[33mtest no_camera\n\e[m"
-# ./miniRT rt_files/ng/no_camera.rt || true
-# printf "\n\e[33mtest no_light\n\e[m"
-# ./miniRT rt_files/ng/no_light.rt || true
-# printf "\n\e[33mtest orientation_vector_is_greter\n\e[m"
-# ./miniRT rt_files/ng/orientation_vector_is_greter.rt || true
-# printf "\n\e[33mtest orientation_vector_is_lower\n\e[m"
-# ./miniRT rt_files/ng/orientation_vector_is_lower.rt || true
-# printf "\n\e[33mtest tabs_instead_of_spaces\n\e[m"
-# ./miniRT rt_files/ng/tabs_instead_of_spaces.rt || true
-# printf "\n\e[33mtest multi_light\n\e[m"
-# ./miniRT rt_files/ng/multi_light.rt || true
-# printf "\n\e[33mtest camera_in_sphere\n\e[m"
-# ./miniRT rt_files/ng/camera_in_sphere.rt || true
+printf "\n\e[33mtest color_is_greater\n\e[m"
+./miniRT rt_files/ng/color_is_greater.rt || true
+printf "\n\e[33mtest color_is_greter_than_intmax\n\e[m"
+./miniRT rt_files/ng/color_is_greter_than_intmax.rt || true
+printf "\n\e[33mtest color_is_lower\n\e[m"
+./miniRT rt_files/ng/color_is_lower.rt || true
+printf "\n\e[33mtest color_is_not_integer\n\e[m"
+./miniRT rt_files/ng/color_is_not_integer.rt || true
+printf "\n\e[33mtest directory\n\e[m"
+./miniRT rt_files/ng/directory.rt || true
+printf "\n\e[33mtest double_is_lower\n\e[m"
+./miniRT rt_files/ng/double_is_lower.rt || true
+printf "\n\e[33mtest double_is_greater\n\e[m"
+./miniRT rt_files/ng/double_is_greater.rt || true
+printf "\n\e[33mtest multi_ambient\n\e[m"
+./miniRT rt_files/ng/multi_ambient.rt || true
+printf "\n\e[33mtest multi_camera\n\e[m"
+./miniRT rt_files/ng/multi_camera.rt || true
+printf "\n\e[33mtest double_long_precision\n\e[m"
+./miniRT rt_files/ng/double_long_precision.rt || true
+printf "\n\e[33mtest invalid_identifier\n\e[m"
+./miniRT rt_files/ng/invalid_identifier.rt || true
+printf "\n\e[33mtest empty\n\e[m"
+./miniRT rt_files/ng/empty.rt || true
+printf "\n\e[33mtest fov_is_greater\n\e[m"
+./miniRT rt_files/ng/fov_is_greater.rt || true
+printf "\n\e[33mtest fov_is_lower\n\e[m"
+./miniRT rt_files/ng/fov_is_lower.rt || true
+printf "\n\e[33mtest fov_is_not_integer\n\e[m"
+./miniRT rt_files/ng/fov_is_not_integer.rt || true
+printf "\n\e[33mtest light_ration_is_greater\n\e[m"
+./miniRT rt_files/ng/light_ration_is_greater.rt || true
+printf "\n\e[33mtest light_ration_is_lower\n\e[m"
+./miniRT rt_files/ng/light_ration_is_lower.rt || true
+printf "\n\e[33mtest line_with_only_spaces\n\e[m"
+./miniRT rt_files/ng/line_with_only_spaces.rt || true
+printf "\n\e[33mtest missing_color_value\n\e[m"
+./miniRT rt_files/ng/missing_color_value.rt || true
+printf "\n\e[33mtest no_ambient\n\e[m"
+./miniRT rt_files/ng/no_ambient.rt || true
+printf "\n\e[33mtest no_camera\n\e[m"
+./miniRT rt_files/ng/no_camera.rt || true
+printf "\n\e[33mtest no_light\n\e[m"
+./miniRT rt_files/ng/no_light.rt || true
+printf "\n\e[33mtest orientation_vector_is_greter\n\e[m"
+./miniRT rt_files/ng/orientation_vector_is_greter.rt || true
+printf "\n\e[33mtest orientation_vector_is_lower\n\e[m"
+./miniRT rt_files/ng/orientation_vector_is_lower.rt || true
+printf "\n\e[33mtest tabs_instead_of_spaces\n\e[m"
+./miniRT rt_files/ng/tabs_instead_of_spaces.rt || true
+printf "\n\e[33mtest multi_light\n\e[m"
+./miniRT rt_files/ng/multi_light.rt || true
+printf "\n\e[33mtest camera_in_sphere\n\e[m"
+./miniRT rt_files/ng/camera_in_sphere.rt || true
 printf "\n\e[33mtest light_in_sphere\n\e[m"
 ./miniRT rt_files/ng/light_in_sphere.rt || true
 

@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:08:13 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 01:49:09 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:01:45 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 
 static int	rt_KeyPress_hook(int keycode, t_rt_data *rt);
 static int	rt_DestroyNotify_hook(t_rt_data *rt);
-static int	rt_rendering_loop_hook(t_rt_data *rt);
 
 void	rt_hooks(t_rt_data *rt)
 {
 	mlx_hook(rt->mlx.win, KeyPress, 0, rt_KeyPress_hook, rt);
 	mlx_hook(rt->mlx.win, DestroyNotify, 0, rt_DestroyNotify_hook, rt);
-	mlx_loop_hook(rt->mlx.mlx, rt_rendering_loop_hook ,rt);
 }
 
 static int	rt_KeyPress_hook(int keycode, t_rt_data *rt)
@@ -39,14 +37,5 @@ static int	rt_DestroyNotify_hook(t_rt_data *rt)
 {
 	(void)rt;
 	exit(EXIT_SUCCESS);
-	return (EXIT_SUCCESS);
-}
-
-#include <stdio.h>
-
-static int	rt_rendering_loop_hook(t_rt_data *rt)
-{
-	rt_draw(rt);
-	mlx_put_image_to_window(rt->mlx.mlx, rt->mlx.win, rt->mlx.image.img, 0, 0);
 	return (EXIT_SUCCESS);
 }

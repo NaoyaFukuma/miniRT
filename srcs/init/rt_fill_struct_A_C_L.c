@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 01:11:07 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:47:53 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,17 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 	SCREEN_CENTER_POSITION = rt_vector_add(CAMERA_POSITION,
 			rt_vector_mult(UNIT_CAMERA_DIRECTION, SCREEN_DISTANCE));
 	ey = rt_vector_constructor(0, 1, 0);
-	UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_normalize(rt_vector_cross(UNIT_CAMERA_DIRECTION, ey));
-	UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_normalize(rt_vector_cross(UNIT_SCREEN_DIRECTION_X_VEC,
-			UNIT_CAMERA_DIRECTION));
+
+	if (UNIT_CAMERA_DIRECTION.x == 0 && UNIT_CAMERA_DIRECTION.y == -1 && UNIT_CAMERA_DIRECTION.z == 0)
+	{
+		UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_constructor(1, 0, 0);
+		UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_constructor(0, 0, 1);
+	}
+	else
+	{
+		UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_normalize(rt_vector_cross(ey, UNIT_CAMERA_DIRECTION));
+		UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_normalize(rt_vector_cross(UNIT_CAMERA_DIRECTION, UNIT_SCREEN_DIRECTION_X_VEC));
+	}
 
 	printf("camera posi x = %f  y = %f z = %f\n", CAMERA_POSITION.x,
 			CAMERA_POSITION.y, CAMERA_POSITION.z);
