@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 17:34:51 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 22:30:08 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "rt_init_utils.h"
 #include "rt_put_error.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_vector.h"
 #include <math.h>
 #include <stdlib.h>
@@ -46,9 +46,9 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 			obj_ptr->sphere->center_position.z);
 	printf("obj_ptr->sphere->radius [%f]\n", obj_ptr->sphere->radius);
 	printf("rt->scene.objs->sphere->color r = %f g = %f b = %f\n",
-			rt->scene.objs->sphere->color.r,
-			rt->scene.objs->sphere->color.g,
-			rt->scene.objs->sphere->color.b);
+			obj_ptr->sphere->color.r,
+			obj_ptr->sphere->color.g,
+			obj_ptr->sphere->color.b);
 }
 
 void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)

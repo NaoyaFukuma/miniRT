@@ -6,22 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 01:22:49 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_DRAW_H
 # define RT_DRAW_H
 
-#include "rt_strucs.h"
-
-# define IMAGE_ADDR	rt->mlx.image.addr
-# define IMAGE_LINE_LENGTH rt->mlx.image.line_length
-# define IMAGE_BITS_PER_PIXEL rt->mlx.image.bits_per_pixel
-# define SCREEEAN_HEIGHT rt->scene.screean_height
-# define SCREEEAN_WIDTH rt->scene.screean_width
-
-
+#include "rt_structs.h"
 
 typedef struct s_ray
 {

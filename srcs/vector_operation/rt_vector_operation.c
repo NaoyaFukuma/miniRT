@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_vector.h"
 #include <math.h>
 

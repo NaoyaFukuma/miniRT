@@ -6,13 +6,13 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:08:13 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 12:01:45 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "rt_define.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_draw.h"
 #include <stdlib.h>
 

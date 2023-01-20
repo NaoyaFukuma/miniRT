@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rt_cy_test_intersection.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 09:18:59 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_vector.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_draw.h"
 #include "libft.h"
 #include <stdbool.h>
@@ -78,7 +78,7 @@ t_intersection_point	rt_cy_test_intersection(t_cylinder *cylinder, t_ray ray)
 	}
 
 	t_3d_vec pa = rt_get_point(ray, t);
-	
+
 	double hDis = rt_vector_dot(rt_vector_sub(pa, cylinder->center_position), cylinder->unit_orientation_vec);
 	if ((- 1.0 * cylinder->height / 2.0f) <= hDis && hDis <= (cylinder->height / 2.0f))
 	{
@@ -87,10 +87,10 @@ t_intersection_point	rt_cy_test_intersection(t_cylinder *cylinder, t_ray ray)
 		t_3d_vec	tmp_normal;
 		tmp_normal.x = 2 * flag * (cylinder->unit_orientation_vec.z * (cylinder->unit_orientation_vec.z * (pa.x - cylinder->center_position.x) - cylinder->unit_orientation_vec.x * (pa.z - cylinder->center_position.z)) - \
 									cylinder->unit_orientation_vec.y * (cylinder->unit_orientation_vec.x * (pa.y - cylinder->center_position.y) - cylinder->unit_orientation_vec.y * (pa.x - cylinder->center_position.x)));//法線方向の計算
-		
+
 		tmp_normal.y = 2 * flag * (cylinder->unit_orientation_vec.x * (cylinder->unit_orientation_vec.x * (pa.y - cylinder->center_position.y) - cylinder->unit_orientation_vec.y * (pa.x - cylinder->center_position.x)) - \
 									cylinder->unit_orientation_vec.z * (cylinder->unit_orientation_vec.y * (pa.z - cylinder->center_position.z) - cylinder->unit_orientation_vec.z * (pa.y - cylinder->center_position.y)));//法線方向の計算
-		
+
 		tmp_normal.z = 2 * flag * (cylinder->unit_orientation_vec.y * (cylinder->unit_orientation_vec.y * (pa.z - cylinder->center_position.z) - cylinder->unit_orientation_vec.z * (pa.y - cylinder->center_position.y)) - \
 									cylinder->unit_orientation_vec.x * (cylinder->unit_orientation_vec.z * (pa.x - cylinder->center_position.x) - cylinder->unit_orientation_vec.x * (pa.z - cylinder->center_position.z)));//法線方向の計算
 		res.normal = rt_vector_normalize(tmp_normal);

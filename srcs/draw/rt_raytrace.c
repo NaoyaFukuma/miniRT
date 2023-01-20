@@ -6,12 +6,12 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 15:06:35 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_vector.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_draw.h"
 #include "libft.h"
 #include <stdbool.h>
@@ -172,7 +172,7 @@ double	rt_constrain(double	num, double low, double high)
 
 
 //////////////////////////////////////////////////////////////////////
-void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_vec *col, t_intersection_point res)
+void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_vec *col, t_intersection_point res, t_rgb_vec mat)
 {
 	t_3d_vec			eye_dir = ray.direction;
 	t_point_lite_source	*pls = rt->scene.pls_s;
@@ -189,17 +189,28 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray, t_rgb_
 			continue;
 		} // 交点が見つかった＝影になるので、次の点光源へ（continue）
 		double nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);// 法線ベクトルと入射ベクトルの内積を計算して,値の範囲を[0, 1]に制限する.
-		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.diffuseFactor, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));// 拡散反射光の放射輝度を計算する.
 
+		static int i = 0;
+
+		// if (i % 426 == 0)
+		// 	printf("環境光のみ \t\tr[%f] g[%f] b[%f]\n", col->r,col->g,col->b);
+			*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, mat, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));// 拡散反射光の放射輝度を計算する.
+		// if (i % 426 == 0)
+		// 	printf("環境 + 拡散 \t\tr[%f] g[%f] b[%f]\n", col->r,col->g,col->b);
 		if (nlDot > 0.0)
 		{
+			// printf("lighting.distance %f\n", lighting.distance);
+			// printf("r[%f] g[%f] b[%f]\n", col->r,col->g,col->b);
 			t_3d_vec ref_dir = rt_vector_sub(rt_vector_mult(rt_vector_mult(res.normal, nlDot), 2), lighting.unit_direction);// 正反射ベクトル
 			t_3d_vec unit_invEyeDir =  rt_vector_normalize(rt_vector_mult(eye_dir, -1));// 視線ベクトルの逆ベクトル
 
 			double	vrDot = rt_constrain(rt_vector_dot(unit_invEyeDir, ref_dir), 0, 1);// 視線ベクトルの逆ベクトルと正反射ベクトルの内積を計算して,値を[0, 1]に制限する.
 			double	cosine_phi = pow(vrDot, rt->scene.material.shininess);
 			*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.specularFactor, rt_rgb_vec_constructor(cosine_phi, cosine_phi, cosine_phi)));// 鏡面反射光の放射輝度を計算する.
+		// if (i % 426 == 0)
+		// 	printf("環境 + 拡散 + 反射\tr[%f] g[%f] b[%f]\n\n", col->r,col->g,col->b);
 		}
+		i++;
 		pls = pls->next;
 	}
 }
@@ -217,9 +228,9 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 	res = test_result.intersection_point; // 最も近い交点の情報
 	mat = rt_get_obj_color(test_result.obj); // // 最も近い交点を持つ物体の材質情報
 	col = rt_rgb_vec_constructor(0, 0, 0);// 放射輝度を保存するためのFColorのインスタンスを生成
-	col =  rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, mat, rt_rgb_vec_constructor(1, 1, 1)));
+	col =  rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, rt->scene.material.ambientFactor, rt_rgb_vec_constructor(1, 1, 1)));
 	// 環境光の反射光の放射輝度を計算する
-	rt_calculate_specular_and_diffuse_with_all(rt, ray, &col, res);//  拡散と反射の反射光の放射輝度を計算する
+	rt_calculate_specular_and_diffuse_with_all(rt, ray, &col, res, mat);//  拡散と反射の反射光の放射輝度を計算する
 	return (col);
 }
 

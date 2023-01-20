@@ -6,12 +6,12 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 14:58:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_vector.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_draw.h"
 #include "libft.h"
 #include <stdbool.h>
@@ -35,15 +35,19 @@ double	rt_sp_calculate_directional_vector_coefficients(t_sphere *sphere, t_ray r
 
 	// if (ray.direction.x != -0.000902)
 	// {
+// 	if (i++ % 2 == 0)
+// 	{
+// 		printf("A == %f ",A);
+// 		printf("B == %f ",B);
+// 		printf("C == %f ",C);
+// 		printf("D == %f\n\n",D);
+//
+// 	}
 
-		printf("ray.direction ");
-		rt_vector_elements_put(ray.direction);
-		printf("ray.start - sp_center ");
-		rt_vector_elements_put(tmp);
-		printf("A == %f ",A);
-		printf("B == %f ",B);
-		printf("C == %f ",C);
-	printf("D == %f\n\n",D);
+	// 	printf("ray.direction ");
+	// 	rt_vector_elements_put(ray.direction);
+	// 	printf("ray.start - sp_center ");
+	// 	rt_vector_elements_put(tmp);
 
 	// 	i++;
 	// }

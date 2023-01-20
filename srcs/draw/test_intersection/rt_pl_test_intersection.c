@@ -6,17 +6,19 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 15:03:20 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 22:24:08 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_vector.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_draw.h"
 #include "libft.h"
 #include <stdbool.h>
 #include <float.h>
 #include <math.h>
+
+#include <stdio.h>
 
 t_3d_vec	rt_get_point(t_ray ray, double t)
 {
@@ -30,6 +32,16 @@ t_intersection_point	rt_pl_test_intersection(t_plane *plane, t_ray ray)
 
 	dn_dot = rt_vector_dot(ray.direction, plane->unit_normal_vec);
 	res.normal.x = NOT_INTERSECT;
+
+// 	static int i = 0;
+//
+// 	if (i++ % 2 == 0)
+// 	{
+// 		/* code */
+// 	printf("dn_dot == %f\n", dn_dot);
+//
+// 	}
+
 	if (dn_dot != 0)
 	{
 

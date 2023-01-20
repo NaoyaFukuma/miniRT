@@ -6,11 +6,11 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 01:40:12 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_init_utils.h"
 #include "rt_vector.h"
 #include "libft.h"

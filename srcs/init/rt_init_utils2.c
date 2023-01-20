@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 16:51:01 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "rt_init_utils.h"
 #include "rt_put_error.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_vector.h"
 #include <errno.h>
 #include <math.h>
@@ -107,7 +107,7 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 			rt_put_rt_file_format_error_exit("RGB value range is not [0 - 255]");
 		++i;
 	}
-	return (rt_rgb_vec_constructor(ft_atof(rgb[0]), ft_atof(rgb[1]),
-			ft_atof(rgb[2])));
+	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0, ft_atof(rgb[1]) / 255.0,
+			ft_atof(rgb[2]) / 255.0));
 	rt_double_ptr_free((const char **)rgb);
 }
