@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 11:16:26 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "rt_define.h"
 #include "rt_put_error.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_init_utils.h"
 
 void	rt_fill_struct_A(t_rt_data *rt, const char **tokens);

@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 12:07:52 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 22:32:24 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "rt_define.h"
 #include "rt_init_utils.h"
 #include "rt_put_error.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_vector.h"
 #include <fcntl.h>
 #include <limits.h>
@@ -33,34 +33,34 @@ void	rt_init(t_rt_data *rt, const char *file)
 	rt_mlx_init(rt);
 	rt_import_rt_file(rt, file);
 	rt_hooks(rt);
-	MATERIAL_AMBIENTFACTOR = rt_rgb_vec_constructor(1.00f, 1.00f, 1.00f);
-	MATERIAL_DIFFUSEFACTOR = rt_rgb_vec_constructor(0.69f, 0.69f, 0.69f);
-	MATERIAL_SPECULARFACTOR = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
-	MATERIAL_SHININESS = 8.0f;
-	printf("MATERIAL_AMBIENTFACTOR r[%f] g[%f] b[%f]\n",
-			MATERIAL_AMBIENTFACTOR.r,
-			MATERIAL_AMBIENTFACTOR.g,
-			MATERIAL_AMBIENTFACTOR.b);
-	printf("MATERIAL_DIFFUSEFACTOR r[%f] g[%f] b[%f]\n",
-			MATERIAL_DIFFUSEFACTOR.r,
-			MATERIAL_DIFFUSEFACTOR.g,
-			MATERIAL_DIFFUSEFACTOR.b);
-	printf("MATERIAL_SPECULARFACTOR r[%f] g[%f] b[%f]\n",
-			MATERIAL_SPECULARFACTOR.r,
-			MATERIAL_SPECULARFACTOR.g,
-			MATERIAL_SPECULARFACTOR.b);
-	printf("MATERIAL_SHININESS [%f]\n", MATERIAL_SHININESS);
+	rt->scene.material.ambientFactor = rt_rgb_vec_constructor(0.50f, 0.50f, 0.50f);
+	rt->scene.material.diffuseFactor = rt_rgb_vec_constructor(0.50f, 1.00f, 1.00f);
+	rt->scene.material.specularFactor = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
+	rt->scene.material.shininess = 8.0f;
+	printf("rt->scene.material.ambientFactor r[%f] g[%f] b[%f]\n",
+			rt->scene.material.ambientFactor.r,
+			rt->scene.material.ambientFactor.g,
+			rt->scene.material.ambientFactor.b);
+	printf("rt->scene.material.diffuseFactor r[%f] g[%f] b[%f]\n",
+			rt->scene.material.diffuseFactor.r,
+			rt->scene.material.diffuseFactor.g,
+			rt->scene.material.diffuseFactor.b);
+	printf("rt->scene.material.specularFactor r[%f] g[%f] b[%f]\n",
+			rt->scene.material.specularFactor.r,
+			rt->scene.material.specularFactor.g,
+			rt->scene.material.specularFactor.b);
+	printf("rt->scene.material.shininess [%f]\n", rt->scene.material.shininess);
 }
 
 static void	rt_mlx_init(t_rt_data *rt)
 {
 	rt->mlx.mlx = mlx_init();
 	if (!rt->mlx.mlx)
-		rt_put_error_exit("mlx_init() fatal.\n");
+		rt_put_error_exit("mlx_init() failure\n");
 	mlx_get_screen_size(rt->mlx.mlx, &rt->scene.screean_width,
 			&rt->scene.screean_height);
-	rt->scene.screean_width /= 2;
-	rt->scene.screean_height /= 2;
+	rt->scene.screean_width = rt->scene.screean_width * 2 / 3;
+	rt->scene.screean_height = rt->scene.screean_height * 2 / 3;
 	rt->mlx.win = mlx_new_window(rt->mlx.mlx, rt->scene.screean_width,
 			rt->scene.screean_height, "Bravo! Bravo!! Bravo!!!!!");
 	rt->mlx.image.width = rt->scene.screean_width;

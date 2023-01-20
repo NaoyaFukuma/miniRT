@@ -6,12 +6,12 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/19 12:47:53 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_strucs.h"
+#include "rt_structs.h"
 #include "rt_put_error.h"
 #include "rt_vector.h"
 #include "rt_init_utils.h"
@@ -51,49 +51,49 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Multiple camera");
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("Not four camera elements");
-	CAMERA_POSITION = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
-	UNIT_CAMERA_DIRECTION = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	if (rt_vector_magnitude(UNIT_CAMERA_DIRECTION) != 1.0)
+	rt->scene.camara.camera_position = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
+	rt->scene.camara.unit_camera_direction = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
+	if (rt_vector_magnitude(rt->scene.camara.unit_camera_direction) != 1.0)
 		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a camera is not 1");
 	if (ft_strchar((char *)tokens[3], '.'))
 			rt_put_rt_file_format_error_exit("FOV is not integer type");
 	fov = ft_atoi(tokens[3]);
 	if (!(0 < fov && fov <= 180))
 		rt_put_rt_file_format_error_exit("FOV range [0,180]");
-	SCREEN_DISTANCE = (rt->scene.screean_width / 2) / tan((long double)fov
+	rt->scene.camara.screen_distance = (rt->scene.screean_width / 2) / tan((long double)fov
 			* M_PI / 180.0l / 2.0l);
-	SCREEN_CENTER_POSITION = rt_vector_add(CAMERA_POSITION,
-			rt_vector_mult(UNIT_CAMERA_DIRECTION, SCREEN_DISTANCE));
+	rt->scene.camara.screen_center_position = rt_vector_add(rt->scene.camara.camera_position,
+			rt_vector_mult(rt->scene.camara.unit_camera_direction, rt->scene.camara.screen_distance));
 	ey = rt_vector_constructor(0, 1, 0);
 
-	if (UNIT_CAMERA_DIRECTION.x == 0 && UNIT_CAMERA_DIRECTION.y == -1 && UNIT_CAMERA_DIRECTION.z == 0)
+	if (rt->scene.camara.unit_camera_direction.x == 0 && rt->scene.camara.unit_camera_direction.y == -1 && rt->scene.camara.unit_camera_direction.z == 0)
 	{
-		UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_constructor(1, 0, 0);
-		UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_constructor(0, 0, 1);
+		rt->scene.camara.unit_screen_direction_x_vec = rt_vector_constructor(1, 0, 0);
+		rt->scene.camara.unit_screen_direction_y_vec = rt_vector_constructor(0, 0, 1);
 	}
 	else
 	{
-		UNIT_SCREEN_DIRECTION_X_VEC = rt_vector_normalize(rt_vector_cross(ey, UNIT_CAMERA_DIRECTION));
-		UNIT_SCREEN_DIRECTION_Y_VEC = rt_vector_normalize(rt_vector_cross(UNIT_CAMERA_DIRECTION, UNIT_SCREEN_DIRECTION_X_VEC));
+		rt->scene.camara.unit_screen_direction_x_vec = rt_vector_normalize(rt_vector_cross(ey, rt->scene.camara.unit_camera_direction));
+		rt->scene.camara.unit_screen_direction_y_vec = rt_vector_normalize(rt_vector_cross(rt->scene.camara.unit_camera_direction, rt->scene.camara.unit_screen_direction_x_vec));
 	}
 
-	printf("camera posi x = %f  y = %f z = %f\n", CAMERA_POSITION.x,
-			CAMERA_POSITION.y, CAMERA_POSITION.z);
-	printf("camera dir x = %f  y = %f z = %f\n", UNIT_CAMERA_DIRECTION.x,
-			UNIT_CAMERA_DIRECTION.y, UNIT_CAMERA_DIRECTION.z);
+	printf("camera posi x = %f  y = %f z = %f\n", rt->scene.camara.camera_position.x,
+			rt->scene.camara.camera_position.y, rt->scene.camara.camera_position.z);
+	printf("camera dir x = %f  y = %f z = %f\n", rt->scene.camara.unit_camera_direction.x,
+			rt->scene.camara.unit_camera_direction.y, rt->scene.camara.unit_camera_direction.z);
 	printf("fov == %d\n", fov);
 	printf("rt->scene.screean_width / 2 == %d * tan((long double)fov * M_PI / 180.0l / 2.0l) == %f   ", rt->scene.screean_width / 2,
 			tan((long double)fov * M_PI / 180.0l / 2.0l));
-	printf("distance = %f\n", SCREEN_DISTANCE);
+	printf("distance = %f\n", rt->scene.camara.screen_distance);
 	printf("screen center position x = %f  y = %f z = %f\n",
-			SCREEN_CENTER_POSITION.x, SCREEN_CENTER_POSITION.y,
-			SCREEN_CENTER_POSITION.z);
+			rt->scene.camara.screen_center_position.x, rt->scene.camara.screen_center_position.y,
+			rt->scene.camara.screen_center_position.z);
 	printf("screen dir_x x = %f  y = %f z = %f\n",
-			UNIT_SCREEN_DIRECTION_X_VEC.x, UNIT_SCREEN_DIRECTION_X_VEC.y,
-			UNIT_SCREEN_DIRECTION_X_VEC.z);
+			rt->scene.camara.unit_screen_direction_x_vec.x, rt->scene.camara.unit_screen_direction_x_vec.y,
+			rt->scene.camara.unit_screen_direction_x_vec.z);
 	printf("screen dir_y  x = %f  y = %f z = %f\n",
-			UNIT_SCREEN_DIRECTION_Y_VEC.x, UNIT_SCREEN_DIRECTION_Y_VEC.y,
-			UNIT_SCREEN_DIRECTION_Y_VEC.z);
+			rt->scene.camara.unit_screen_direction_y_vec.x, rt->scene.camara.unit_screen_direction_y_vec.y,
+			rt->scene.camara.unit_screen_direction_y_vec.z);
 }
 
 void	rt_fill_struct_L(t_rt_data *rt, const char **tokens)

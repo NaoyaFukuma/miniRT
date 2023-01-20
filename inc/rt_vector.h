@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/19 12:14:18 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_VECTOR_H
 # define RT_VECTOR_H
 
-# include "rt_strucs.h"
+# include "rt_structs.h"
 
 void	rt_vector_elements_put(t_3d_vec a); // デバック用
 
