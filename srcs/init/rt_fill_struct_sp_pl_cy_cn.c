@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/20 22:30:08 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/21 23:34:11 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,10 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 	obj_ptr->cone->height = ft_atof(tokens[4]);
 	if (obj_ptr->cone->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
-	mod = fmod(obj_ptr->cylinder->height / 0.01, 10);
+	mod = fmod(obj_ptr->cone->height / 0.01, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit("Cone height are not to the first decimal place");
-	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
+	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);
 
 	printf("obj_ptr->cone->center_position x[%f] y[%f] z[%f]\n",
 			obj_ptr->cone->center_position.x,
