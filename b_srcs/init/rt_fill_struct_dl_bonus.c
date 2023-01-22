@@ -42,7 +42,7 @@ t_3d_vec	rt_calc_dl_unit_n_vec(t_delta *delta)
 	a_b = rt_vec_sub(delta->a, delta->b);
 	c_b = rt_vec_sub(delta->c, delta->b);
 	n_vec = rt_vec_cross(a_b, c_b);
-	return (rt_vec_mult(rt_vec_to_unit(n_vec), -1));
+	return (rt_vec_to_unit(n_vec));
 }
 
 void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens)

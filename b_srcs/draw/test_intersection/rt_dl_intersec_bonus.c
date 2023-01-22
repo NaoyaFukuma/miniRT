@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-t_3d_vec	rt_calc_unit_cross_vec(t_3d_vec pa, t_3d_vec top, t_3d_vec next)
+t_3d_vec	rt_calc_delta_cross_vec(t_3d_vec pa, t_3d_vec top, t_3d_vec next)
 {
 	t_3d_vec	next_top;
 	t_3d_vec	top_pa;
@@ -28,7 +28,7 @@ t_3d_vec	rt_calc_unit_cross_vec(t_3d_vec pa, t_3d_vec top, t_3d_vec next)
 	next_top = rt_vec_sub(next, top);
 	top_pa = rt_vec_sub(top, pa);
 	cross = rt_vec_cross(next_top, top_pa);
-	return (rt_vec_to_unit(cross));
+	return (cross);
 }
 
 bool	rt_in_or_out_judg(t_delta *delta, t_3d_vec pa)
@@ -37,21 +37,21 @@ bool	rt_in_or_out_judg(t_delta *delta, t_3d_vec pa)
 	t_3d_vec	pa_b_c;
 	t_3d_vec	pa_c_a;
 
-	pa_a_b = rt_calc_unit_cross_vec(pa, delta->a, delta->b);
-	pa_b_c = rt_calc_unit_cross_vec(pa, delta->b, delta->c);
-	pa_c_a = rt_calc_unit_cross_vec(pa, delta->c, delta->a);
-	// if (rt_vec_dot(pa_a_b, delta->unit_n_vec) != 1.0)
-	// 	return (false);
-	// if (rt_vec_dot(pa_b_c, delta->unit_n_vec) != 1.0)
-	// 	return (false);
-	// if (rt_vec_dot(pa_c_a, delta->unit_n_vec) != 1.0)
-	// 	return (false);
-	if (pa_a_b.x != pa_b_c.x || pa_b_c.x != pa_c_a.x)
+	pa_a_b = rt_calc_delta_cross_vec(pa, delta->a, delta->b);
+	pa_b_c = rt_calc_delta_cross_vec(pa, delta->b, delta->c);
+	pa_c_a = rt_calc_delta_cross_vec(pa, delta->c, delta->a);
+	if (rt_vec_dot(pa_a_b, delta->unit_n_vec) <= 0.0)
+	{
 		return (false);
-	if (pa_a_b.y != pa_b_c.y || pa_b_c.y != pa_c_a.y)
+	}
+	if (rt_vec_dot(pa_b_c, delta->unit_n_vec) <= 0.0)
+	{
 		return (false);
-	if (pa_a_b.z != pa_b_c.z || pa_b_c.z != pa_c_a.z)
+	}
+	if (rt_vec_dot(pa_c_a, delta->unit_n_vec) <= 0.0)
+	{
 		return (false);
+	}
 	return (true);
 }
 
