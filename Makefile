@@ -3,7 +3,7 @@ B_NAME = miniRT_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
+LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11 -lm
 INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 
 #以下の2項目はベタ打ち
@@ -91,8 +91,11 @@ B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-MINILIB_PATH = ./minilibx_mms_20200219
-MINILIB = $(MINILIB_PATH)/libmlx.dylib
+# MINILIB_PATH = ./minilibx_mms_20200219
+# MINILIB = $(MINILIB_PATH)/libmlx.dylib
+
+MINILIB_PATH = ./minilibx-linux
+MINILIB = $(MINILIB_PATH)/libmlx_Linux.a
 
 
 ifeq ($(shell uname),Darwin)
