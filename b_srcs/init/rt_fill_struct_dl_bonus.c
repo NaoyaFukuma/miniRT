@@ -45,6 +45,41 @@ t_3d_vec	rt_calc_dl_unit_n_vec(t_delta *delta)
 	return (rt_vec_to_unit(n_vec));
 }
 
+void	add_epsilon(t_3d_vec *vec)
+{
+	if (0 <= vec->x)
+	{
+		vec->x += (1.0 / 512.0);
+	}
+	else
+	{
+		vec->x -= (1.0 / 512.0);
+	}
+	if (0 <= vec->y)
+	{
+		vec->y += (1.0 / 512.0);
+	}
+	else
+	{
+		vec->y -= (1.0 / 512.0);
+	}
+	if (0 <= vec->z)
+	{
+		vec->z += (1.0 / 512.0);
+	}
+	else
+	{
+		vec->z -= (1.0 / 512.0);
+	}
+}
+
+void	add_epsilon_all(t_delta *delta)
+{
+	add_epsilon(&delta->a);
+	add_epsilon(&delta->b);
+	add_epsilon(&delta->c);
+}
+
 void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
@@ -56,6 +91,7 @@ void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens)
 	obj_ptr->delta->b = rt_str_to_3dvector(tokens[2], -DBL_MAX, DBL_MAX);
 	obj_ptr->delta->c = rt_str_to_3dvector(tokens[3], -DBL_MAX, DBL_MAX);
 	obj_ptr->delta->color = rt_str_to_rbg(tokens[4]);
+	add_epsilon_all(obj_ptr->delta);
 	obj_ptr->delta->g = rt_calc_g_and_length(obj_ptr->delta);
 	obj_ptr->delta->unit_n_vec = rt_calc_dl_unit_n_vec(obj_ptr->delta);
 	// if (rt_vec_mag(obj_ptr->delta->unit_norm_vec) != 1.0)
@@ -65,3 +101,4 @@ void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens)
 	// 		= rt_vec_to_unit(obj_ptr->delta->unit_norm_vec);
 	// }
 }
+
