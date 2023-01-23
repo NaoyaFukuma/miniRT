@@ -59,7 +59,8 @@ t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = rt_get_point(ray, t);
-		res.unit_n_vec = rt_vec_to_unit(rt_vec_sub(res.p_vec, sphere->center_p_vec));
+		res.unit_n_vec = rt_vec_to_unit(rt_vec_sub(res.p_vec,
+							sphere->center_p_vec));
 		return (res);
 	}
 	return (res);
