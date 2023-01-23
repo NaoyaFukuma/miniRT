@@ -18,65 +18,46 @@
 #include <float.h>
 #include <math.h>
 
-// static double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
-// {
-// 	t_3d_vec	d;
-// 	t_3d_vec	s_cy_c;
-// 	double		rad_div_h;
-// 	double		c;
-//
-// 	d = rt_vec_copy(ray.unit_d_vec);
-// 	s_cy_c = rt_vec_sub(ray.start, cone->center_p_vec);
-// 	rad_div_h = cone->radius / cone->height;
-// 	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0)
-// 		- pow(rad_div_h, 2.0) * pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0);
-// 	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cone->unit_orient_vec))
-// 			* (rt_vec_dot(s_cy_c, cone->unit_orient_vec))) - 2.0
-// 		* pow(rad_div_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
-// 		* rt_vec_dot(s_cy_c, cone->unit_orient_vec);
-// 	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c,
-// 				cone->unit_orient_vec), 2.0) - pow(rad_div_h, 2.0)
-// 		* pow(rt_vec_dot(s_cy_c, cone->unit_orient_vec), 2.0);
-// 	return (*b * *b - 4.0 * *a * c);
-// }
+static double	rt_calc_abd(t_cylinder *cy, t_ray ray, double *a, double *b)
+{
+	t_3d_vec	d;
+	t_3d_vec	s_cy_c;
+	double		c;
+
+	d = rt_vec_copy(ray.unit_d_vec);
+	s_cy_c = rt_vec_sub(ray.start, cy->center_p_vec);
+	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cy->unit_orient_vec), 2.0);
+	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cy->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cy->unit_orient_vec)));
+	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c, cy->unit_orient_vec), 2.0) - pow(cy->radius, 2.0);
+	return (*b * *b - 4.0 * *a * c);
+}
 
 double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
 {
-	t_3d_vec d = rt_vec_copy(ray.unit_d_vec);
-	t_3d_vec s_cy_c = rt_vec_sub(ray.start, cy->center_p_vec);
+	double	a;
+	double	b;
+	double	d;
+	double	t;
+	double	h_dis;
 
-	double A = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cy->unit_orient_vec), 2.0);
-	double B = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cy->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cy->unit_orient_vec)));
-	double C = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c, cy->unit_orient_vec), 2.0) - pow(cy->radius, 2.0);
-	double D = B * B - 4.0 * A * C;
-	double t = -1.0;
-
-	if (D == 0.0)
+	d = rt_calc_abd(cy, ray, &a, &b);
+	t = -1.0;
+	if (d == 0.0)
+		return (-b / (2.0 * a));
+	if (d < 0.0)
+		return (t);
+	if (( -b - sqrt(d)) / (2.0 * a) > 0 && ( -b + sqrt(d)) / (2.0 * a) > 0)
 	{
-		t = -B / (2.0 * A);
-	}
-	else if (D > 0.0)
-	{
-		double t1 = ( -B - sqrt(D)) / (2.0 * A);
-		double t2 = ( -B + sqrt(D)) / (2.0 * A);
-
-		if (t1 > 0 && t2 > 0)
+		t = rt_min(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
+		h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t), cy->center_p_vec), cy->unit_orient_vec);
+		if (h_dis < (- 1.0 * cy->height / 2.0f) || (cy->height / 2.0f) < h_dis)
 		{
-			t = rt_min(t1, t2);
-			t_3d_vec pa = rt_get_point(ray, t);
-
-			double h_dis = rt_vec_dot(rt_vec_sub(pa, cy->center_p_vec), cy->unit_orient_vec);
-			if (h_dis < (- 1.0 * cy->height / 2.0f) || (cy->height / 2.0f) < h_dis)
-			{
-				t = rt_max(t1, t2);
-				*flag = -1.0;
-			}
-		}
-		else
-		{
-			t = rt_max(t1, t2);
+			t = rt_max(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
+			*flag = -1.0;
 		}
 	}
+	else
+		t = rt_max(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
 	return (t);
 }
 
