@@ -108,6 +108,8 @@ typedef struct s_scene
 {
 	int							screean_width;
 	int							screean_height;
+	double						current_fx;
+	double						current_fy;
 	t_camera					camara;
 	t_point_lite_source			*pls_s;
 	t_obj						*objs;

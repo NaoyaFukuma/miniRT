@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 10:32:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:36:14 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 			continue ;
 		}
 		nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);
+		nlDot *= return_randam_ratio(rt->scene.current_fx, 50);
 		i = 0;
 		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, mat, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));
 		if (nlDot > 0.0)
@@ -215,7 +216,7 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 	res = test_result.intersection_point;
 	mat = rt_get_obj_color(test_result.obj);
 	col = rt_rgb_vec_constructor(0, 0, 0);
-	col = rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, rt->scene.material.ambientFactor, rt_rgb_vec_constructor(1, 1, 1					)));
+	col = rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, rt->scene.material.ambientFactor, rt_rgb_vec_constructor(1, 1, 1)));
 	rt_calculate_specular_and_diffuse_with_all(rt, ray, &col, res, mat);
 	return (col);
 }
