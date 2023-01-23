@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:47:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:48:10 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 {
 	int		id;
 	char	**tokens;
-	void (*const funcs[])(t_rt_data *rt, const char **tokens)
+	void (*const	funcs[])(t_rt_data *rt, const char **tokens)
 		= {rt_fill_struct_a, rt_fill_struct_c, rt_fill_struct_l,
 			rt_fill_struct_sp, rt_fill_struct_pl,
 			rt_fill_struct_cy, rt_fill_struct_cn};
