@@ -22,20 +22,20 @@ double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 {
 	t_3d_vec	d;
 	t_3d_vec	s_cy_c;
-	double		rad_div_by_h;
+	double		rad_div_h;
 	double		c;
 
 	d = rt_vec_copy(ray.unit_d_vec);
 	s_cy_c = rt_vec_sub(ray.start, cone->center_p_vec);
-	rad_div_by_h = cone->radius / cone->height;
+	rad_div_h = cone->radius / cone->height;
 	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0)
-		- pow(rad_div_by_h, 2.0) * pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0);
+		- pow(rad_div_h, 2.0) * pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0);
 	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d,
 		cone->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cone->unit_orient_vec)))
-		- 2.0 * pow(rad_div_by_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
+		- 2.0 * pow(rad_div_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
 		* rt_vec_dot(s_cy_c, cone->unit_orient_vec);
 	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c,
-		cone->unit_orient_vec), 2.0) - pow(rad_div_by_h, 2.0)
+		cone->unit_orient_vec), 2.0) - pow(rad_div_h, 2.0)
 		* pow(rt_vec_dot(s_cy_c, cone->unit_orient_vec), 2.0);
 	return (*b * *b - 4.0 * *a * c);
 }
