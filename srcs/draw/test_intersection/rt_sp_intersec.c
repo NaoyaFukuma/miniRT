@@ -31,7 +31,7 @@ static double	rt_calc_abd(t_sphere *sp, t_ray ray, double *a, double *b)
 	return (*b * *b - 4.0 * *a * c);
 }
 
-double	rt_sp_calc_dir_vec(t_sphere *sp, t_ray ray)
+static double	rt_sp_calc_dir_vec(t_sphere *sp, t_ray ray)
 {
 	double	a;
 	double	b;
