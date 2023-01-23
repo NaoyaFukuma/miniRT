@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:15:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:36:48 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,8 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit(ER_PL_ORI);
 }
 
-void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
+void	rt_fill_struct_cy_sub(t_obj *obj_ptr, const char **tokens)
 {
-	t_obj	*obj_ptr;
-	double	mod;
-
-	if (rt_count_str(tokens) != 6)
-		rt_put_rt_file_format_error_exit("rt file invalid format");
-	obj_ptr = rt_new_obj(rt, e_CYLINDER);
 	obj_ptr->cylinder->center_p_vec
 		= rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cylinder->unit_orient_vec
@@ -73,6 +67,17 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cylinder->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
+}
+
+void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
+{
+	t_obj	*obj_ptr;
+	double	mod;
+
+	if (rt_count_str(tokens) != 6)
+		rt_put_rt_file_format_error_exit("rt file invalid format");
+	obj_ptr = rt_new_obj(rt, e_CYLINDER);
+	rt_fill_struct_cy_sub(obj_ptr, tokens);
 	mod = fmod(obj_ptr->cylinder->radius / 0.01, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CY_DIA);
