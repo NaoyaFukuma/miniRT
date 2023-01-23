@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:06:03 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:06:48 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ bool	rt_check_camera_or_lite_in_sphere(t_rt_data *rt)
 		while (obj_ptr->shape == e_SPHERE && lite_ptr)
 		{
 			if (rt_vec_mag(rt_vec_sub(lite_ptr->p_vec,
-										obj_ptr->sphere->center_p_vec)) <= obj_ptr->sphere->radius)
+						obj_ptr->sphere->center_p_vec))
+						<= obj_ptr->sphere->radius)
 				return (true);
 			lite_ptr = lite_ptr->next;
 		}
