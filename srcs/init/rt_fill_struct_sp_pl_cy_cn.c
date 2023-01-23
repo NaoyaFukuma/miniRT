@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:11:41 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:13:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("Not four sphere light elements");
 	obj_ptr = rt_new_obj(rt, e_SPHERE);
-	obj_ptr->sphere->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
+	obj_ptr->sphere->center_p_vec
+		= rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->sphere->radius = ft_atof(tokens[2]);
 	if (obj_ptr->sphere->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Sphere diameter is invalid value");
@@ -63,8 +64,10 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 	if (rt_count_str(tokens) != 6)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
 	obj_ptr = rt_new_obj(rt, e_CYLINDER);
-	obj_ptr->cylinder->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
-	obj_ptr->cylinder->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
+	obj_ptr->cylinder->center_p_vec
+		= rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
+	obj_ptr->cylinder->unit_orient_vec
+		= rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->cylinder->unit_orient_vec) != 1.0)
 		rt_put_rt_file_format_error_exit(ER_CY_ORI);
 	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
