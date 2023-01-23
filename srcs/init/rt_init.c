@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:38:57 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:39:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static void	rt_mlx_init(t_rt_data *rt)
 	if (!rt->mlx.image.img)
 		rt_put_error_exit("mlx_new_window() failure");
 	rt->mlx.image.addr = mlx_get_data_addr(rt->mlx.image.img,
-					&rt->mlx.image.bits_per_pixel,
-					&rt->mlx.image.line_length,
-					&rt->mlx.image.endian);
+				&rt->mlx.image.bits_per_pixel,
+				&rt->mlx.image.line_length,
+				&rt->mlx.image.endian);
 	if (!rt->mlx.image.addr)
 		rt_put_error_exit("mlx_new_window() failure");
 }
