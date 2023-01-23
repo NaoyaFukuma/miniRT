@@ -30,9 +30,9 @@ double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 	rad_div_h = cone->radius / cone->height;
 	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0)
 		- pow(rad_div_h, 2.0) * pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0);
-	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d,
-			cone->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cone->unit_orient_vec)))
-		- 2.0 * pow(rad_div_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
+	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cone->unit_orient_vec))
+		* (rt_vec_dot(s_cy_c, cone->unit_orient_vec))) - 2.0
+		* pow(rad_div_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
 		* rt_vec_dot(s_cy_c, cone->unit_orient_vec);
 	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c,
 			cone->unit_orient_vec), 2.0) - pow(rad_div_h, 2.0)
