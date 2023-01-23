@@ -34,7 +34,7 @@ static double	rt_calc_abd(t_cylinder *cy, t_ray ray, double *a, double *b)
 	return (*b * *b - 4.0 * *a * c);
 }
 
-double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
+static double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
 {
 	double	a;
 	double	b;

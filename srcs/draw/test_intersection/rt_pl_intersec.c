@@ -24,7 +24,7 @@ t_3d_vec	rt_get_point(t_ray ray, double t)
 	return (rt_vec_add(ray.start, rt_vec_mult(ray.unit_d_vec, t)));
 }
 
-t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
+static t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
 {
 	if ((int)(x / 1.0) % 2 == 0)
 	{
@@ -53,7 +53,7 @@ t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
 	return (color);
 }
 
-t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
+static t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 {
 	t_3d_vec	dx;
 	t_3d_vec	pw_pc;
@@ -72,28 +72,27 @@ t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 	x = rt_vec_mag(pw_pc) * dot;
 	y = rt_vec_mag(rt_vec_sub(pw_pc, rt_vec_mult(dx, x)));
 	return (rt_decide_color(x, y, plane->defalt_color));
-	return (plane->color);
 }
 
 t_insec_p	rt_pl_intersec(t_plane *plane, t_ray ray)
 {
 	double					dn_dot;
+	double t;
 	t_insec_p	res;
 
 	dn_dot = rt_vec_dot(ray.unit_d_vec, plane->unit_norm_vec);
 	res.unit_n_vec.x = NOT_INTERSECT;
-	if (dn_dot != 0)
+	if (dn_dot == 0)
+		return (res);
+	t = (rt_vec_dot(plane->p_vec, plane->unit_norm_vec) -
+				rt_vec_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
+	if (t > 0)
 	{
-		double t = (rt_vec_dot(plane->p_vec, plane->unit_norm_vec) -
-					rt_vec_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
-		if (t > 0)
-		{
-			res.dist = t * rt_vec_mag(ray.unit_d_vec);
-			res.p_vec = rt_get_point(ray, t);
-			res.unit_n_vec = rt_vec_copy(plane->unit_norm_vec);
-			plane->color = rt_checker_board(&res, plane);
-			return (res);
-		}
+		res.dist = t * rt_vec_mag(ray.unit_d_vec);
+		res.p_vec = rt_get_point(ray, t);
+		res.unit_n_vec = rt_vec_copy(plane->unit_norm_vec);
+		plane->color = rt_checker_board(&res, plane);
+		return (res);
 	}
 	return (res);
 }
