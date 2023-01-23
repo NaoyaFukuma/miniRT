@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 01:39:47 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include "rt_structs.h"
 #include "rt_init_utils.h"
 
-void	rt_fill_struct_A(t_rt_data *rt, const char **tokens);
-void	rt_fill_struct_C(t_rt_data *rt, const char **tokens);
-void	rt_fill_struct_L(t_rt_data *rt, const char **tokens);
+void	rt_fill_struct_a(t_rt_data *rt, const char **tokens);
+void	rt_fill_struct_c(t_rt_data *rt, const char **tokens);
+void	rt_fill_struct_l(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens);
@@ -30,8 +30,8 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 	int		id;
 	char	**tokens;
 	void (*const fill_funcs[])(t_rt_data * rt,
-			const char **tokens) = {rt_fill_struct_A,
-			rt_fill_struct_C, rt_fill_struct_L,
+			const char **tokens) = {rt_fill_struct_a,
+			rt_fill_struct_c, rt_fill_struct_l,
 			rt_fill_struct_sp, rt_fill_struct_pl,
 			rt_fill_struct_cy, rt_fill_struct_cn};
 
