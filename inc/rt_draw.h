@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 12:28:39 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:18:56 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_rgb_vec	rt_eye_raytrace(t_rt_data *rt, double fx, double fy);
 typedef struct s_intersection_point
 {
 	double		distance;
-	t_3d_vec	position;
+	t_3d_vec	p_vec;
 	t_3d_vec	normal;
 }				t_intersection_point;
 
@@ -78,6 +78,6 @@ double	rt_max(double a, double b);
 double	rt_constrain(double	num, double low, double high);
 
 /* in randam.c */
-double	return_randam_ratio(int seed, int bottom);
+double	return_random_ratio(int seed, int bottom);
 
 #endif

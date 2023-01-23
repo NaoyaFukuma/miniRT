@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:25:35 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 12:26:35 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:20:03 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	calculate_recurrence_formula(int seed, int sequence[], size_t i)
 	return (rt_sum_int_sequence(sequence, digit_times_seed - 1));
 }
 
-int	rt_rnadam_m_sequence(int seed)
+int	rt_random_m_sequence(int seed)
 {
 	int	sequence[ELEMENT];
 
@@ -77,14 +77,14 @@ int	rt_rnadam_m_sequence(int seed)
 	return (calculate_recurrence_formula(seed, sequence, PERIOD));
 }
 
-double	return_randam_ratio(int seed, int bottom)
+double	return_random_ratio(int seed, int bottom)
 {
-	int	randam_num;
+	int	random_num;
 
-	randam_num = rt_rnadam_m_sequence(seed);
-	if (randam_num < bottom)
+	random_num = rt_random_m_sequence(seed);
+	if (random_num < bottom)
 	{
-		randam_num = bottom;
+		random_num = bottom;
 	}
-	return ((double)randam_num / (1 << DECIMAL_DIGIT));
+	return ((double)random_num / (1 << DECIMAL_DIGIT));
 }

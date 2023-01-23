@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 12:43:43 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:15:42 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	rt_draw(t_rt_data *rt)
 	int		height;
 	int		width;
 
-	height = rt->scene.screean_height;
-	width = rt->scene.screean_width;
+	height = rt->scene.scr_height;
+	width = rt->scene.scr_width;
 	y = 0;
 	while (y < height)
 	{

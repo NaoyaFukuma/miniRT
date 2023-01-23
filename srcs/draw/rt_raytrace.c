@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 12:45:27 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:18:56 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,13 @@ t_rgb_vec	rt_rgb_vec_pi(t_rgb_vec intensity, t_rgb_vec factor,
 	return (color);
 }
 
-t_lighting	rt_calculate_lighting_at_intersection(t_point_lite_source *pls,
+t_lighting	rt_calculate_lighting_at_intersection(t_p_lite_src *pls,
 													t_3d_vec intersection_position)
 {
 	t_lighting	res;
 	t_3d_vec	tmp_direction;
 
-	tmp_direction = rt_vector_sub(pls->position, intersection_position);
+	tmp_direction = rt_vector_sub(pls->p_vec, intersection_position);
 	res.distance = rt_vector_magnitude(tmp_direction);
 	res.unit_direction = rt_vector_normalize(tmp_direction);
 	res.intensity = rt_rgb_vec_copy(pls->lite_color);
@@ -168,7 +168,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 		t_rgb_vec *col, t_intersection_point res, t_rgb_vec mat)
 {
 	t_3d_vec					eye_dir;
-	t_point_lite_source			*pls;
+	t_p_lite_src			*pls;
 	t_intersection_testresult	shadow_res;
 	static int					i;
 	double						cosine_phi;
@@ -178,8 +178,8 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 	pls = rt->scene.pls_s;
 	while (pls)
 	{
-		t_lighting lighting = rt_calculate_lighting_at_intersection(pls, res.position);
-		t_ray shadow_ray = rt_make_shadow_ray(res.position, lighting);
+		t_lighting lighting = rt_calculate_lighting_at_intersection(pls, res.p_vec);
+		t_ray shadow_ray = rt_make_shadow_ray(res.p_vec, lighting);
 		shadow_res = rt_test_intersection_with_all(rt->scene.objs, shadow_ray, lighting.distance - C_EPSILON, true);
 		if (shadow_res.intersection_point.normal.x != NOT_INTERSECT)
 		{
@@ -187,7 +187,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 			continue ;
 		}
 		nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);
-		nlDot *= return_randam_ratio(rt->scene.current_x * rt->scene.current_y, 50);
+		nlDot *= return_random_ratio(rt->scene.current_x * rt->scene.current_y, 50);
 		i = 0;
 		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, mat, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));
 		if (nlDot > 0.0)
@@ -196,7 +196,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 			t_3d_vec unit_invEyeDir = rt_vector_normalize(rt_vector_mult(eye_dir, -1));
 			double vrDot = rt_constrain(rt_vector_dot(unit_invEyeDir, ref_dir), 0, 1);
 			cosine_phi = pow(vrDot, rt->scene.material.shininess);
-			*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.specularFactor, rt_rgb_vec_constructor(cosine_phi, cosine_phi, cosine_phi)));
+			*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, rt->scene.material.spec_fact, rt_rgb_vec_constructor(cosine_phi, cosine_phi, cosine_phi)));
 		}
 		i++;
 		pls = pls->next;
@@ -216,7 +216,7 @@ t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
 	res = test_result.intersection_point;
 	mat = rt_get_obj_color(test_result.obj);
 	col = rt_rgb_vec_constructor(0, 0, 0);
-	col = rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.ambient_color, rt->scene.material.ambientFactor, rt_rgb_vec_constructor(1, 1, 1)));
+	col = rt_rgb_vec_add(col, rt_rgb_vec_pi(rt->scene.amb_color, rt->scene.material.amb_fact, rt_rgb_vec_constructor(1, 1, 1)));
 	rt_calculate_specular_and_diffuse_with_all(rt, ray, &col, res, mat);
 	return (col);
 }
