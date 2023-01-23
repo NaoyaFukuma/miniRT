@@ -31,21 +31,24 @@ static double	rt_calc_abd(t_sphere *sp, t_ray ray, double *a, double *b)
 	return (*b * *b - 4.0 * *a * c);
 }
 
-static double	rt_sp_calc_dir_vec(t_sphere *sp, t_ray ray)
+double	rt_sp_calc_dir_vec(t_sphere *sp, t_ray ray)
 {
 	double	a;
 	double	b;
 	double	d;
+	double	t;
 
 	d = rt_calc_abd(sp, ray, &a, &b);
+	t = -1.0;
 	if (d == 0.0)
 		return (-b / (2.0 * a));
 	if (d < 0.0)
-		return (-1);
-	return ((-b - sqrt(d)) / (2.0 * a) > 0.0 && (-b + sqrt(d)) / (2.0
+		return (t);
+	t = (-b - sqrt(d)) / (2.0 * a) > 0.0 && (-b + sqrt(d)) / (2.0
 			* a) > 0.0 ? rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d))
 			/ (2.0 * a)) : rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d))
-			/ (2.0 * a)));
+			/ (2.0 * a));
+	return (t);
 }
 
 t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
