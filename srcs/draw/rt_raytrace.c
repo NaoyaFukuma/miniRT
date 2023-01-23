@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 12:36:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:45:27 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	rt_calculate_specular_and_diffuse_with_all(t_rt_data *rt, t_ray ray,
 			continue ;
 		}
 		nlDot = rt_constrain(rt_vector_dot(res.normal, lighting.unit_direction), 0, 1);
-		nlDot *= return_randam_ratio(rt->scene.current_fx, 50);
+		nlDot *= return_randam_ratio(rt->scene.current_x * rt->scene.current_y, 50);
 		i = 0;
 		*col = rt_rgb_vec_add(*col, rt_rgb_vec_pi(lighting.intensity, mat, rt_rgb_vec_constructor(nlDot, nlDot, nlDot)));
 		if (nlDot > 0.0)
