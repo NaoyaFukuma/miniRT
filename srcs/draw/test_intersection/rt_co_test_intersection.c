@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 14:24:06 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 14:40:54 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,14 @@ double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 	s_cy_c = rt_vector_sub(ray.start, cone->center_p_vec);
 	rad_div_by_h = cone->radius / cone->height;
 	*a = rt_vector_dot(d, d) - pow(rt_vector_dot(d, cone->unit_orient_vec), 2.0)
-		-
-		pow(rad_div_by_h, 2.0) * pow(rt_vector_dot(d, cone->unit_orient_vec),
-				2.0);
+		- pow(rad_div_by_h, 2.0) * pow(rt_vector_dot(d, cone->unit_orient_vec), 2.0);
 	*b = 2.0 * (rt_vector_dot(d, s_cy_c) - (rt_vector_dot(d,
-					cone->unit_orient_vec)) * (rt_vector_dot(s_cy_c,
-					cone->unit_orient_vec))) -
-		2.0 * pow(rad_div_by_h, 2.0) * rt_vector_dot(d, cone->unit_orient_vec)
-			* rt_vector_dot(s_cy_c, cone->unit_orient_vec);
+		cone->unit_orient_vec)) * (rt_vector_dot(s_cy_c, cone->unit_orient_vec)))
+		- 2.0 * pow(rad_div_by_h, 2.0) * rt_vector_dot(d, cone->unit_orient_vec)
+		* rt_vector_dot(s_cy_c, cone->unit_orient_vec);
 	c = rt_vector_dot(s_cy_c, s_cy_c) - pow(rt_vector_dot(s_cy_c,
-				cone->unit_orient_vec), 2.0) -
-		pow(rad_div_by_h, 2.0) * pow(rt_vector_dot(s_cy_c,
-					cone->unit_orient_vec), 2.0);
+		cone->unit_orient_vec), 2.0) - pow(rad_div_by_h, 2.0)
+		* pow(rt_vector_dot(s_cy_c, cone->unit_orient_vec), 2.0);
 	return (*b * *b - 4.0 * *a * c);
 }
 
@@ -62,7 +58,8 @@ double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 		{
 			t = rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 			h_dis = rt_vector_dot(rt_vector_sub(rt_get_point(ray, t),
-						cone->center_p_vec), cone->unit_orient_vec);
+												cone->center_p_vec),
+									cone->unit_orient_vec);
 			if (!(-cone->height <= h_dis && h_dis <= 0))
 			{
 				t = rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0
@@ -116,7 +113,7 @@ t_intersection_point	rt_co_test_intersection(t_cone *cone, t_ray ray)
 		return (res);
 	pa = rt_get_point(ray, t);
 	h_dis = rt_vector_dot(rt_vector_sub(pa, cone->center_p_vec),
-			cone->unit_orient_vec);
+							cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
 		res.distance = t * rt_vector_magnitude(ray.direction);
