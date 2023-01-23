@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 13:21:44 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:33:54 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 
 static void	rt_mlx_init(t_rt_data *rt);
 static void	rt_import_rt_file(t_rt_data *rt, const char *file);
-void	rt_hooks(t_rt_data *rt);                         // in rt_init_hook.c
+void	rt_hooks(t_rt_data *rt);
 void	rt_fill_struct(t_rt_data *rt, const char *line);
-			// in rt_init_fill_struct.c
 
 void	rt_init(t_rt_data *rt, const char *file)
 {
@@ -36,15 +35,6 @@ void	rt_init(t_rt_data *rt, const char *file)
 	rt->scene.material.amb_fact = rt_rgb_vec_constructor(0.50f, 0.50f, 0.50f);
 	rt->scene.material.spec_fact = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
 	rt->scene.material.shininess = 8.0f;
-	printf("rt->scene.material.amb_fact r[%f] g[%f] b[%f]\n",
-			rt->scene.material.amb_fact.r,
-			rt->scene.material.amb_fact.g,
-			rt->scene.material.amb_fact.b);
-	printf("rt->scene.material.spec_fact r[%f] g[%f] b[%f]\n",
-			rt->scene.material.spec_fact.r,
-			rt->scene.material.spec_fact.g,
-			rt->scene.material.spec_fact.b);
-	printf("rt->scene.material.shininess [%f]\n", rt->scene.material.shininess);
 }
 
 static void	rt_mlx_init(t_rt_data *rt)
@@ -84,26 +74,20 @@ static void	rt_import_rt_file(t_rt_data *rt, const char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		rt_perror_exit("open() failure");
-	line = get_next_line(fd);
-	while (line)
+	while (1)
 	{
-		printf("\e[32m");
-		fflush(stdout);
-		printf("\n%s", line);
-		printf("\e[m");
-		fflush(stdout);
-		rt_fill_struct(rt, line);
-		free(line);
 		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (*line != '\0')
+			rt_fill_struct(rt, line);
+		free(line);
 	}
 	if (rt_check_camera_or_lite_in_sphere(rt))
 		rt_put_rt_file_format_error_exit("The camera or lite is inside the sphere");
-	if (rt->scene.amb_color.r == -1)
-		rt_put_rt_file_format_error_exit("No ambient light");
-	if (rt->scene.cam.scr_dist == -1)
-		rt_put_rt_file_format_error_exit("No camera");
-	if (rt->scene.pls_s == NULL)
-		rt_put_rt_file_format_error_exit("No lites");
+	if (rt->scene.amb_color.r == -1 || rt->scene.cam.scr_dist == -1
+		|| rt->scene.pls_s == NULL)
+		rt_put_rt_file_format_error_exit("No ambient light or camera, point lite");
 	if (close(fd) < 0)
 		rt_perror_exit("close() failure");
 }
