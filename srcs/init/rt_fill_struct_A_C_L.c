@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 13:17:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:04:11 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Not four camera elements");
 	rt->scene.cam.cam_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	rt->scene.cam.unit_cam_dir = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	if (rt_vector_magnitude(rt->scene.cam.unit_cam_dir) != 1.0)
+	if (rt_vec_mag(rt->scene.cam.unit_cam_dir) != 1.0)
 		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a camera is not 1");
 	if (ft_strchar((char *)tokens[3], '.'))
 			rt_put_rt_file_format_error_exit("FOV is not integer type");
@@ -62,19 +62,19 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("FOV range [0,180]");
 	rt->scene.cam.scr_dist = (rt->scene.scr_width / 2) / tan((long double)fov
 			* M_PI / 180.0l / 2.0l);
-	rt->scene.cam.scr_center_p_vec = rt_vector_add(rt->scene.cam.cam_p_vec,
-			rt_vector_mult(rt->scene.cam.unit_cam_dir, rt->scene.cam.scr_dist));
-	ey = rt_vector_constructor(0, 1, 0);
+	rt->scene.cam.scr_center_p_vec = rt_vec_add(rt->scene.cam.cam_p_vec,
+			rt_vec_mult(rt->scene.cam.unit_cam_dir, rt->scene.cam.scr_dist));
+	ey = rt_vec_constructor(0, 1, 0);
 
 	if (rt->scene.cam.unit_cam_dir.x == 0 && rt->scene.cam.unit_cam_dir.y == -1 && rt->scene.cam.unit_cam_dir.z == 0)
 	{
-		rt->scene.cam.unit_scr_dir_x_vec = rt_vector_constructor(1, 0, 0);
-		rt->scene.cam.unit_scr_dir_y_vec = rt_vector_constructor(0, 0, 1);
+		rt->scene.cam.unit_scr_dir_x_vec = rt_vec_constructor(1, 0, 0);
+		rt->scene.cam.unit_scr_dir_y_vec = rt_vec_constructor(0, 0, 1);
 	}
 	else
 	{
-		rt->scene.cam.unit_scr_dir_x_vec = rt_vector_normalize(rt_vector_cross(ey, rt->scene.cam.unit_cam_dir));
-		rt->scene.cam.unit_scr_dir_y_vec = rt_vector_normalize(rt_vector_cross(rt->scene.cam.unit_cam_dir, rt->scene.cam.unit_scr_dir_x_vec));
+		rt->scene.cam.unit_scr_dir_x_vec = rt_vec_to_unit(rt_vec_cross(ey, rt->scene.cam.unit_cam_dir));
+		rt->scene.cam.unit_scr_dir_y_vec = rt_vec_to_unit(rt_vec_cross(rt->scene.cam.unit_cam_dir, rt->scene.cam.unit_scr_dir_x_vec));
 	}
 
 	printf("camera posi x = %f  y = %f z = %f\n", rt->scene.cam.cam_p_vec.x,
@@ -84,7 +84,7 @@ void	rt_fill_struct_C(t_rt_data *rt, const char **tokens)
 	printf("fov == %d\n", fov);
 	printf("rt->scene.scr_width / 2 == %d * tan((long double)fov * M_PI / 180.0l / 2.0l) == %f   ", rt->scene.scr_width / 2,
 			tan((long double)fov * M_PI / 180.0l / 2.0l));
-	printf("distance = %f\n", rt->scene.cam.scr_dist);
+	printf("dist = %f\n", rt->scene.cam.scr_dist);
 	printf("screen center p_vec x = %f  y = %f z = %f\n",
 			rt->scene.cam.scr_center_p_vec.x, rt->scene.cam.scr_center_p_vec.y,
 			rt->scene.cam.scr_center_p_vec.z);

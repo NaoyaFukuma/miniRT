@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 13:17:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:02:52 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ bool	rt_check_camera_or_lite_in_sphere(t_rt_data *rt)
 	lite_ptr = rt->scene.pls_s;
 	while (obj_ptr)
 	{
-		if (obj_ptr->shape == E_SPHERE
-			&& rt_vector_magnitude(rt_vector_sub(rt->scene.cam.cam_p_vec,
+		if (obj_ptr->shape == e_SPHERE
+			&& rt_vec_mag(rt_vec_sub(rt->scene.cam.cam_p_vec,
 					obj_ptr->sphere->center_p_vec)) <= obj_ptr->sphere->radius)
 			return (true);
-		while (obj_ptr->shape == E_SPHERE && lite_ptr)
+		while (obj_ptr->shape == e_SPHERE && lite_ptr)
 		{
-			if (rt_vector_magnitude(rt_vector_sub(lite_ptr->p_vec,
+			if (rt_vec_mag(rt_vec_sub(lite_ptr->p_vec,
 						obj_ptr->sphere->center_p_vec)) <= obj_ptr->sphere->radius)
 				return (true);
 			lite_ptr = lite_ptr->next;

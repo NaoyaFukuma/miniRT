@@ -1,7 +1,8 @@
 NAME = miniRT
 B_NAME = miniRT_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
 LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
 INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 
@@ -22,10 +23,10 @@ SRCS =	main.c \
 		rt_random.c \
 		rt_eye_raytrace.c \
 		rt_raytrace.c \
-		rt_co_test_intersection.c \
-		rt_cy_test_intersection.c \
-		rt_pl_test_intersection.c \
-		rt_sp_test_intersection.c
+		rt_co_intersec.c \
+		rt_cy_intersec.c \
+		rt_pl_intersec.c \
+		rt_sp_intersec.c
 
 B_SRCS =	b_main.c
 
@@ -50,8 +51,8 @@ OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 B_OBJDIR = ./b_obj
 B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
 
-DEPENDS = $(OBJS:.o=.d)
--include $(DEPENDS)
+# DEPENDS = $(OBJS:.o=.d)
+# -include $(DEPENDS)
 
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a

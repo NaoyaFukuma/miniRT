@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_pl_test_intersection.c                          :+:      :+:    :+:   */
+/*   rt_pl_intersec.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 13:09:47 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:05:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 t_3d_vec	rt_get_point(t_ray ray, double t)
 {
-	return (rt_vector_add(ray.start, rt_vector_mult(ray.direction, t)));
+	return (rt_vec_add(ray.start, rt_vec_mult(ray.unit_d_vec, t)));
 }
 
 t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
@@ -53,7 +53,7 @@ t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
 	return (color);
 }
 
-t_rgb_vec	rt_checker_board(t_intersection_point *res, t_plane *plane)
+t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 {
 	t_3d_vec	dx;
 	t_3d_vec	pw_pc;
@@ -63,34 +63,34 @@ t_rgb_vec	rt_checker_board(t_intersection_point *res, t_plane *plane)
 
 	if (plane->unit_norm_vec.x == 0.0 && plane->unit_norm_vec.y == 1.0
 		&& plane->unit_norm_vec.z == 0.0)
-		dx = rt_vector_constructor(1, 0, 0);
+		dx = rt_vec_constructor(1, 0, 0);
 	else
-		dx = rt_vector_normalize(rt_vector_cross(rt_vector_constructor(0, 1, 0),
+		dx = rt_vec_to_unit(rt_vec_cross(rt_vec_constructor(0, 1, 0),
 			plane->unit_norm_vec));
-	pw_pc = rt_vector_sub(res->p_vec, plane->p_vec);
-	dot = rt_vector_dot(rt_vector_normalize(pw_pc), dx);
-	x = rt_vector_magnitude(pw_pc) * dot;
-	y = rt_vector_magnitude(rt_vector_sub(pw_pc, rt_vector_mult(dx, x)));
+	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
+	dot = rt_vec_dot(rt_vec_to_unit(pw_pc), dx);
+	x = rt_vec_mag(pw_pc) * dot;
+	y = rt_vec_mag(rt_vec_sub(pw_pc, rt_vec_mult(dx, x)));
 	return (rt_decide_color(x, y, plane->defalt_color));
 	return (plane->color);
 }
 
-t_intersection_point	rt_pl_test_intersection(t_plane *plane, t_ray ray)
+t_insec_p	rt_pl_intersec(t_plane *plane, t_ray ray)
 {
 	double					dn_dot;
-	t_intersection_point	res;
+	t_insec_p	res;
 
-	dn_dot = rt_vector_dot(ray.direction, plane->unit_norm_vec);
-	res.normal.x = NOT_INTERSECT;
+	dn_dot = rt_vec_dot(ray.unit_d_vec, plane->unit_norm_vec);
+	res.unit_n_vec.x = NOT_INTERSECT;
 	if (dn_dot != 0)
 	{
-		double t = (rt_vector_dot(plane->p_vec, plane->unit_norm_vec) -
-					rt_vector_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
+		double t = (rt_vec_dot(plane->p_vec, plane->unit_norm_vec) -
+					rt_vec_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
 		if (t > 0)
 		{
-			res.distance = t * rt_vector_magnitude(ray.direction);
+			res.dist = t * rt_vec_mag(ray.unit_d_vec);
 			res.p_vec = rt_get_point(ray, t);
-			res.normal = rt_vector_copy(plane->unit_norm_vec);
+			res.unit_n_vec = rt_vec_copy(plane->unit_norm_vec);
 			plane->color = rt_checker_board(&res, plane);
 			return (res);
 		}

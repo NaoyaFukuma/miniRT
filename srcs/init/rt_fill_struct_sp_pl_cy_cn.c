@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 13:10:25 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:03:30 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("Not four sphere light elements");
-	obj_ptr = rt_new_obj(rt, E_SPHERE);
+	obj_ptr = rt_new_obj(rt, e_SPHERE);
 	obj_ptr->sphere->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->sphere->radius = ft_atof(tokens[2]);
 	if (obj_ptr->sphere->radius <= 0 || errno == ERANGE)
@@ -57,10 +57,10 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("");
-	obj_ptr = rt_new_obj(rt, E_PLANE);
+	obj_ptr = rt_new_obj(rt, e_PLANE);
 	obj_ptr->plane->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->plane->unit_norm_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	if (rt_vector_magnitude(obj_ptr->plane->unit_norm_vec) != 1.0)
+	if (rt_vec_mag(obj_ptr->plane->unit_norm_vec) != 1.0)
 		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a plane is not 1");
 
 	obj_ptr->plane->color = rt_str_to_rbg(tokens[3]);
@@ -86,10 +86,10 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 
 	if (rt_count_str(tokens) != 6)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
-	obj_ptr = rt_new_obj(rt, E_CYLINDER);
+	obj_ptr = rt_new_obj(rt, e_CYLINDER);
 	obj_ptr->cylinder->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cylinder->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	if (rt_vector_magnitude(obj_ptr->cylinder->unit_orient_vec) != 1.0)
+	if (rt_vec_mag(obj_ptr->cylinder->unit_orient_vec) != 1.0)
 		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a cylinder is not 1");
 	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cylinder->radius <= 0 || errno == ERANGE)
@@ -130,10 +130,10 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 
 	if (rt_count_str(tokens) != 6)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
-	obj_ptr = rt_new_obj(rt, E_CONE);
+	obj_ptr = rt_new_obj(rt, e_CONE);
 	obj_ptr->cone->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cone->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
-	if (rt_vector_magnitude(obj_ptr->cone->unit_orient_vec) != 1.0)
+	if (rt_vec_mag(obj_ptr->cone->unit_orient_vec) != 1.0)
 		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a cylinder is not 1");
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cone->radius <= 0 || errno == ERANGE)
