@@ -107,7 +107,7 @@ t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 		return (res);
 	pa = rt_get_point(ray, t);
 	h_dis = rt_vec_dot(rt_vec_sub(pa, cone->center_p_vec),
-				cone->unit_orient_vec);
+			cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
