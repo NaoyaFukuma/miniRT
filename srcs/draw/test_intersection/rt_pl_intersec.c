@@ -66,7 +66,7 @@ static t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 		dx = rt_vec_constructor(1, 0, 0);
 	else
 		dx = rt_vec_to_unit(rt_vec_cross(rt_vec_constructor(0, 1, 0),
-				plane->unit_norm_vec));
+					plane->unit_norm_vec));
 	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
 	dot = rt_vec_dot(rt_vec_to_unit(pw_pc), dx);
 	x = rt_vec_mag(pw_pc) * dot;
