@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:16:16 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:22:04 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 	while (i < 3)
 	{
 		if (ft_strchar(rgb[i], '.'))
-			rt_put_rt_file_format_error_exit("RGB elements are not integer type");
+			rt_put_rt_file_format_error_exit(ER_NOT_INT);
 		tmp = ft_atoi(rgb[i]);
 		if (errno == ERANGE)
-			rt_put_rt_file_format_error_exit("The value of the RGB element is overflowing");
+			rt_put_rt_file_format_error_exit(ER_OVER_FLOW);
 		if (!(0 <= tmp && tmp <= 255))
-			rt_put_rt_file_format_error_exit("RGB value range is not [0 - 255]");
+			rt_put_rt_file_format_error_exit(ER_RGB_RANGE);
 		++i;
 	}
 	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0, ft_atof(rgb[1]) / 255.0,

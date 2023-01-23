@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:36:45 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:14:38 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:21:52 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,8 @@
 # define ER_RANGE "Vector elements value are overflow"
 # define ER_DECIMAL "Vector elements value are not to the first decimal place"
 # define ER_ELE "Vector elements value range is lower or greater"
+# define ER_NOT_INT "RGB elements are not integer type"
+# define ER_OVER_FLOW "The value of the RGB element is overflowing"
+# define ER_RGB_RANGE "RGB value range is not [0 - 255]"
 
 #endif
