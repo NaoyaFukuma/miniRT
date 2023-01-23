@@ -53,14 +53,14 @@ double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
 		t = rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 		h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t),
 					cy->center_p_vec), cy->unit_orient_vec);
-		if (h_dis < (- 1.0 * cy->height / 2.0f) || (cy->height / 2.0f) < h_dis)
+		if (h_dis < (-1.0 * cy->height / 2.0f) || (cy->height / 2.0f) < h_dis)
 		{
-			t = rt_max(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
+			t = rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 			*flag = -1.0;
 		}
 	}
 	else
-		t = rt_max(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
+		t = rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 	return (t);
 }
 
