@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:36:45 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:21:52 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:38:05 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@
 # define ER_NOT_INT "RGB elements are not integer type"
 # define ER_OVER_FLOW "The value of the RGB element is overflowing"
 # define ER_RGB_RANGE "RGB value range is not [0 - 255]"
+# define ER_CAM_IN_SP "The camera or lite is inside the sphere"
+# define ER_NO_AMB_CAM_P "No ambient light or camera, point lite"
 
 #endif

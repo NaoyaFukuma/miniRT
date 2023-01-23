@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:35:42 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:38:06 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	rt_mlx_init(t_rt_data *rt)
 	if (!rt->mlx.mlx)
 		rt_put_error_exit("mlx_init() failure\n");
 	mlx_get_screen_size(rt->mlx.mlx, &rt->scene.scr_width,
-			&rt->scene.scr_height);
+		&rt->scene.scr_height);
 	rt->scene.scr_width = rt->scene.scr_width * 2 / 3;
 	rt->scene.scr_height = rt->scene.scr_height * 2 / 3;
 	rt->mlx.win = mlx_new_window(rt->mlx.mlx, rt->scene.scr_width,
@@ -53,13 +53,13 @@ static void	rt_mlx_init(t_rt_data *rt)
 	if (!rt->mlx.win)
 		rt_put_error_exit("mlx_new_window() failure");
 	rt->mlx.image.img = mlx_new_image(rt->mlx.mlx, rt->mlx.image.width,
-			rt->mlx.image.height);
+		rt->mlx.image.height);
 	if (!rt->mlx.image.img)
 		rt_put_error_exit("mlx_new_window() failure");
 	rt->mlx.image.addr = mlx_get_data_addr(rt->mlx.image.img,
-											&rt->mlx.image.bits_per_pixel,
-											&rt->mlx.image.line_length,
-											&rt->mlx.image.endian);
+							&rt->mlx.image.bits_per_pixel,
+							&rt->mlx.image.line_length,
+							&rt->mlx.image.endian);
 	if (!rt->mlx.image.addr)
 		rt_put_error_exit("mlx_new_window() failure");
 }
@@ -84,10 +84,10 @@ static void	rt_import_rt_file(t_rt_data *rt, const char *file)
 		free(line);
 	}
 	if (rt_check_camera_or_lite_in_sphere(rt))
-		rt_put_rt_file_format_error_exit("The camera or lite is inside the sphere");
+		rt_put_rt_file_format_error_exit(ER_CAM_IN_SP);
 	if (rt->scene.amb_color.r == -1 || rt->scene.cam.scr_dist == -1
 		|| rt->scene.pls_s == NULL)
-		rt_put_rt_file_format_error_exit("No ambient light or camera, point lite");
+		rt_put_rt_file_format_error_exit(ER_NO_AMB_CAM_P);
 	if (close(fd) < 0)
 		rt_perror_exit("close() failure");
 }
