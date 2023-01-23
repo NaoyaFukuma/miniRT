@@ -1,7 +1,8 @@
 NAME = miniRT
 B_NAME = miniRT_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
 LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
 INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 
@@ -50,8 +51,8 @@ OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 B_OBJDIR = ./b_obj
 B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
 
-DEPENDS = $(OBJS:.o=.d)
--include $(DEPENDS)
+# DEPENDS = $(OBJS:.o=.d)
+# -include $(DEPENDS)
 
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
