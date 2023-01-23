@@ -58,10 +58,11 @@ double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 		{
 			t = rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 			h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t),
-				cone->center_p_vec), cone->unit_orient_vec);
+					cone->center_p_vec), cone->unit_orient_vec);
 			if (!(-cone->height <= h_dis && h_dis <= 0))
 			{
-				t = rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
+				t = rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d))
+						/ (2.0 * a));
 				*flag = -1.0;
 			}
 		}
