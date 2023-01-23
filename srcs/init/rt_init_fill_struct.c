@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:51:58 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:01:38 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,20 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens);
 int		rt_check_id(const char *str);
 
+enum funcs {
+	e_A,
+	e_C,
+	e_L,
+	e_sp,
+	e_pl,
+	e_cy,
+	e_cn,
+};
+
 void	rt_fill_struct(t_rt_data *rt, const char *line)
 {
 	int				id;
 	char			**tokens;
-	void (*const	funcs[])(t_rt_data *rt, const char **tokens)
-		= {rt_fill_struct_a, rt_fill_struct_c, rt_fill_struct_l,
-		rt_fill_struct_sp, rt_fill_struct_pl,
-		rt_fill_struct_cy, rt_fill_struct_cn};
 
 	tokens = ft_split(line, ' ');
 	if (tokens == NULL)
@@ -40,7 +46,20 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 	id = rt_check_id(tokens[0]);
 	if (id < 0)
 		rt_put_rt_file_format_error_exit("Contains invalid identifier");
-	funcs[id](rt, (const char **)tokens);
+	else if (id == e_A)
+		rt_fill_struct_a(rt, (const char**)tokens);
+	else if (id == e_C)
+		rt_fill_struct_c(rt, (const char**)tokens);
+	else if (id == e_L)
+		rt_fill_struct_l(rt, (const char**)tokens);
+	else if (id == e_sp)
+		rt_fill_struct_sp(rt, (const char**)tokens);
+	else if (id == e_pl)
+		rt_fill_struct_pl(rt, (const char**)tokens);
+	else if (id == e_cy)
+		rt_fill_struct_cy(rt, (const char**)tokens);
+	else
+		rt_fill_struct_cn(rt, (const char**)tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
 
