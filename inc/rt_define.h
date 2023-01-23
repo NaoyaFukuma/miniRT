@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:36:45 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:11:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:14:38 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@
 # define ER_CN_ORI "The norm of the orientation vector of a cone is not 1"
 # define ER_CN_DIA "Cone diameter are not to the first decimal place"
 # define ER_CN_HEI "Cone height are not to the first decimal place"
+# define ER_RANGE "Vector elements value are overflow"
+# define ER_DECIMAL "Vector elements value are not to the first decimal place"
+# define ER_ELE "Vector elements value range is lower or greater"
 
 #endif
