@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 10:22:10 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:08:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double	rt_sp_calculate_directional_vector_coefficients(t_sphere *sphere,
 	double		t1;
 	double		t2;
 
-	tmp = rt_vector_sub(ray.start, sphere->center_position);
+	tmp = rt_vector_sub(ray.start, sphere->center_p_vec);
 	A = pow(rt_vector_magnitude(ray.direction), 2.0);
 	B = 2.0 * rt_vector_dot(tmp, ray.direction);
 	C = rt_vector_dot(tmp, tmp) - pow(sphere->radius, 2.0);
@@ -61,8 +61,8 @@ t_intersection_point	rt_sp_test_intersection(t_sphere *sphere, t_ray ray)
 	if (t > 0.0)
 	{
 		res.distance = t * rt_vector_magnitude(ray.direction);
-		res.position = rt_get_point(ray, t);
-		tmp_normal = rt_vector_sub(res.position, sphere->center_position);
+		res.p_vec = rt_get_point(ray, t);
+		tmp_normal = rt_vector_sub(res.p_vec, sphere->center_p_vec);
 		res.normal = rt_vector_normalize(tmp_normal);
 		return (res);
 	}

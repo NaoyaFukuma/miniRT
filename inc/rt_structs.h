@@ -36,30 +36,29 @@ typedef struct s_rgb_vec
 }								t_rgb_vec;
 typedef struct s_material
 {
-	t_rgb_vec					ambientFactor;
-	t_rgb_vec					diffuseFactor;
-	t_rgb_vec					specularFactor;
+	t_rgb_vec					amb_fact;
+	t_rgb_vec					spec_fact;
 	double						shininess;
 }								t_material;
 
 typedef struct s_plane
 {
-	t_3d_vec					position;
-	t_3d_vec					unit_normal_vec;
+	t_3d_vec					p_vec;
+	t_3d_vec					unit_norm_vec;
 	t_rgb_vec					color;
 	t_rgb_vec					defalt_color;
 }								t_plane;
 typedef struct s_sphere
 {
-	t_3d_vec					center_position;
+	t_3d_vec					center_p_vec;
 	double						radius;
 	t_rgb_vec					color;
 }								t_sphere;
 
 typedef struct s_cylinder
 {
-	t_3d_vec					center_position;
-	t_3d_vec					unit_orientation_vec;
+	t_3d_vec					center_p_vec;
+	t_3d_vec					unit_orient_vec;
 	double						radius;
 	double						height;
 	t_rgb_vec					color;
@@ -67,8 +66,8 @@ typedef struct s_cylinder
 
 typedef struct s_cone
 {
-	t_3d_vec					center_position;
-	t_3d_vec					unit_orientation_vec;
+	t_3d_vec					center_p_vec;
+	t_3d_vec					unit_orient_vec;
 	double						radius;
 	double						height;
 	t_rgb_vec					color;
@@ -85,35 +84,35 @@ typedef struct s_obj
 	struct s_obj				*next;
 }								t_obj;
 
-typedef struct s_point_lite_source
+typedef struct s_p_lite_src
 {
-	t_3d_vec					position;
+	t_3d_vec					p_vec;
 	t_rgb_vec					lite_color;
-	struct s_point_lite_source	*next;
-}								t_point_lite_source;
+	struct s_p_lite_src	*next;
+}								t_p_lite_src;
 
 typedef struct s_camera
 {
-	t_3d_vec					camera_position;
-	t_3d_vec					unit_camera_direction;
+	t_3d_vec					cam_p_vec;
+	t_3d_vec					unit_cam_dir;
 
-	double						screen_distance;
-	t_3d_vec					screen_center_position;
+	double						scr_dist;
+	t_3d_vec					scr_center_p_vec;
 
-	t_3d_vec					unit_screen_direction_x_vec;
-	t_3d_vec					unit_screen_direction_y_vec;
+	t_3d_vec					unit_scr_dir_x_vec;
+	t_3d_vec					unit_scr_dir_y_vec;
 }								t_camera;
 
 typedef struct s_scene
 {
-	int							screean_width;
-	int							screean_height;
-	int						current_x;
-	int						current_y;
-	t_camera					camara;
-	t_point_lite_source			*pls_s;
+	int							scr_width;
+	int							scr_height;
+	int							current_x;
+	int							current_y;
+	t_camera					cam;
+	t_p_lite_src			*pls_s;
 	t_obj						*objs;
-	t_rgb_vec					ambient_color;
+	t_rgb_vec					amb_color;
 	t_material					material;
 }								t_scene;
 
