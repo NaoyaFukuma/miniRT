@@ -48,7 +48,7 @@ double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
 		return (-b / (2.0 * a));
 	if (d < 0.0)
 		return (t);
-	if (( -b - sqrt(d)) / (2.0 * a) > 0 && ( -b + sqrt(d)) / (2.0 * a) > 0)
+	if ((-b - sqrt(d)) / (2.0 * a) > 0 && (-b + sqrt(d)) / (2.0 * a) > 0)
 	{
 		t = rt_min(( -b - sqrt(d)) / (2.0 * a), ( -b + sqrt(d)) / (2.0 * a));
 		h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t), cy->center_p_vec), cy->unit_orient_vec);
