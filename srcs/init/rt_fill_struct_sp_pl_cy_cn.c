@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:36:48 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:41:24 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #include <float.h>
 #include <errno.h>
 #include <rt_define.h>
-
-#include <stdio.h> // for debug
 
 void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 {
