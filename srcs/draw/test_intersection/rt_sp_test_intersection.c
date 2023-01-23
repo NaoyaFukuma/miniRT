@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_sp_test_intersection.c                          :+:      :+:    :+:   */
+/*   rt_sp_intersec.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 13:08:57 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:05:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ double	rt_sp_calculate_directional_vector_coefficients(t_sphere *sphere,
 	double		t1;
 	double		t2;
 
-	tmp = rt_vector_sub(ray.start, sphere->center_p_vec);
-	A = pow(rt_vector_magnitude(ray.direction), 2.0);
-	B = 2.0 * rt_vector_dot(tmp, ray.direction);
-	C = rt_vector_dot(tmp, tmp) - pow(sphere->radius, 2.0);
+	tmp = rt_vec_sub(ray.start, sphere->center_p_vec);
+	A = pow(rt_vec_mag(ray.unit_d_vec), 2.0);
+	B = 2.0 * rt_vec_dot(tmp, ray.unit_d_vec);
+	C = rt_vec_dot(tmp, tmp) - pow(sphere->radius, 2.0);
 	D = B * B - 4.0 * A * C;
 	t = -1.0;
 	if (D == 0.0)
@@ -50,20 +50,20 @@ double	rt_sp_calculate_directional_vector_coefficients(t_sphere *sphere,
 	return (t);
 }
 
-t_intersection_point	rt_sp_test_intersection(t_sphere *sphere, t_ray ray)
+t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
 {
-	t_intersection_point	res;
+	t_insec_p	res;
 	double					t;
 	t_3d_vec				tmp_normal;
 
 	t = rt_sp_calculate_directional_vector_coefficients(sphere, ray);
-	res.normal.x = NOT_INTERSECT;
+	res.unit_n_vec.x = NOT_INTERSECT;
 	if (t > 0.0)
 	{
-		res.distance = t * rt_vector_magnitude(ray.direction);
+		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = rt_get_point(ray, t);
-		tmp_normal = rt_vector_sub(res.p_vec, sphere->center_p_vec);
-		res.normal = rt_vector_normalize(tmp_normal);
+		tmp_normal = rt_vec_sub(res.p_vec, sphere->center_p_vec);
+		res.unit_n_vec = rt_vec_to_unit(tmp_normal);
 		return (res);
 	}
 	return (res);

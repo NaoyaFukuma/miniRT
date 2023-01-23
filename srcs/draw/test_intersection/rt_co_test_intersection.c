@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_co_test_intersection.c                          :+:      :+:    :+:   */
+/*   rt_co_intersec.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 14:40:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:05:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 	double		rad_div_by_h;
 	double		c;
 
-	d = rt_vector_copy(ray.direction);
-	s_cy_c = rt_vector_sub(ray.start, cone->center_p_vec);
+	d = rt_vec_copy(ray.unit_d_vec);
+	s_cy_c = rt_vec_sub(ray.start, cone->center_p_vec);
 	rad_div_by_h = cone->radius / cone->height;
-	*a = rt_vector_dot(d, d) - pow(rt_vector_dot(d, cone->unit_orient_vec), 2.0)
-		- pow(rad_div_by_h, 2.0) * pow(rt_vector_dot(d, cone->unit_orient_vec), 2.0);
-	*b = 2.0 * (rt_vector_dot(d, s_cy_c) - (rt_vector_dot(d,
-		cone->unit_orient_vec)) * (rt_vector_dot(s_cy_c, cone->unit_orient_vec)))
-		- 2.0 * pow(rad_div_by_h, 2.0) * rt_vector_dot(d, cone->unit_orient_vec)
-		* rt_vector_dot(s_cy_c, cone->unit_orient_vec);
-	c = rt_vector_dot(s_cy_c, s_cy_c) - pow(rt_vector_dot(s_cy_c,
+	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0)
+		- pow(rad_div_by_h, 2.0) * pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0);
+	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d,
+		cone->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cone->unit_orient_vec)))
+		- 2.0 * pow(rad_div_by_h, 2.0) * rt_vec_dot(d, cone->unit_orient_vec)
+		* rt_vec_dot(s_cy_c, cone->unit_orient_vec);
+	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c,
 		cone->unit_orient_vec), 2.0) - pow(rad_div_by_h, 2.0)
-		* pow(rt_vector_dot(s_cy_c, cone->unit_orient_vec), 2.0);
+		* pow(rt_vec_dot(s_cy_c, cone->unit_orient_vec), 2.0);
 	return (*b * *b - 4.0 * *a * c);
 }
 
@@ -57,7 +57,7 @@ double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 		if ((-b - sqrt(d)) / (2.0 * a) > 0 && (-b + sqrt(d)) / (2.0 * a) > 0)
 		{
 			t = rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
-			h_dis = rt_vector_dot(rt_vector_sub(rt_get_point(ray, t),
+			h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t),
 												cone->center_p_vec),
 									cone->unit_orient_vec);
 			if (!(-cone->height <= h_dis && h_dis <= 0))
@@ -98,27 +98,27 @@ t_3d_vec	rt_calc_normal(double flag, t_cone *cone, t_3d_vec pa)
 	return (tmp_normal);
 }
 
-t_intersection_point	rt_co_test_intersection(t_cone *cone, t_ray ray)
+t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 {
 	double					t;
 	double					flag;
 	double					h_dis;
-	t_intersection_point	res;
+	t_insec_p	res;
 	t_3d_vec				pa;
 
 	flag = 1.0;
 	t = rt_co_calc_dir_vec_t(cone, ray, &flag);
-	res.normal.x = NOT_INTERSECT;
+	res.unit_n_vec.x = NOT_INTERSECT;
 	if (t <= 0)
 		return (res);
 	pa = rt_get_point(ray, t);
-	h_dis = rt_vector_dot(rt_vector_sub(pa, cone->center_p_vec),
+	h_dis = rt_vec_dot(rt_vec_sub(pa, cone->center_p_vec),
 							cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
-		res.distance = t * rt_vector_magnitude(ray.direction);
+		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
-		res.normal = rt_vector_normalize(rt_calc_normal(flag, cone, pa));
+		res.unit_n_vec = rt_vec_to_unit(rt_calc_normal(flag, cone, pa));
 		return (res);
 	}
 	return (res);

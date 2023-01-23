@@ -15,10 +15,10 @@
 
 enum							shapes
 {
-	E_SPHERE,
-	E_PLANE,
-	E_CYLINDER,
-	E_CONE,
+	e_SPHERE,
+	e_PLANE,
+	e_CYLINDER,
+	e_CONE,
 };
 
 typedef struct s_3d_vec

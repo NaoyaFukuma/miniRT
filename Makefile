@@ -23,10 +23,10 @@ SRCS =	main.c \
 		rt_random.c \
 		rt_eye_raytrace.c \
 		rt_raytrace.c \
-		rt_co_test_intersection.c \
-		rt_cy_test_intersection.c \
-		rt_pl_test_intersection.c \
-		rt_sp_test_intersection.c
+		rt_co_intersec.c \
+		rt_cy_intersec.c \
+		rt_pl_intersec.c \
+		rt_sp_intersec.c
 
 B_SRCS =	b_main.c
 
