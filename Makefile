@@ -1,4 +1,5 @@
 NAME = miniRT
+B_NAME = miniRT_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
 LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
@@ -25,19 +26,31 @@ SRCS =	main.c \
 		rt_pl_test_intersection.c \
 		rt_sp_test_intersection.c
 
+B_SRCS =	b_main.c
+
 VPATH =	srcs:\
 		srcs/init:\
 		srcs/arg:\
 		srcs/error:\
-		srcs/draw: \
-		srcs/draw/test_intersection: \
-		srcs/vector_operation
+		srcs/draw:\
+		srcs/draw/test_intersection:\
+		srcs/vector_operation:\
+		b_srcs:\
+		b_srcs/init:\
+		b_srcs/arg:\
+		b_srcs/error:\
+		b_srcs/draw:\
+		b_srcs/draw/test_intersection:\
+		b_srcs/vector_operation
 
 
 OBJDIR = ./obj
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-# DEPENDS = $(OBJS:.o=.d)
-# -include $(DEPENDS)
+B_OBJDIR = ./b_obj
+B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
+
+DEPENDS = $(OBJS:.o=.d)
+-include $(DEPENDS)
 
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -57,10 +70,21 @@ all : $(NAME)
 $(NAME) : $(OBJDIR) $(LIBFT) $(MINILIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) $(FRMEWORK) $(INLCUDE) -o $(NAME)
 
+bonus: fclean $(B_NAME)
+
+$(B_NAME) : $(B_OBJDIR) $(LIBFT) $(MINILIB) $(B_OBJS)
+	$(CC) $(CFLAGS) $(B_OBJS) $(LIBFT) $(LIBS) $(FRMEWORK) $(INLCUDE) -o $(B_NAME)
+
 $(OBJDIR) :
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c
+	$(CC) -c $< -o $@ $(CFLAGS) $(INLCUDE)
+
+$(B_OBJDIR) :
+	mkdir -p $(B_OBJDIR)
+
+$(B_OBJDIR)/%.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS) $(INLCUDE)
 
 $(LIBFT) :
@@ -74,10 +98,11 @@ clean :
 	make clean -C $(LIBFT_PATH)
 	make clean -C $(MINILIB_PATH)
 	$(RM) -rf $(OBJDIR)
+	$(RM) -rf $(B_OBJDIR)
 
 fclean : clean
 	make fclean -C $(LIBFT_PATH)
-	$(RM) ./libmlx.dylib $(NAME)
+	$(RM) ./libmlx.dylib $(NAME) $(B_NAME)
 
 debug: CFLAGS += -DDEBUG
 debug: re

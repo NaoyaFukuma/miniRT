@@ -47,6 +47,7 @@ typedef struct s_plane
 	t_3d_vec					position;
 	t_3d_vec					unit_normal_vec;
 	t_rgb_vec					color;
+	t_rgb_vec					defalt_color;
 }								t_plane;
 typedef struct s_sphere
 {
