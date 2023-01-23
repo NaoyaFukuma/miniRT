@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:36:45 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 01:33:25 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:11:30 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,13 @@
 # define ER_CAM_ORI "The norm of the orientation vector of a camera is not 1"
 # define ER_LITE_RATIO "Point light ratio are not to the first decimal place"
 # define ER_LITE_RANGE "Point light ratio range is not [0.0 - 1.0]"
+# define ER_SP_DIA "Sphere diameter is not to the first decimal place"
+# define ER_PL_ORI "The norm of the orientation vector of a plane is not 1"
+# define ER_CY_ORI "The norm of the orientation vector of a cylinder is not 1"
+# define ER_CY_DIA "Cylinder diameter are not to the first decimal place"
+# define ER_CY_HEI "Cylinder height are not to the first decimal place"
+# define ER_CN_ORI "The norm of the orientation vector of a cone is not 1"
+# define ER_CN_DIA "Cone diameter are not to the first decimal place"
+# define ER_CN_HEI "Cone height are not to the first decimal place"
 
 #endif

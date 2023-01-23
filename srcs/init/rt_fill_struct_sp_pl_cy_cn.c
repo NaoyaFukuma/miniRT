@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 16:03:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:11:41 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <float.h>
 #include <errno.h>
+#include <rt_define.h>
 
 #include <stdio.h> // for debug
 
@@ -36,19 +37,9 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Sphere diameter is invalid value");
 	mod = fmod(obj_ptr->sphere->radius / 0.01, 10);
 	if (mod != 0)
-		rt_put_rt_file_format_error_exit("Sphere diameter is not to the first decimal place");
+		rt_put_rt_file_format_error_exit(ER_SP_DIA);
 	obj_ptr->sphere->radius /= 2.0;
-
 	obj_ptr->sphere->color = rt_str_to_rbg(tokens[3]);
-	printf("obj_ptr->sphere->center_p_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->sphere->center_p_vec.x,
-			obj_ptr->sphere->center_p_vec.y,
-			obj_ptr->sphere->center_p_vec.z);
-	printf("obj_ptr->sphere->radius [%f]\n", obj_ptr->sphere->radius);
-	printf("rt->scene.objs->sphere->color r = %f g = %f b = %f\n",
-			obj_ptr->sphere->color.r,
-			obj_ptr->sphere->color.g,
-			obj_ptr->sphere->color.b);
 }
 
 void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
@@ -61,22 +52,7 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 	obj_ptr->plane->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->plane->unit_norm_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->plane->unit_norm_vec) != 1.0)
-		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a plane is not 1");
-
-	obj_ptr->plane->color = rt_str_to_rbg(tokens[3]);
-	printf("obj_ptr->plane->p_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->plane->p_vec.x,
-			obj_ptr->plane->p_vec.y,
-			obj_ptr->plane->p_vec.z);
-	printf("obj_ptr->plane->unit_norm_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->plane->unit_norm_vec.x,
-			obj_ptr->plane->unit_norm_vec.y,
-			obj_ptr->plane->unit_norm_vec.z);
-	printf("obj_ptr->plane->color r = %f g = %f b = %f\n",
-			obj_ptr->plane->color.r,
-			obj_ptr->plane->color.g,
-			obj_ptr->plane->color.b);
-
+		rt_put_rt_file_format_error_exit(ER_PL_ORI);
 }
 
 void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
@@ -90,37 +66,21 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 	obj_ptr->cylinder->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cylinder->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->cylinder->unit_orient_vec) != 1.0)
-		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a cylinder is not 1");
+		rt_put_rt_file_format_error_exit(ER_CY_ORI);
 	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cylinder->radius <= 0 || errno == ERANGE)
-		rt_put_rt_file_format_error_exit("Cylinder height invalid value");;
+		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
 	mod = fmod(obj_ptr->cylinder->radius / 0.01, 10);
 	if (mod != 0)
-		rt_put_rt_file_format_error_exit("Cylinder diameter are not to the first decimal place");
+		rt_put_rt_file_format_error_exit(ER_CY_DIA);
 	obj_ptr->cylinder->radius /= 2;
 	obj_ptr->cylinder->height = ft_atof(tokens[4]);
 	if (obj_ptr->cylinder->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
 	mod = fmod(obj_ptr->cylinder->height / 0.01, 10);
 	if (mod != 0)
-		rt_put_rt_file_format_error_exit("Cylinder height are not to the first decimal place");
+		rt_put_rt_file_format_error_exit(ER_CY_HEI);
 	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
-
-	printf("obj_ptr->cylinder->center_p_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->cylinder->center_p_vec.x,
-			obj_ptr->cylinder->center_p_vec.y,
-			obj_ptr->cylinder->center_p_vec.z);
-	printf("obj_ptr->cylinder->unit_orient_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->cylinder->unit_orient_vec.x,
-			obj_ptr->cylinder->unit_orient_vec.y,
-			obj_ptr->cylinder->unit_orient_vec.z);
-	printf("obj_ptr->cylinder->radius [%f]\n", obj_ptr->cylinder->radius);
-	printf("obj_ptr->cylinder->radius [%f]\n", obj_ptr->cylinder->height);
-	printf("obj_ptr->cylinder->color r = %f g = %f b = %f\n",
-			obj_ptr->cylinder->color.r,
-			obj_ptr->cylinder->color.g,
-			obj_ptr->cylinder->color.b);
-
 }
 
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
@@ -134,35 +94,19 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 	obj_ptr->cone->center_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cone->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->cone->unit_orient_vec) != 1.0)
-		rt_put_rt_file_format_error_exit("The norm of the orientation vector of a cylinder is not 1");
+		rt_put_rt_file_format_error_exit(ER_CN_ORI);
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cone->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");;
 	mod = fmod(obj_ptr->cone->radius / 0.01, 10);
 	if (mod != 0)
-		rt_put_rt_file_format_error_exit("Cone diameter are not to the first decimal place");
+		rt_put_rt_file_format_error_exit(ER_CN_DIA);
 	obj_ptr->cone->radius /= 2;
 	obj_ptr->cone->height = ft_atof(tokens[4]);
 	if (obj_ptr->cone->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
 	mod = fmod(obj_ptr->cone->height / 0.01, 10);
 	if (mod != 0)
-		rt_put_rt_file_format_error_exit("Cone height are not to the first decimal place");
+		rt_put_rt_file_format_error_exit(ER_CN_HEI);
 	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);
-
-	printf("obj_ptr->cone->center_p_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->cone->center_p_vec.x,
-			obj_ptr->cone->center_p_vec.y,
-			obj_ptr->cone->center_p_vec.z);
-	printf("obj_ptr->cone->unit_orient_vec x[%f] y[%f] z[%f]\n",
-			obj_ptr->cone->unit_orient_vec.x,
-			obj_ptr->cone->unit_orient_vec.y,
-			obj_ptr->cone->unit_orient_vec.z);
-	printf("obj_ptr->cone->radius [%f]\n", obj_ptr->cone->radius);
-	printf("obj_ptr->cone->radius [%f]\n", obj_ptr->cone->height);
-	printf("obj_ptr->cone->color r = %f g = %f b = %f\n",
-			obj_ptr->cone->color.r,
-			obj_ptr->cone->color.g,
-			obj_ptr->cone->color.b);
-
 }
