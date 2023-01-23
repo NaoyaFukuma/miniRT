@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 12:33:34 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:43:43 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	rt_x_draw(t_rt_data *rt, int y, int width, double fy)
 	while (x < width)
 	{
 		fx = x - width / 2;
-		rt->scene.current_fx = fx;
+		rt->scene.current_x = x;
 		color = rt_rgb_vec_to_int_color(rt_rgb_vec_constructor(0, 0, 0));
 		col = rt_eye_raytrace(rt, fx, fy);
 		if (col.r != NOT_INTERSECT)
@@ -84,7 +84,7 @@ void	rt_draw(t_rt_data *rt)
 	while (y < height)
 	{
 		fy = -y + height / 2;
-		rt->scene.current_fy = fy;
+		rt->scene.current_y = y;
 		rt_x_draw(rt, y, width, fy);
 		++y;
 	}
