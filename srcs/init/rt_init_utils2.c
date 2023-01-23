@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:22:04 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:22:37 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 			rt_put_rt_file_format_error_exit(ER_RGB_RANGE);
 		++i;
 	}
-	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0, ft_atof(rgb[1]) / 255.0,
-			ft_atof(rgb[2]) / 255.0));
+	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0,
+			ft_atof(rgb[1]) / 255.0, ft_atof(rgb[2]) / 255.0));
 	rt_double_ptr_free((const char **)rgb);
 }
