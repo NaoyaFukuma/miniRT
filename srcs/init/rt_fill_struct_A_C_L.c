@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:00:07 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:00:25 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	rt_fill_struct_l(t_rt_data *rt, const char **tokens)
 	double			mod;
 	t_p_lite_src	*lite_ptr;
 
-	// if (rt->scene.pls_s != NULL)
-	// 	rt_put_rt_file_format_error_exit("Multiple point lites");
 	lite_ptr = malloc(sizeof(t_p_lite_src));
 	lite_ptr->next = NULL;
 	rt_addback_lite_list(&rt->scene.pls_s, lite_ptr);
