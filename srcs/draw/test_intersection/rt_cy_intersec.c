@@ -89,7 +89,7 @@ static t_3d_vec	rt_calc_normal(double flag, t_cylinder *cy, t_3d_vec pa)
 t_insec_p	rt_cy_intersec(t_cylinder *cy, t_ray ray)
 {
 	double					t;
-	double 					flag;
+	double					flag;
 	double					h_dis;
 	t_insec_p				res;
 	t_3d_vec				pa;
@@ -101,7 +101,7 @@ t_insec_p	rt_cy_intersec(t_cylinder *cy, t_ray ray)
 		return (res);
 	pa = rt_get_point(ray, t);
 	h_dis = rt_vec_dot(rt_vec_sub(pa, cy->center_p_vec), cy->unit_orient_vec);
-	if ((- 1.0 * cy->height / 2.0f) <= h_dis && h_dis <= (cy->height / 2.0f))
+	if ((-1.0 * cy->height / 2.0f) <= h_dis && h_dis <= (cy->height / 2.0f))
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
