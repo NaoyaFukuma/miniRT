@@ -27,8 +27,10 @@ static double	rt_calc_abd(t_cylinder *cy, t_ray ray, double *a, double *b)
 	d = rt_vec_copy(ray.unit_d_vec);
 	s_cy_c = rt_vec_sub(ray.start, cy->center_p_vec);
 	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cy->unit_orient_vec), 2.0);
-	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cy->unit_orient_vec)) * (rt_vec_dot(s_cy_c, cy->unit_orient_vec)));
-	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c, cy->unit_orient_vec), 2.0) - pow(cy->radius, 2.0);
+	*b = 2.0 * (rt_vec_dot(d, s_cy_c) - (rt_vec_dot(d, cy->unit_orient_vec))
+		* (rt_vec_dot(s_cy_c, cy->unit_orient_vec)));
+	c = rt_vec_dot(s_cy_c, s_cy_c) - pow(rt_vec_dot(s_cy_c,
+		cy->unit_orient_vec), 2.0) - pow(cy->radius, 2.0);
 	return (*b * *b - 4.0 * *a * c);
 }
 
