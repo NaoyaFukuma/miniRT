@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 01:47:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 01:53:19 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	rt_fill_struct_c(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Not four camera elements");
 	rt_fill_struct_c_sub(rt, tokens);
 	rt->scene.cam.scr_center_p_vec = rt_vec_add(rt->scene.cam.cam_p_vec,
-												rt_vec_mult(rt->scene.cam.unit_cam_dir,
-														rt->scene.cam.scr_dist));
+										rt_vec_mult(rt->scene.cam.unit_cam_dir,
+									rt->scene.cam.scr_dist));
 	if (rt->scene.cam.unit_cam_dir.x == 0 && rt->scene.cam.unit_cam_dir.y == -1
 		&& rt->scene.cam.unit_cam_dir.z == 0)
 	{
