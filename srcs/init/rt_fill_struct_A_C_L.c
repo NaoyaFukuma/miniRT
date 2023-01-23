@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 01:58:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 01:59:07 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	rt_fill_struct_c(t_rt_data *rt, const char **tokens)
 	}
 	else
 	{
-		rt->scene.cam.unit_scr_dir_x_vec =
-			rt_vec_to_unit(rt_vec_cross(rt_vec_constructor(0, 1, 0), rt->scene.cam.unit_cam_dir));
-		rt->scene.cam.unit_scr_dir_y_vec =
-			rt_vec_to_unit(rt_vec_cross(rt->scene.cam.unit_cam_dir, rt->scene.cam.unit_scr_dir_x_vec));
+		rt->scene.cam.unit_scr_dir_x_vec = rt_vec_to_unit(rt_vec_cross(
+			rt_vec_constructor(0, 1, 0), rt->scene.cam.unit_cam_dir));
+		rt->scene.cam.unit_scr_dir_y_vec = rt_vec_to_unit(rt_vec_cross(
+			rt->scene.cam.unit_cam_dir, rt->scene.cam.unit_scr_dir_x_vec));
 	}
 }
 
