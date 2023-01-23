@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:14:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 02:15:14 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit(ER_CN_ORI);
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cone->radius <= 0 || errno == ERANGE)
-		rt_put_rt_file_format_error_exit("Cone height invalid value");;
+		rt_put_rt_file_format_error_exit("Cone height invalid value");
 	mod = fmod(obj_ptr->cone->radius / 0.01, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CN_DIA);
