@@ -52,7 +52,6 @@ t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
 {
 	t_insec_p	res;
 	double		t;
-	t_3d_vec	tmp_normal;
 
 	t = rt_sp_calc_dir_vec(sphere, ray);
 	res.unit_n_vec.x = NOT_INTERSECT;
@@ -60,8 +59,7 @@ t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = rt_get_point(ray, t);
-		tmp_normal = rt_vec_sub(res.p_vec, sphere->center_p_vec);
-		res.unit_n_vec = rt_vec_to_unit(tmp_normal);
+		res.unit_n_vec = rt_vec_to_unit(rt_vec_sub(res.p_vec, sphere->center_p_vec));
 		return (res);
 	}
 	return (res);
