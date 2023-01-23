@@ -59,10 +59,6 @@ double	rt_cy_calculate_directional_vector_coefficients(t_cylinder *cylinder, t_r
 	return (t);
 }
 
-
-
-
-
 t_insec_p	rt_cy_intersec(t_cylinder *cylinder, t_ray ray)
 {
 	double					t;
@@ -98,95 +94,3 @@ t_insec_p	rt_cy_intersec(t_cylinder *cylinder, t_ray ray)
 	}
 	return (res);
 }
-
-
-// 交点の位置ベクトルをP、シリンダーの中心の位置ベクトルをC、視点の位置ベクトルS、視線方向の単位方向ベクトルをD
-// P = S + tD;
-// P - C = S + tD - C; 交点から中心に向かうベクトル
-
-// シリンダーのオリエンタルベクトルV、Vと同じ方向にあるベクトルA
-// A = C + mV; mは実数( -h/2 <=  m <= h/2)
-
-// (P - A)dot V = 0; Vと直行する(P - A)を算出
-// mag(P - C) = r ; Vと直行する(P - A)の大きさ
-// (P - C -mV) dot V = 0; Aを展開
-// ここでVの大きさが1なので
-// (P - C -m) dot V = 0;
-// (P - C) dot V - m dot V = 0;
-// m = (P - C) dot V;
-//   = (S + tD - C) dot V;
-
-
-
-// double	rt_cy_calculate_directional_vector_coefficients(t_cylinder *cylinder, t_ray ray, double *flag)
-// {
-// 	t_3d_vec dM = rt_vec_copy(ray.unit_d_vec);
-// 	t_3d_vec mM = rt_vec_sub(ray.start, cylinder->center_p_vec);
-
-// 	dM.y = 0.0;
-// 	mM.y = 0.0;
-
-// 	double A = pow(rt_vec_mag(dM), 2.0);
-// 	double B = 2.0 * rt_vec_dot(dM, mM);
-// 	double C = rt_vec_dot(mM, mM) - pow(cylinder->radius, 2.0);
-// 	double D = B * B - 4.0 * A * C;
-// 	double t = -1.0;
-
-// 	if (D == 0.0)
-// 	{
-// 		t = -B / (2.0 * A);
-// 	}
-// 	else if (D > 0.0)
-// 	{
-// 		double t1 = ( -B - sqrt(D)) / (2.0 * A);
-// 		double t2 = ( -B + sqrt(D)) / (2.0 * A);
-
-// 		if (t1 > 0 && t2 > 0)
-// 		{
-// 			t = rt_min(t1, t2);
-// 			t_3d_vec pa = rt_get_point(ray, t);
-
-// 			double hDis = rt_vec_sub(pa, cylinder->center_p_vec).y;
-// 			if (hDis < (- 1.0 * cylinder->height / 2.0f) || (cylinder->height / 2.0f) < hDis)
-// 			{
-// 				t = rt_max(t1, t2);
-// 				*flag = -1.0;
-// 			}
-// 		}
-// 		else
-// 		{
-// 			t = rt_max(t1, t2);
-// 		}
-// 	}
-// 	return (t);
-// }
-
-// t_insec_p	rt_cy_intersec(t_cylinder *cylinder, t_ray ray)
-// {
-// 	double					t;
-// 	double 					flag;
-// 	t_insec_p	res;
-
-// 	flag = 1.0;
-// 	t = rt_cy_calculate_directional_vector_coefficients(cylinder, ray, &flag);
-// 	res.unit_n_vec.x = NOT_INTERSECT;
-// 	if (t <= 0)
-// 	{
-// 		return (res);
-// 	}
-
-// 	t_3d_vec pa = rt_get_point(ray, t);
-// 	double hDis = rt_vec_sub(pa, cylinder->center_p_vec).y;
-// 	if ((- 1.0 * cylinder->height / 2.0f) <= hDis && hDis <= (cylinder->height / 2.0f))
-// 	{
-// 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
-// 		res.p_vec = pa;
-// 		t_3d_vec	tmp_normal;
-// 		tmp_normal.x = 2 * flag *(pa.x - cylinder->center_p_vec.x);//法線方向の計算
-// 		tmp_normal.y = 0;												//法線方向の計算
-// 		tmp_normal.z = 2 * flag *(pa.z - cylinder->center_p_vec.z);//法線方向の計算
-// 		res.unit_n_vec = rt_vec_to_unit(tmp_normal);
-// 		return (res);
-// 	}
-// 	return (res);
-// }

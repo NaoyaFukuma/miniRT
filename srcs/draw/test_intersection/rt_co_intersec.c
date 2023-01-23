@@ -18,7 +18,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
+static double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 {
 	t_3d_vec	d;
 	t_3d_vec	s_cy_c;
@@ -40,7 +40,7 @@ double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 	return (*b * *b - 4.0 * *a * c);
 }
 
-double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
+static double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 {
 	double	a;
 	double	b;
@@ -67,7 +67,7 @@ double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 	return (t);
 }
 
-t_3d_vec	rt_calc_normal(double flag, t_cone *cone, t_3d_vec pa)
+static t_3d_vec	rt_calc_normal(double flag, t_cone *cone, t_3d_vec pa)
 {
 	t_3d_vec	tmp_normal;
 
