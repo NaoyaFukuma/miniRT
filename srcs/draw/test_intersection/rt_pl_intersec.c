@@ -66,7 +66,7 @@ static t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 		dx = rt_vec_constructor(1, 0, 0);
 	else
 		dx = rt_vec_to_unit(rt_vec_cross(rt_vec_constructor(0, 1, 0),
-			plane->unit_norm_vec));
+				plane->unit_norm_vec));
 	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
 	dot = rt_vec_dot(rt_vec_to_unit(pw_pc), dx);
 	x = rt_vec_mag(pw_pc) * dot;
@@ -76,16 +76,16 @@ static t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 
 t_insec_p	rt_pl_intersec(t_plane *plane, t_ray ray)
 {
-	double					dn_dot;
-	double t;
+	double		dn_dot;
+	double		t;
 	t_insec_p	res;
 
 	dn_dot = rt_vec_dot(ray.unit_d_vec, plane->unit_norm_vec);
 	res.unit_n_vec.x = NOT_INTERSECT;
 	if (dn_dot == 0)
 		return (res);
-	t = (rt_vec_dot(plane->p_vec, plane->unit_norm_vec) -
-				rt_vec_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
+	t = (rt_vec_dot(plane->p_vec, plane->unit_norm_vec)
+			- rt_vec_dot(ray.start, plane->unit_norm_vec)) / dn_dot;
 	if (t > 0)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
