@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/20 13:59:57 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:28:39 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ t_intersection_point	rt_co_test_intersection(t_cone *cone, t_ray ray);
 double	rt_min(double a, double b);
 double	rt_max(double a, double b);
 double	rt_constrain(double	num, double low, double high);
+
+/* in randam.c */
+double	return_randam_ratio(int seed, int bottom);
 
 #endif
