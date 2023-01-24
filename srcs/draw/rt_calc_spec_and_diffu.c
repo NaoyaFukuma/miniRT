@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_calc_spec_and_diffu.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 12:23:24 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:26:06 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,10 @@ double	rt_calc_n_dot_l(t_rt_data *rt, t_obj *obj, \
 						t_3d_vec unit_n_vec, t_3d_vec unit_d_vec)
 {
 	double	n_dot_l;
-	int		x_mult_y;
 
+	(void)rt;
+	(void)obj;
 	n_dot_l = rt_constrain(rt_vec_dot(unit_n_vec, unit_d_vec), 0, 1);
-	if (obj->shape == e_SPHERE)
-	{
-		x_mult_y = rt->scene.current_x * rt->scene.current_y;
-		if (x_mult_y < 0)
-		{
-			x_mult_y = 1;
-		}
-		n_dot_l *= return_random_ratio(x_mult_y, 20);
-	}
 	return (n_dot_l);
 }
 

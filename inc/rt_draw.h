@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 16:21:44 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:24:52 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
 double			rt_min(double a, double b);
 double			rt_max(double a, double b);
 double			rt_constrain(double num, double low, double high);
-
-/* rt_randam.c */
-double			return_random_ratio(int seed, int bottom);
 
 /* rt_all_insec.c */
 t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);

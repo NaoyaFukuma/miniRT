@@ -23,7 +23,6 @@ SRCS =	main.c \
 		rt_init_utils2.c \
 		rt_draw.c \
 		rt_draw_utils.c \
-		rt_random.c \
 		rt_eye_raytrace.c \
 		rt_raytrace.c \
 		rt_co_intersec.c \
