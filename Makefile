@@ -11,7 +11,10 @@ SRCS =	main.c \
 		rt_check_arg.c \
 		rt_put_error.c \
 		rt_init.c \
-		rt_vector_operation.c \
+		rt_rgb_vec_cons_add_mult.c \
+		rt_vec_cons_sub_add_mult.c \
+		rt_rgv_vec_pi.c \
+		rt_vec_product.c \
 		rt_fill_struct_a_c_l.c \
 		rt_fill_struct_sp_pl_cy_cn.c \
 		rt_init_fill_struct.c \

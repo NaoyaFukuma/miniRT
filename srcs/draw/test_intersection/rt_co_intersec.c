@@ -25,7 +25,7 @@ static double	rt_calc_abd(t_cone *cone, t_ray ray, double *a, double *b)
 	double		rad_div_h;
 	double		c;
 
-	d = rt_vec_copy(ray.unit_d_vec);
+	d = ray.unit_d_vec;
 	s_cy_c = rt_vec_sub(ray.start, cone->center_p_vec);
 	rad_div_h = cone->radius / cone->height;
 	*a = rt_vec_dot(d, d) - pow(rt_vec_dot(d, cone->unit_orient_vec), 2.0)
