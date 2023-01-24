@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:07:21 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:26:01 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	rt_double_ptr_free(const char **d_ptr)
 	{
 		free((void *)d_ptr[i]);
 		d_ptr[i] = NULL;
+		i++;
 	}
 	free((void *)d_ptr);
 	d_ptr = NULL;
