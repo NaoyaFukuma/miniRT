@@ -26,7 +26,11 @@ SRCS =	main.c \
 		rt_co_intersec.c \
 		rt_cy_intersec.c \
 		rt_pl_intersec.c \
-		rt_sp_intersec.c
+		rt_sp_intersec.c \
+		rt_all_insec.c \
+		rt_shadow_intersection.c \
+		rt_calc_spec_and_diffu.c \
+		rt_calc_diffu.c \
 
 B_SRCS =	b_main.c
 

@@ -67,29 +67,34 @@ static double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 	return (t);
 }
 
-static t_3d_vec	rt_calc_normal(double flag, t_cone *cone, t_3d_vec pa)
+double	rt_calc_height(t_cone *cone, t_ray ray, double t)
 {
-	t_3d_vec	tmp_normal;
+	t_3d_vec	x;
+	t_3d_vec	dt;
+	t_3d_vec	x_plus_dt;
+	double		m;
+	double		k;
 
-	tmp_normal.x = 2 * flag * (cone->unit_orient_vec.z
-			* (cone->unit_orient_vec.z * (pa.x - cone->center_p_vec.x)
-				- cone->unit_orient_vec.x * (pa.z - cone->center_p_vec.z))
-			- cone->unit_orient_vec.y * (cone->unit_orient_vec.x * (pa.y
-					- cone->center_p_vec.y) - cone->unit_orient_vec.y * (pa.x
-					- cone->center_p_vec.x)));
-	tmp_normal.y = 2 * flag * (cone->unit_orient_vec.x
-			* (cone->unit_orient_vec.x * (pa.y - cone->center_p_vec.y)
-				- cone->unit_orient_vec.y * (pa.x - cone->center_p_vec.x))
-			- cone->unit_orient_vec.z * (cone->unit_orient_vec.y * (pa.z
-					- cone->center_p_vec.z) - cone->unit_orient_vec.z * (pa.y
-					- cone->center_p_vec.y)));
-	tmp_normal.z = 2 * flag * (cone->unit_orient_vec.y
-			* (cone->unit_orient_vec.y * (pa.z - cone->center_p_vec.z)
-				- cone->unit_orient_vec.z * (pa.y - cone->center_p_vec.y))
-			- cone->unit_orient_vec.x * (cone->unit_orient_vec.z * (pa.x
-					- cone->center_p_vec.x) - cone->unit_orient_vec.x * (pa.z
-					- cone->center_p_vec.z)));
-	return (tmp_normal);
+	x = rt_vec_sub(ray.start, cone->center_p_vec);
+	dt = rt_vec_mult(ray.unit_d_vec, t);
+	x_plus_dt = rt_vec_add(x, dt);
+	m = rt_vec_dot(x_plus_dt, cone->unit_orient_vec);
+	k = 1 + pow(cone->radius / cone->height, 2.0);
+	return (k * m);
+}
+
+t_3d_vec	rt_calc_unit_n_vec(t_cone *cone, t_ray ray, double flag, double t)
+{
+	t_3d_vec	pa_minus_pc;
+	t_3d_vec	h_mult_v;
+	double		height;
+	t_3d_vec	n_vec;
+
+	pa_minus_pc = rt_vec_sub(rt_get_point(ray, t), cone->center_p_vec);
+	height = rt_calc_height(cone, ray, t);
+	h_mult_v = rt_vec_mult(cone->unit_orient_vec, height);
+	n_vec = rt_vec_mult(rt_vec_sub(pa_minus_pc,	h_mult_v), flag);
+	return (rt_vec_to_unit(n_vec));
 }
 
 t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
@@ -112,7 +117,7 @@ t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
-		res.unit_n_vec = rt_vec_to_unit(rt_calc_normal(flag, cone, pa));
+		res.unit_n_vec = rt_calc_unit_n_vec(cone, ray, flag, t);
 		return (res);
 	}
 	return (res);
