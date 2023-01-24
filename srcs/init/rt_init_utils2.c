@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 14:48:24 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:12:25 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	rt_check_value(const char **elements, double min, double max)
 
 t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
 {
-	char	**elements;
+	char		**elements;
 	t_3d_vec	tmp;
 
 	elements = ft_split(str, ',');
@@ -110,9 +110,9 @@ t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
 
 t_rgb_vec	rt_str_to_rbg(const char *str)
 {
-	int		i;
-	int		tmp;
-	char	**rgb;
+	int			i;
+	int			tmp;
+	char		**rgb;
 	t_rgb_vec	tmp_rgb;
 
 	rgb = ft_split(str, ',');
