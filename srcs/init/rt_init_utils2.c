@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 16:03:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:22:37 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "rt_put_error.h"
 #include "rt_structs.h"
 #include "rt_vector.h"
+#include "rt_define.h"
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
@@ -57,14 +58,14 @@ static void	rt_check_value(const char **elements, double min, double max)
 	{
 		tmp = ft_atof(elements[i]);
 		if (errno == ERANGE)
-			rt_put_rt_file_format_error_exit("Vector elements value are overflow");
+			rt_put_rt_file_format_error_exit(ER_RANGE);
 		mod = fmod(tmp / 0.01, 10);
 		if (mod != 0)
-			rt_put_rt_file_format_error_exit("Vector elements value are not to the first decimal place");
+			rt_put_rt_file_format_error_exit(ER_DECIMAL);
 		if (!(min <= tmp && tmp <= max))
 			rt_put_rt_file_format_error_exit("Vector elements not in range");
 		if (!(-VEC_MAX < tmp && tmp < VEC_MAX))
-			rt_put_rt_file_format_error_exit("Vector elements value range is lower or greater");
+			rt_put_rt_file_format_error_exit(ER_ELE);
 		++i;
 	}
 }
@@ -94,20 +95,20 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 	if (rgb == NULL)
 		rt_perror_exit(NULL);
 	if (rt_count_str((const char **)rgb) != 3)
-		rt_put_rt_file_format_error_exit("Not three RGB elements.");
+		rt_put_rt_file_format_error_exit("Not three RGB elements");
 	i = 0;
 	while (i < 3)
 	{
 		if (ft_strchar(rgb[i], '.'))
-			rt_put_rt_file_format_error_exit("RGB elements are not integer type");
+			rt_put_rt_file_format_error_exit(ER_NOT_INT);
 		tmp = ft_atoi(rgb[i]);
 		if (errno == ERANGE)
-			rt_put_rt_file_format_error_exit("The value of the RGB element is overflowing");
+			rt_put_rt_file_format_error_exit(ER_OVER_FLOW);
 		if (!(0 <= tmp && tmp <= 255))
-			rt_put_rt_file_format_error_exit("RGB value range is not [0 - 255]");
+			rt_put_rt_file_format_error_exit(ER_RGB_RANGE);
 		++i;
 	}
-	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0, ft_atof(rgb[1]) / 255.0,
-			ft_atof(rgb[2]) / 255.0));
+	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0,
+			ft_atof(rgb[1]) / 255.0, ft_atof(rgb[2]) / 255.0));
 	rt_double_ptr_free((const char **)rgb);
 }

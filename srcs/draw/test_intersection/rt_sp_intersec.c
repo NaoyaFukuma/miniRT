@@ -19,51 +19,48 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-double	rt_sp_calculate_directional_vector_coefficients(t_sphere *sphere,
-		t_ray ray)
+static double	rt_calc_abd(t_sphere *sp, t_ray ray, double *a, double *b)
 {
 	t_3d_vec	tmp;
-	double		A;
-	double		B;
-	double		C;
-	double		D;
-	double		t;
-	double		t1;
-	double		t2;
+	double		c;
 
-	tmp = rt_vec_sub(ray.start, sphere->center_p_vec);
-	A = pow(rt_vec_mag(ray.unit_d_vec), 2.0);
-	B = 2.0 * rt_vec_dot(tmp, ray.unit_d_vec);
-	C = rt_vec_dot(tmp, tmp) - pow(sphere->radius, 2.0);
-	D = B * B - 4.0 * A * C;
-	t = -1.0;
-	if (D == 0.0)
-	{
-		t = -B / (2.0 * A);
-	}
-	else if (D > 0.0)
-	{
-		t1 = (-B - sqrt(D)) / (2.0 * A);
-		t2 = (-B + sqrt(D)) / (2.0 * A);
-		t = t1 > 0.0 && t2 > 0.0 ? rt_min(t1, t2) : rt_max(t1, t2);
-	}
-	return (t);
+	tmp = rt_vec_sub(ray.start, sp->center_p_vec);
+	*a = pow(rt_vec_mag(ray.unit_d_vec), 2.0);
+	*b = 2.0 * rt_vec_dot(tmp, ray.unit_d_vec);
+	c = rt_vec_dot(tmp, tmp) - pow(sp->radius, 2.0);
+	return (*b * *b - 4.0 * *a * c);
+}
+
+static double	rt_sp_calc_dir_vec(t_sphere *sp, t_ray ray)
+{
+	double	a;
+	double	b;
+	double	d;
+
+	d = rt_calc_abd(sp, ray, &a, &b);
+	if (d == 0.0)
+		return (-b / (2.0 * a));
+	if (d < 0.0)
+		return (-1.0);
+	if ((-b - sqrt(d)) / (2.0 * a) > 0.0 && (-b + sqrt(d)) / (2.0 * a) > 0.0)
+		return (rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a)));
+	else
+		return (rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a)));
 }
 
 t_insec_p	rt_sp_intersec(t_sphere *sphere, t_ray ray)
 {
 	t_insec_p	res;
-	double					t;
-	t_3d_vec				tmp_normal;
+	double		t;
 
-	t = rt_sp_calculate_directional_vector_coefficients(sphere, ray);
+	t = rt_sp_calc_dir_vec(sphere, ray);
 	res.unit_n_vec.x = NOT_INTERSECT;
 	if (t > 0.0)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = rt_get_point(ray, t);
-		tmp_normal = rt_vec_sub(res.p_vec, sphere->center_p_vec);
-		res.unit_n_vec = rt_vec_to_unit(tmp_normal);
+		res.unit_n_vec = rt_vec_to_unit(rt_vec_sub(res.p_vec,
+					sphere->center_p_vec));
 		return (res);
 	}
 	return (res);

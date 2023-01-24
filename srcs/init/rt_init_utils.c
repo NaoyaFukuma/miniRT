@@ -6,19 +6,18 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:25:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 16:02:52 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 03:07:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_structs.h"
-#include "rt_init_utils.h"
-#include "rt_vector.h"
 #include "libft.h"
+#include "rt_init_utils.h"
 #include "rt_put_error.h"
-#include <stdlib.h>
+#include "rt_structs.h"
+#include "rt_vector.h"
 #include <stdbool.h>
-
 #include <stdio.h>
+#include <stdlib.h>
 
 void	rt_double_ptr_free(const char **d_ptr)
 {
@@ -77,10 +76,9 @@ void	rt_addback_lite_list(t_p_lite_src **begin,
 	tmp->next = new;
 }
 
-
 bool	rt_check_camera_or_lite_in_sphere(t_rt_data *rt)
 {
-	t_obj	*obj_ptr;
+	t_obj			*obj_ptr;
 	t_p_lite_src	*lite_ptr;
 
 	obj_ptr = rt->scene.objs;
@@ -94,7 +92,8 @@ bool	rt_check_camera_or_lite_in_sphere(t_rt_data *rt)
 		while (obj_ptr->shape == e_SPHERE && lite_ptr)
 		{
 			if (rt_vec_mag(rt_vec_sub(lite_ptr->p_vec,
-						obj_ptr->sphere->center_p_vec)) <= obj_ptr->sphere->radius)
+						obj_ptr->sphere->center_p_vec))
+				<= obj_ptr->sphere->radius)
 				return (true);
 			lite_ptr = lite_ptr->next;
 		}
