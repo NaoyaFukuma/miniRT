@@ -90,7 +90,7 @@ t_insec_p	rt_pl_intersec(t_plane *plane, t_ray ray)
 	{
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = rt_get_point(ray, t);
-		res.unit_n_vec = rt_vec_copy(plane->unit_norm_vec);
+		res.unit_n_vec = plane->unit_norm_vec;
 		plane->color = rt_checker_board(&res, plane);
 		return (res);
 	}

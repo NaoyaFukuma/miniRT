@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 13:15:42 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:02:41 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	rt_pixel_put(t_rt_data *rt, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = rt->mlx.image.addr + (y * rt->mlx.image.line_length + x * (rt->mlx.image.bits_per_pixel / 8));
+	dst = rt->mlx.image.addr + (y * rt->mlx.image.line_length + \
+								x * (rt->mlx.image.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -60,7 +61,7 @@ void	rt_x_draw(t_rt_data *rt, int y, int width, double fy)
 	{
 		fx = x - width / 2;
 		rt->scene.current_x = x;
-		color = rt_rgb_vec_to_int_color(rt_rgb_vec_constructor(0, 0, 0));
+		color = rt_rgb_vec_to_int_color(rt_rgb_vec_constructor_3(0));
 		col = rt_eye_raytrace(rt, fx, fy);
 		if (col.r != NOT_INTERSECT)
 		{

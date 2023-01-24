@@ -24,7 +24,7 @@ t_lighting	rt_calc_lighting_at_intersection(t_p_lite_src *pls,
 	tmp_direction = rt_vec_sub(pls->p_vec, insect_p_vec);
 	res.dist = rt_vec_mag(tmp_direction);
 	res.unit_d_vec = rt_vec_to_unit(tmp_direction);
-	res.intensity = rt_rgb_vec_copy(pls->lite_color);
+	res.intensity = pls->lite_color;
 	return (res);
 }
 
