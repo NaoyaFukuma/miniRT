@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:26:35 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:09:15 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_INIT_UTILS_BONUS_H
 # define RT_INIT_UTILS_BONUS_H
 
-# include "rt_structs.h"
+# include "rt_structs_bonus.h"
 # include <stdbool.h>
 
 // in init/rt_init_utils.c
