@@ -6,22 +6,43 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 10:30:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:48:11 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "rt_define.h"
 #include "rt_init_utils.h"
 #include "rt_put_error.h"
 #include "rt_structs.h"
 #include "rt_vector.h"
-#include "rt_define.h"
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #define VEC_MAX 1000000.000000 // 基準がわからない！とりあえず拾ってきたNGファイルの数値を入れている
+
+bool	rt_check_decimal_point(const char *str)
+{
+	size_t	i;
+	char	*point_inx;
+
+	point_inx = ft_strchr(str, '.');
+	if (point_inx == NULL)
+		return (true);
+	i = 1;
+	while (point_inx[i] != '\0')
+	{
+		if (ft_isdigit(point_inx[i]) == false)
+			break ;
+		++i;
+	}
+	if (2 < i)
+		return (true);
+	else
+		return (false);
+}
 
 t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 {
@@ -109,6 +130,7 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 		++i;
 	}
 	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0,
-			ft_atof(rgb[1]) / 255.0, ft_atof(rgb[2]) / 255.0));
+									ft_atof(rgb[1]) / 255.0,
+									ft_atof(rgb[2]) / 255.0));
 	rt_double_ptr_free((const char **)rgb);
 }

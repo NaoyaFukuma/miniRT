@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:26:35 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/23 13:17:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:47:51 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ bool		rt_check_camera_or_lite_in_sphere(t_rt_data *rt);
 t_obj		*rt_new_obj(t_rt_data *rt, int shapes_id);
 t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max);
 t_rgb_vec	rt_str_to_rbg(const char *str);
+bool		rt_check_decimal_point(const char *str);
 
 #endif
