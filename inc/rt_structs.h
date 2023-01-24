@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_STRUCS_H
-# define RT_STRUCS_H
+#ifndef RT_STRUCTS_H
+# define RT_STRUCTS_H
 
 enum					shapes
 {
