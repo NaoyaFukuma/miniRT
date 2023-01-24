@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 12:03:46 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:41:34 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@
 void	rt_fill_struct_a(t_rt_data *rt, const char **tokens)
 {
 	double	ratio;
-	double	mod;
 
 	if (rt->scene.amb_color.r != -1.0)
 		rt_put_rt_file_format_error_exit(ER_MULT_AMB);
 	if (rt_count_str(tokens) != 3)
 		rt_put_rt_file_format_error_exit(ER_AMB_ELE);
-	ratio = ft_atof(tokens[1]);
-	mod = fmod(ratio / 0.001, 10);
-	if (mod != 0)
+	if (rt_check_decimal_point(tokens[1]) == false)
 		rt_put_rt_file_format_error_exit(ER_AMB_RATIO);
+	ratio = ft_atof(tokens[1]);
 	if (!(0.0 <= ratio && ratio <= 1.0))
 		rt_put_rt_file_format_error_exit(ER_AMB_RANGE);
 	rt->scene.amb_color = rt_rgb_vec_mult(rt_str_to_rbg(tokens[2]), ratio);
@@ -87,7 +85,6 @@ void	rt_fill_struct_c(t_rt_data *rt, const char **tokens)
 void	rt_fill_struct_l(t_rt_data *rt, const char **tokens)
 {
 	double			ratio;
-	double			mod;
 	t_p_lite_src	*lite_ptr;
 
 	if (rt->scene.pls_s != NULL )
@@ -98,10 +95,9 @@ void	rt_fill_struct_l(t_rt_data *rt, const char **tokens)
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("Not four point light elements.");
 	lite_ptr->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
-	ratio = ft_atof(tokens[2]);
-	mod = fmod(ratio / 0.001, 10);
-	if (mod != 0)
+	if (rt_check_decimal_point(tokens[2]) == false)
 		rt_put_rt_file_format_error_exit(ER_LITE_RATIO);
+	ratio = ft_atof(tokens[2]);
 	if (!(0.0 <= ratio && ratio <= 1.0))
 		rt_put_rt_file_format_error_exit(ER_LITE_RANGE);
 	lite_ptr->lite_color = rt_rgb_vec_mult(rt_str_to_rbg(tokens[3]), ratio);

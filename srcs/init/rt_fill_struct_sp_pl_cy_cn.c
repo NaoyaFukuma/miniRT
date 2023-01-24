@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 10:30:00 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:52:35 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@
 #include <errno.h>
 #include <rt_define.h>
 
+#include <stdio.h>
+
 void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
-	double	mod;
 
 	if (rt_count_str(tokens) != 4)
 		rt_put_rt_file_format_error_exit("Not four sphere light elements");
 	obj_ptr = rt_new_obj(rt, e_SPHERE);
 	obj_ptr->sphere->center_p_vec
 		= rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
+	if (rt_check_decimal_point(tokens[2]) == false)
+		rt_put_rt_file_format_error_exit(ER_SP_DIA);
 	obj_ptr->sphere->radius = ft_atof(tokens[2]);
 	if (obj_ptr->sphere->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Sphere diameter is invalid value");
-	mod = fmod(obj_ptr->sphere->radius / 0.001, 10);
-	if (mod != 0)
-		rt_put_rt_file_format_error_exit(ER_SP_DIA);
 	obj_ptr->sphere->radius /= 2.0;
 	obj_ptr->sphere->color = rt_str_to_rbg(tokens[3]);
 }
@@ -51,7 +51,10 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 	obj_ptr->plane->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->plane->unit_norm_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->plane->unit_norm_vec) != 1.0)
-		rt_put_rt_file_format_error_exit(ER_PL_ORI);
+	{
+		ft_putstr_fd("Plane orientation vec not normarized\n", 2);
+		rt_vec_to_unit(obj_ptr->plane->unit_norm_vec);
+	}
 }
 
 void	rt_fill_struct_cy_sub(t_obj *obj_ptr, const char **tokens)
@@ -61,7 +64,12 @@ void	rt_fill_struct_cy_sub(t_obj *obj_ptr, const char **tokens)
 	obj_ptr->cylinder->unit_orient_vec
 		= rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->cylinder->unit_orient_vec) != 1.0)
-		rt_put_rt_file_format_error_exit(ER_CY_ORI);
+	{
+		ft_putstr_fd("Cylinder orientation vec not normarized\n", 2);
+		rt_vec_to_unit(obj_ptr->cylinder->unit_orient_vec);
+	}
+	if (rt_check_decimal_point(tokens[4]) == false)
+		rt_put_rt_file_format_error_exit(ER_CY_DIA);
 	obj_ptr->cylinder->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cylinder->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
@@ -70,29 +78,23 @@ void	rt_fill_struct_cy_sub(t_obj *obj_ptr, const char **tokens)
 void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
-	double	mod;
 
 	if (rt_count_str(tokens) != 6)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
 	obj_ptr = rt_new_obj(rt, e_CYLINDER);
 	rt_fill_struct_cy_sub(obj_ptr, tokens);
-	mod = fmod(obj_ptr->cylinder->radius / 0.001, 10);
-	if (mod != 0)
-		rt_put_rt_file_format_error_exit(ER_CY_DIA);
 	obj_ptr->cylinder->radius /= 2;
+	if (rt_check_decimal_point(tokens[4]) == false)
+		rt_put_rt_file_format_error_exit(ER_CY_HEI);
 	obj_ptr->cylinder->height = ft_atof(tokens[4]);
 	if (obj_ptr->cylinder->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
-	mod = fmod(obj_ptr->cylinder->height / 0.001, 10);
-	if (mod != 0)
-		rt_put_rt_file_format_error_exit(ER_CY_HEI);
 	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
 }
 
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 {
 	t_obj	*obj_ptr;
-	double	mod;
 
 	if (rt_count_str(tokens) != 6)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
@@ -101,19 +103,20 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 		= rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->cone->unit_orient_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(obj_ptr->cone->unit_orient_vec) != 1.0)
-		rt_put_rt_file_format_error_exit(ER_CN_ORI);
+	{
+		ft_putstr_fd("Cone orientation vec not normarized\n", 2);
+		rt_vec_to_unit(obj_ptr->cone->unit_orient_vec);
+	}
+	if (rt_check_decimal_point(tokens[3]) == false)
+		rt_put_rt_file_format_error_exit(ER_CN_DIA);
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cone->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
-	mod = fmod(obj_ptr->cone->radius / 0.001, 10);
-	if (mod != 0)
-		rt_put_rt_file_format_error_exit(ER_CN_DIA);
 	obj_ptr->cone->radius /= 2;
+	if (rt_check_decimal_point(tokens[4]) == false)
+		rt_put_rt_file_format_error_exit(ER_CN_HEI);
 	obj_ptr->cone->height = ft_atof(tokens[4]);
 	if (obj_ptr->cone->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
-	mod = fmod(obj_ptr->cone->height / 0.001, 10);
-	if (mod != 0)
-		rt_put_rt_file_format_error_exit(ER_CN_HEI);
 	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);
 }

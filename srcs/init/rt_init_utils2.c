@@ -6,22 +6,43 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 10:30:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:48:24 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "rt_define.h"
 #include "rt_init_utils.h"
 #include "rt_put_error.h"
 #include "rt_structs.h"
 #include "rt_vector.h"
-#include "rt_define.h"
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #define VEC_MAX 1000000.000000 // 基準がわからない！とりあえず拾ってきたNGファイルの数値を入れている
+
+bool	rt_check_decimal_point(const char *str)
+{
+	size_t	i;
+	char	*point_inx;
+
+	point_inx = ft_strchr(str, '.');
+	if (point_inx == NULL)
+		return (true);
+	i = 1;
+	while (point_inx[i] != '\0')
+	{
+		if (ft_isdigit(point_inx[i]) == false)
+			break ;
+		++i;
+	}
+	if (3 < i)
+		return (false);
+	else
+		return (true);
+}
 
 t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 {
@@ -73,6 +94,7 @@ static void	rt_check_value(const char **elements, double min, double max)
 t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
 {
 	char	**elements;
+	t_3d_vec	tmp;
 
 	elements = ft_split(str, ',');
 	if (elements == NULL)
@@ -80,9 +102,10 @@ t_3d_vec	rt_str_to_3dvector(const char *str, double min, double max)
 	if (rt_count_str((const char **)elements) != 3)
 		rt_put_rt_file_format_error_exit("Not 3 vector elements");
 	rt_check_value((const char **)elements, min, max);
-	return (rt_vec_constructor(ft_atof(elements[0]), ft_atof(elements[1]),
-			ft_atof(elements[2])));
+	tmp = rt_vec_constructor(ft_atof(elements[0]), ft_atof(elements[1]),
+			ft_atof(elements[2]));
 	rt_double_ptr_free((const char **)elements);
+	return (tmp);
 }
 
 t_rgb_vec	rt_str_to_rbg(const char *str)
@@ -90,14 +113,15 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 	int		i;
 	int		tmp;
 	char	**rgb;
+	t_rgb_vec	tmp_rgb;
 
 	rgb = ft_split(str, ',');
 	if (rgb == NULL)
 		rt_perror_exit(NULL);
 	if (rt_count_str((const char **)rgb) != 3)
 		rt_put_rt_file_format_error_exit("Not three RGB elements");
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
 		if (ft_strchar(rgb[i], '.'))
 			rt_put_rt_file_format_error_exit(ER_NOT_INT);
@@ -106,9 +130,9 @@ t_rgb_vec	rt_str_to_rbg(const char *str)
 			rt_put_rt_file_format_error_exit(ER_OVER_FLOW);
 		if (!(0 <= tmp && tmp <= 255))
 			rt_put_rt_file_format_error_exit(ER_RGB_RANGE);
-		++i;
 	}
-	return (rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0,
-			ft_atof(rgb[1]) / 255.0, ft_atof(rgb[2]) / 255.0));
+	tmp_rgb = rt_rgb_vec_constructor(ft_atof(rgb[0]) / 255.0,
+					ft_atof(rgb[1]) / 255.0, ft_atof(rgb[2]) / 255.0);
 	rt_double_ptr_free((const char **)rgb);
+	return (tmp_rgb);
 }
