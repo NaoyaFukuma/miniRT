@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 16:08:39 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 11:35:15 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RT_DRAW_H
 
 # include "rt_structs.h"
+# include <stdbool.h>
 
 typedef struct s_ray
 {
@@ -70,7 +71,24 @@ double			rt_min(double a, double b);
 double			rt_max(double a, double b);
 double			rt_constrain(double num, double low, double high);
 
-/* in randam.c */
+/* rt_randam.c */
 double			return_random_ratio(int seed, int bottom);
+
+/* rt_all_insec.c */
+t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);
+t_insec_res		rt_all_insec(t_obj *objs, t_ray ray, double max_dist, \
+													bool exitFound);
+/* rt_shadow_intersection.c */
+double			rt_constrain(double num, double low, double high);
+bool			rt_shadow_intersection(t_rt_data *rt, t_insec_res result, \
+											t_lighting lighting);
+/* rt_calc_spec_and_diffu.c */
+t_rgb_vec		rt_calc_spec_and_diffu(t_rt_data *rt, t_3d_vec eye_dir, \
+									t_insec_res result, \
+									t_lighting lighting);
+
+/* rt_calc_diffu.c */
+t_rgb_vec		rt_calc_diffu(t_lighting lighting, t_insec_res \
+									result, double n_dot_l);
 
 #endif
