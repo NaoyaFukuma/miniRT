@@ -1,32 +1,41 @@
 !/bin/bash -eu
 
-mv b_srcs/main.c b_srcs/main_bonus.c
-mv b_srcs/arg/rt_check_arg.c b_srcs/arg/rt_check_arg_bonus.c
-mv b_srcs/draw/rt_all_insec.c b_srcs/draw/rt_all_insec_bonus.c
-mv b_srcs/draw/rt_calc_diffu.c b_srcs/draw/rt_calc_diffu_bonus.c
-mv b_srcs/draw/rt_calc_spec_and_diffu.c b_srcs/draw/rt_calc_spec_and_diffu_bonus.c
-mv b_srcs/draw/rt_draw.c b_srcs/draw/rt_draw_bonus.c
-mv b_srcs/draw/rt_draw_utils.c b_srcs/draw/rt_draw_utils_bonus.c
-mv b_srcs/draw/rt_eye_raytrace.c b_srcs/draw/rt_eye_raytrace_bonus.c
-mv b_srcs/draw/rt_random.c b_srcs/draw/rt_random_bonus.c
-mv b_srcs/draw/rt_raytrace.c b_srcs/draw/rt_raytrace_bonus.c
-mv b_srcs/draw/rt_shadow_intersection.c b_srcs/draw/rt_shadow_intersection_bonus.c
-mv b_srcs/draw/test_intersection/rt_co_intersec.c b_srcs/draw/test_intersection/rt_co_intersec_bonus.c
-mv b_srcs/draw/test_intersection/rt_cy_intersec.c b_srcs/draw/test_intersection/rt_cy_intersec_bonus.c
-mv b_srcs/draw/test_intersection/rt_pl_intersec.c b_srcs/draw/test_intersection/rt_pl_intersec_bonus.c
-mv b_srcs/draw/test_intersection/rt_sp_intersec.c b_srcs/draw/test_intersection/rt_sp_intersec_bonus.c
-mv b_srcs/error/rt_put_error.c b_srcs/error/rt_put_error_bonus.c
-mv b_srcs/init/rt_fill_struct_a_c_l.c b_srcs/init/rt_fill_struct_a_c_l_bonus.c
-mv b_srcs/init/rt_fill_struct_sp_pl_cy_cn.c b_srcs/init/rt_fill_struct_sp_pl_cy_cn_bonus.c
-mv b_srcs/init/rt_init.c b_srcs/init/rt_init_bonus.c
-mv b_srcs/init/rt_init_fill_struct.c b_srcs/init/rt_init_fill_struct_bonus.c
-mv b_srcs/init/rt_init_hook.c b_srcs/init/rt_init_hook_bonus.c
-mv b_srcs/init/rt_init_utils.c b_srcs/init/rt_init_utils_bonus.c
-mv b_srcs/init/rt_init_utils2.c b_srcs/init/rt_init_utils2_bonus.c
-mv b_srcs/vector_operation/rt_rgb_vec_cons_add_mult.c b_srcs/vector_operation/rt_rgb_vec_cons_add_mult_bonus.c
-mv b_srcs/vector_operation/rt_rgv_vec_pi.c b_srcs/vector_operation/rt_rgv_vec_pi_bonus.c
-mv b_srcs/vector_operation/rt_vec_cons_sub_add_mult.c b_srcs/vector_operation/rt_vec_cons_sub_add_mult_bonus.c
-mv b_srcs/vector_operation/rt_vec_product.c b_srcs/vector_operation/rt_vec_product_bonus.c
+cp inc/rt_check_arg.h inc/rt_check_arg_bonus.h
+cp inc/rt_define.h inc/rt_define_bonus.h
+cp inc/rt_draw.h inc/rt_draw_bonus.h
+cp inc/rt_init.h inc/rt_init_bonus.h
+cp inc/rt_init_utils.h inc/rt_init_utils_bonus.h
+cp inc/rt_put_error.h inc/rt_put_error_bonus.h
+cp inc/rt_structs.h inc/rt_structs_bonus.h
+cp inc/rt_vector.h inc/rt_vector_bonus.h
+
+# mv b_srcs/main.c b_srcs/main_bonus.c
+# mv b_srcs/arg/rt_check_arg.c b_srcs/arg/rt_check_arg_bonus.c
+# mv b_srcs/draw/rt_all_insec.c b_srcs/draw/rt_all_insec_bonus.c
+# mv b_srcs/draw/rt_calc_diffu.c b_srcs/draw/rt_calc_diffu_bonus.c
+# mv b_srcs/draw/rt_calc_spec_and_diffu.c b_srcs/draw/rt_calc_spec_and_diffu_bonus.c
+# mv b_srcs/draw/rt_draw.c b_srcs/draw/rt_draw_bonus.c
+# mv b_srcs/draw/rt_draw_utils.c b_srcs/draw/rt_draw_utils_bonus.c
+# mv b_srcs/draw/rt_eye_raytrace.c b_srcs/draw/rt_eye_raytrace_bonus.c
+# mv b_srcs/draw/rt_random.c b_srcs/draw/rt_random_bonus.c
+# mv b_srcs/draw/rt_raytrace.c b_srcs/draw/rt_raytrace_bonus.c
+# mv b_srcs/draw/rt_shadow_intersection.c b_srcs/draw/rt_shadow_intersection_bonus.c
+# mv b_srcs/draw/test_intersection/rt_co_intersec.c b_srcs/draw/test_intersection/rt_co_intersec_bonus.c
+# mv b_srcs/draw/test_intersection/rt_cy_intersec.c b_srcs/draw/test_intersection/rt_cy_intersec_bonus.c
+# mv b_srcs/draw/test_intersection/rt_pl_intersec.c b_srcs/draw/test_intersection/rt_pl_intersec_bonus.c
+# mv b_srcs/draw/test_intersection/rt_sp_intersec.c b_srcs/draw/test_intersection/rt_sp_intersec_bonus.c
+# mv b_srcs/error/rt_put_error.c b_srcs/error/rt_put_error_bonus.c
+# mv b_srcs/init/rt_fill_struct_a_c_l.c b_srcs/init/rt_fill_struct_a_c_l_bonus.c
+# mv b_srcs/init/rt_fill_struct_sp_pl_cy_cn.c b_srcs/init/rt_fill_struct_sp_pl_cy_cn_bonus.c
+# mv b_srcs/init/rt_init.c b_srcs/init/rt_init_bonus.c
+# mv b_srcs/init/rt_init_fill_struct.c b_srcs/init/rt_init_fill_struct_bonus.c
+# mv b_srcs/init/rt_init_hook.c b_srcs/init/rt_init_hook_bonus.c
+# mv b_srcs/init/rt_init_utils.c b_srcs/init/rt_init_utils_bonus.c
+# mv b_srcs/init/rt_init_utils2.c b_srcs/init/rt_init_utils2_bonus.c
+# mv b_srcs/vector_operation/rt_rgb_vec_cons_add_mult.c b_srcs/vector_operation/rt_rgb_vec_cons_add_mult_bonus.c
+# mv b_srcs/vector_operation/rt_rgv_vec_pi.c b_srcs/vector_operation/rt_rgv_vec_pi_bonus.c
+# mv b_srcs/vector_operation/rt_vec_cons_sub_add_mult.c b_srcs/vector_operation/rt_vec_cons_sub_add_mult_bonus.c
+# mv b_srcs/vector_operation/rt_vec_product.c b_srcs/vector_operation/rt_vec_product_bonus.c
 
 
 # set +e
