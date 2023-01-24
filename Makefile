@@ -33,9 +33,35 @@ SRCS =	main.c \
 		rt_all_insec.c \
 		rt_shadow_intersection.c \
 		rt_calc_spec_and_diffu.c \
-		rt_calc_diffu.c \
+		rt_calc_diffu.c
 
-B_SRCS =	b_main.c
+B_SRCS =	main_bonus.c \
+			rt_check_arg_bonus.c \
+			rt_put_error_bonus.c \
+			rt_init_bonus.c \
+			rt_rgb_vec_cons_add_mult_bonus.c \
+			rt_vec_cons_sub_add_mult_bonus.c \
+			rt_rgv_vec_pi_bonus.c \
+			rt_vec_product_bonus.c \
+			rt_fill_struct_a_c_l_bonus.c \
+			rt_fill_struct_sp_pl_cy_cn_bonus.c \
+			rt_init_fill_struct_bonus.c \
+			rt_init_hook_bonus.c \
+			rt_init_utils_bonus.c \
+			rt_init_utils2_bonus.c \
+			rt_draw_bonus.c \
+			rt_draw_utils_bonus.c \
+			rt_random_bonus.c \
+			rt_eye_raytrace_bonus.c \
+			rt_raytrace_bonus.c \
+			rt_co_intersec_bonus.c \
+			rt_cy_intersec_bonus.c \
+			rt_pl_intersec_bonus.c \
+			rt_sp_intersec_bonus.c \
+			rt_all_insec_bonus.c \
+			rt_shadow_intersection_bonus.c \
+			rt_calc_spec_and_diffu_bonus.c \
+			rt_calc_diffu_bonus.c \
 
 VPATH =	srcs:\
 		srcs/init:\
