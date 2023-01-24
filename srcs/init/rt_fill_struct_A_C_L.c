@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_fill_struct_A_C_L.c                             :+:      :+:    :+:   */
+/*   rt_fill_struct_a_c_l.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:00:25 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:29:41 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	rt_fill_struct_a(t_rt_data *rt, const char **tokens)
 	if (rt_count_str(tokens) != 3)
 		rt_put_rt_file_format_error_exit(ER_AMB_ELE);
 	ratio = ft_atof(tokens[1]);
-	mod = fmod(ratio / 0.01, 10);
+	mod = fmod(ratio / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_AMB_RATIO);
 	if (!(0.0 <= ratio && ratio <= 1.0))
@@ -46,7 +46,10 @@ static void	rt_fill_struct_c_sub(t_rt_data *rt, const char **tokens)
 	rt->scene.cam.cam_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	rt->scene.cam.unit_cam_dir = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
 	if (rt_vec_mag(rt->scene.cam.unit_cam_dir) != 1.0)
-		rt_put_rt_file_format_error_exit(ER_CAM_ORI);
+	{
+		ft_putstr_fd("Camera orientation vec not normarized\n", 2);
+		rt_vec_to_unit(rt->scene.cam.unit_cam_dir);
+	}
 	if (ft_strchar((char *)tokens[3], '.'))
 		rt_put_rt_file_format_error_exit("FOV is not integer type");
 	fov = ft_atoi(tokens[3]);
@@ -87,6 +90,8 @@ void	rt_fill_struct_l(t_rt_data *rt, const char **tokens)
 	double			mod;
 	t_p_lite_src	*lite_ptr;
 
+	if (rt->scene.pls_s != NULL )
+		rt_put_rt_file_format_error_exit("Multiple lite");
 	lite_ptr = malloc(sizeof(t_p_lite_src));
 	lite_ptr->next = NULL;
 	rt_addback_lite_list(&rt->scene.pls_s, lite_ptr);
@@ -94,7 +99,7 @@ void	rt_fill_struct_l(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("Not four point light elements.");
 	lite_ptr->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	ratio = ft_atof(tokens[2]);
-	mod = fmod(ratio / 0.01, 10);
+	mod = fmod(ratio / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_LITE_RATIO);
 	if (!(0.0 <= ratio && ratio <= 1.0))

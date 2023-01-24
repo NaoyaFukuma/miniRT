@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:04:28 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:39:50 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	rt_check_id(const char *str)
 		++id;
 	}
 	if (id == 7)
+	{
 		return (-1);
+	}
 	return (id);
 }
