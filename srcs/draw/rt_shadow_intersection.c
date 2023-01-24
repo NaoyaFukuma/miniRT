@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 16:13:10 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:15:05 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	rt_shadow_intersection(t_rt_data *rt, t_insec_res result, \
 	res = result.insec_p;
 	shadow_ray = rt_make_shadow_ray(res.p_vec, lighting);
 	epsilon = 1.0 / 512.0;
-	shadow_res = rt_all_insec(rt->scene.objs, shadow_ray,\
+	shadow_res = rt_all_insec(rt->scene.objs, shadow_ray,
 								lighting.dist - epsilon, true);
 	if (shadow_res.insec_p.unit_n_vec.x != NOT_INTERSECT)
 	{
