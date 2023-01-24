@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_structs.h"
+#include "rt_structs_bonus.h"
 
 t_rgb_vec	rt_rgb_vec_constructor(double r, double g, double b)
 {

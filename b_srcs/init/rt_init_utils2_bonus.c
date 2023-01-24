@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init_utils2.c                                   :+:      :+:    :+:   */
+/*   rt_init_utils2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:15:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_define.h"
-#include "rt_init_utils.h"
-#include "rt_put_error.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_define_bonus.h"
+#include "rt_init_utils_bonus.h"
+#include "rt_put_error_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>

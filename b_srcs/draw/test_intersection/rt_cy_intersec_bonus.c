@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_vector.h"
-#include "rt_structs.h"
-#include "rt_draw.h"
+#include "rt_vector_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_draw_bonus.h"
 #include "libft.h"
 #include <stdbool.h>
 #include <float.h>

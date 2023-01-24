@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_fill_struct_sp_pl_cy_cn.c                       :+:      :+:    :+:   */
+/*   rt_fill_struct_sp_pl_cy_cn_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:41:11 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_init_utils.h"
-#include "rt_put_error.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_init_utils_bonus.h"
+#include "rt_put_error_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <math.h>
 #include <stdlib.h>
 #include <float.h>

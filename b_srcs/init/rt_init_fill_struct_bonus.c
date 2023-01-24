@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init_fill_struct.c                              :+:      :+:    :+:   */
+/*   rt_init_fill_struct_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 10:39:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_define.h"
-#include "rt_init_utils.h"
-#include "rt_put_error.h"
-#include "rt_structs.h"
+#include "rt_define_bonus.h"
+#include "rt_init_utils_bonus.h"
+#include "rt_put_error_bonus.h"
+#include "rt_structs_bonus.h"
 
 void	rt_fill_struct_a(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_c(t_rt_data *rt, const char **tokens);

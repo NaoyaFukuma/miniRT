@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_structs.h"
+#include "rt_structs_bonus.h"
 
 t_rgb_vec	rt_rgb_vec_pi(t_rgb_vec intensity, t_rgb_vec factor, \
 												t_rgb_vec n_dot_l)

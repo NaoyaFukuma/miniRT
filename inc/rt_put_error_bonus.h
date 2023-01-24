@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw_utils_bonus.c                              :+:      :+:    :+:   */
+/*   rt_put_error_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Created: 2023/01/13 22:56:52 by nfukuma           #+#    #+#             */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_draw_bonus.h"
+#ifndef RT_PUT_ERROR_BONUS_H
+# define RT_PUT_ERROR_BONUS_H
 
-double	rt_min(double a, double b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
+void	rt_put_error_exit(const char *msg);
+void	rt_put_rt_file_format_error_exit(const char *msg);
+void	rt_perror_exit(const char *msg);
 
-double	rt_max(double a, double b)
-{
-	if (b < a)
-		return (a);
-	return (b);
-}
+#endif
