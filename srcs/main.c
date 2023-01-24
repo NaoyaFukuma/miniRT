@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 13:45:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:42:43 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 
 #include <stdlib.h>
 
-__attribute__((destructor))
-static void destructor(void)
-{
-	system("leaks -q miniRT");
-}
+// __attribute__((destructor))
+// static void destructor(void)
+// {
+// 	system("leaks -q miniRT");
+// }
 
 int	main(int ac, char **av)
 {
