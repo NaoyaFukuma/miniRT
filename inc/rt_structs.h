@@ -6,14 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:43:11 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:43:35 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_STRUCTS_H
 # define RT_STRUCTS_H
 
-enum					shapes
+enum					e_shapes
 {
 	e_SPHERE,
 	e_PLANE,
