@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_eye_raytrace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 16:08:39 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:11:47 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 
 t_3d_vec	rt_calc_pw(t_rt_data *rt, double fx, double fy)
 {
-	t_3d_vec	center_position_on_screen;
-	t_3d_vec	variation_form_center_position_on_screen;
+	t_3d_vec	center_p_on_scr_vec;
+	t_3d_vec	var_form_center_p_on_scr_vec;
+	t_3d_vec	var_x;
+	t_3d_vec	var_y;
+	t_3d_vec	cam_to_scr_vec;
 
-	center_position_on_screen = rt_vec_add(rt->scene.cam.cam_p_vec,
-												rt_vec_mult(rt->scene.cam.unit_cam_dir,
-														rt->scene.cam.scr_dist));
-	variation_form_center_position_on_screen =
-		rt_vec_add(rt_vec_mult(rt->scene.cam.unit_scr_dir_x_vec,
-					fx),
-				rt_vec_mult(rt->scene.cam.unit_scr_dir_y_vec,
-					fy));
-	return (rt_vec_add(center_position_on_screen,
-			variation_form_center_position_on_screen));
+	cam_to_scr_vec = rt_vec_mult(rt->scene.cam.unit_cam_dir, \
+									rt->scene.cam.scr_dist);
+	center_p_on_scr_vec = rt_vec_add(rt->scene.cam.cam_p_vec, cam_to_scr_vec);
+	var_x = rt_vec_mult(rt->scene.cam.unit_scr_dir_x_vec, fx);
+	var_y = rt_vec_mult(rt->scene.cam.unit_scr_dir_y_vec, fy);
+	var_form_center_p_on_scr_vec = rt_vec_add(var_x, var_y);
+	return (rt_vec_add(center_p_on_scr_vec, var_form_center_p_on_scr_vec));
 }
 
 t_ray	rt_eye_ray_constructor(t_3d_vec position_on_screen, t_rt_data *rt)
