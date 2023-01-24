@@ -6,7 +6,7 @@
 /*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 11:35:15 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:10:38 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "rt_structs.h"
 # include <stdbool.h>
 
+/* rt_draw.c */
 typedef struct s_ray
 {
 	t_3d_vec	start;
@@ -26,13 +27,11 @@ void			rt_draw(t_rt_data *rt);
 void			rt_x_draw(t_rt_data *rt, int y, int width, double fy);
 t_3d_vec		rt_calc_pw(t_rt_data *rt, double fx, double fy);
 
-/////////////////////////////////////////
-
 /*rt_eye_raytrace*/
 t_rgb_vec		rt_eye_raytrace(t_rt_data *rt, double fx, double fy);
 
-////////////////////////////////////////
-# define C_EPSILON ((1.0) / (512.0))
+/* rt_raytrace.c */
+
 typedef struct s_insec_p
 {
 	double		dist;
@@ -55,12 +54,11 @@ typedef struct lighting
 
 t_rgb_vec		rt_raytrace(t_rt_data *rt, t_ray ray);
 
-/////////////////////////////////////////
+/* test_intersection */
 
 # define NOT_INTERSECT 256.0
 
 t_3d_vec		rt_get_point(t_ray ray, double t);
-
 t_insec_p		rt_pl_intersec(t_plane *plane, t_ray ray);
 t_insec_p		rt_sp_intersec(t_sphere *sphere, t_ray ray);
 t_insec_p		rt_cy_intersec(t_cylinder *cylinder, t_ray ray);
