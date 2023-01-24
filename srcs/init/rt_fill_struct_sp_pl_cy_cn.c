@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 12:52:35 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:41:11 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens)
 	t_obj	*obj_ptr;
 
 	if (rt_count_str(tokens) != 4)
-		rt_put_rt_file_format_error_exit("");
+		rt_put_rt_file_format_error_exit("Not four plane elements");
 	obj_ptr = rt_new_obj(rt, e_PLANE);
 	obj_ptr->plane->p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
 	obj_ptr->plane->unit_norm_vec = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
+	obj_ptr->plane->color = rt_str_to_rbg(tokens[3]);
+	obj_ptr->plane->defalt_color = obj_ptr->plane->color;
 	if (rt_vec_mag(obj_ptr->plane->unit_norm_vec) != 1.0)
 	{
 		ft_putstr_fd("Plane orientation vec not normarized\n", 2);
