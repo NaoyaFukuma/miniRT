@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 13:10:38 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:21:44 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,18 @@ double			return_random_ratio(int seed, int bottom);
 
 /* rt_all_insec.c */
 t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);
-t_insec_res		rt_all_insec(t_obj *objs, t_ray ray, double max_dist, \
-													bool exitFound);
+t_insec_res		rt_all_insec(t_obj *objs, t_ray ray, double max_dist,
+					bool exitFound);
 /* rt_shadow_intersection.c */
 double			rt_constrain(double num, double low, double high);
-bool			rt_shadow_intersection(t_rt_data *rt, t_insec_res result, \
-											t_lighting lighting);
+bool			rt_shadow_intersection(t_rt_data *rt, t_insec_res result,
+					t_lighting lighting);
 /* rt_calc_spec_and_diffu.c */
-t_rgb_vec		rt_calc_spec_and_diffu(t_rt_data *rt, t_3d_vec eye_dir, \
-									t_insec_res result, \
-									t_lighting lighting);
+t_rgb_vec		rt_calc_spec_and_diffu(t_rt_data *rt, t_3d_vec eye_dir,
+					t_insec_res result, t_lighting lighting);
 
 /* rt_calc_diffu.c */
-t_rgb_vec		rt_calc_diffu(t_lighting lighting, t_insec_res \
-									result, double n_dot_l);
+t_rgb_vec		rt_calc_diffu(t_lighting lighting, t_insec_res result,
+					double n_dot_l);
 
 #endif
