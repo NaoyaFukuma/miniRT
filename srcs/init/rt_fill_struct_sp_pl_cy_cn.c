@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 02:41:24 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:30:00 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens)
 	obj_ptr->sphere->radius = ft_atof(tokens[2]);
 	if (obj_ptr->sphere->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Sphere diameter is invalid value");
-	mod = fmod(obj_ptr->sphere->radius / 0.01, 10);
+	mod = fmod(obj_ptr->sphere->radius / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_SP_DIA);
 	obj_ptr->sphere->radius /= 2.0;
@@ -76,14 +76,14 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 		rt_put_rt_file_format_error_exit("rt file invalid format");
 	obj_ptr = rt_new_obj(rt, e_CYLINDER);
 	rt_fill_struct_cy_sub(obj_ptr, tokens);
-	mod = fmod(obj_ptr->cylinder->radius / 0.01, 10);
+	mod = fmod(obj_ptr->cylinder->radius / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CY_DIA);
 	obj_ptr->cylinder->radius /= 2;
 	obj_ptr->cylinder->height = ft_atof(tokens[4]);
 	if (obj_ptr->cylinder->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
-	mod = fmod(obj_ptr->cylinder->height / 0.01, 10);
+	mod = fmod(obj_ptr->cylinder->height / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CY_HEI);
 	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
@@ -105,14 +105,14 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
 	if (obj_ptr->cone->radius <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
-	mod = fmod(obj_ptr->cone->radius / 0.01, 10);
+	mod = fmod(obj_ptr->cone->radius / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CN_DIA);
 	obj_ptr->cone->radius /= 2;
 	obj_ptr->cone->height = ft_atof(tokens[4]);
 	if (obj_ptr->cone->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
-	mod = fmod(obj_ptr->cone->height / 0.01, 10);
+	mod = fmod(obj_ptr->cone->height / 0.001, 10);
 	if (mod != 0)
 		rt_put_rt_file_format_error_exit(ER_CN_HEI);
 	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);

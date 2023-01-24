@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 03:39:39 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:38:52 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	rt_import_rt_file(t_rt_data *rt, const char *file)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		if (*line != '\0')
+		if (*line != '\n')
 			rt_fill_struct(rt, line);
 		free(line);
 	}

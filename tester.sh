@@ -3,7 +3,7 @@
 set +e
 #
 # #NG cace
-printf "\n\e[33m -- test NG case -- \e[m\n\e[m"
+printf "\n\e[32m ===== test NG case ==== \e[m\n\e[m"
 #
 printf "\n\e[33mtest color_is_greater.rt\n\e[m"
 ./miniRT rt_files/ng/color_is_greater.rt || true
@@ -63,13 +63,15 @@ printf "\n\e[33mtest light_in_sphere.rt\n\e[m"
 ./miniRT rt_files/ng/light_in_sphere.rt || true
 #
 # #ok case
-printf "\n\e[33m -- test OK case -- \e[m\n\e[m"
-printf "\n\e[33mtest basic_cylinder.rt\n\e[m"
-./miniRT rt_files/basic_cylinder.rt
+printf "\n\e[32m ==== test OK case ==== \e[m\n\e[m"
 printf "\n\e[33mtest basic_plane.rt\n\e[m"
 ./miniRT rt_files/basic_plane.rt
 printf "\n\e[33mtest basic_sphere.rt\n\e[m"
 ./miniRT rt_files/basic_sphere.rt
+printf "\n\e[33mtest basic_cylinder.rt\n\e[m"
+./miniRT rt_files/basic_cylinder.rt
+printf "\n\e[33mtest basic_cone.rt\n\e[m"
+./miniRT rt_files/basic_cylinder.rt
 printf "\n\e[33mtest minimalist.rt\n\e[m"
 ./miniRT rt_files/minimalist.rt
 printf "\n\e[33mtest rotate_cylinder.rt\n\e[m"
