@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_shadow_intersection.c                           :+:      :+:    :+:   */
+/*   rt_shadow_intersection_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 16:16:30 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_draw.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <stdbool.h>
 
 t_ray	rt_make_shadow_ray(t_3d_vec insect_p_vec, t_lighting lighting)

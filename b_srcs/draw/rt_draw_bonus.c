@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw.c                                          :+:      :+:    :+:   */
+/*   rt_draw_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 12:02:41 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mlx.h"
-#include "rt_draw.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 
 int	rt_rgb_vec_to_int_color(t_rgb_vec col)
 {

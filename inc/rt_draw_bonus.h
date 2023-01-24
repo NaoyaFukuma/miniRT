@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_draw.h                                          :+:      :+:    :+:   */
+/*   rt_draw_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 16:21:44 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_DRAW_H
-# define RT_DRAW_H
+#ifndef RT_DRAW_BONUS_H
+# define RT_DRAW_BONUS_H
 
 # include "rt_structs.h"
 # include <stdbool.h>

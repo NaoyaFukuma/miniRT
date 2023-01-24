@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init_utils.h                                    :+:      :+:    :+:   */
+/*   rt_init_utils_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:26:35 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:25:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_INIT_UTILS_H
-# define RT_INIT_UTILS_H
+#ifndef RT_INIT_UTILS_BONUS_H
+# define RT_INIT_UTILS_BONUS_H
 
 # include "rt_structs.h"
 # include <stdbool.h>

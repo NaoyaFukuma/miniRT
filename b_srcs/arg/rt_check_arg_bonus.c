@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_check_arg.c                                     :+:      :+:    :+:   */
+/*   rt_check_arg_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:49:09 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/18 10:39:22 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_put_error.h"
+#include "rt_put_error_bonus.h"
 #include <fcntl.h>
 #include <stdbool.h>
 

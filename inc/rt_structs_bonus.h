@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_structs.h                                       :+:      :+:    :+:   */
+/*   rt_structs_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:43:35 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_STRUCTS_H
-# define RT_STRUCTS_H
+#ifndef RT_STRUCTS_BONUS_H
+# define RT_STRUCTS_BONUS_H
 
 enum					e_shapes
 {

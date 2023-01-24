@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_structs.h"
+#include "rt_structs_bonus.h"
 
 t_3d_vec	rt_vec_constructor(double x, double y, double z)
 {

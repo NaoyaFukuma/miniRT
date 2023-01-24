@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_draw.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <float.h>
 #include <math.h>
 #include <stdbool.h>

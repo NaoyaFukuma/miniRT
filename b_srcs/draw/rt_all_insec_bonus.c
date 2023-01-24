@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_all_insec.c                                     :+:      :+:    :+:   */
+/*   rt_all_insec_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/23 19:59:50 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_draw.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <float.h>
 #include <math.h>
 #include <stdbool.h>

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_fill_struct_a_c_l.c                             :+:      :+:    :+:   */
+/*   rt_fill_struct_a_c_l_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:33:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:04:37 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "rt_define.h"
-#include "rt_init_utils.h"
-#include "rt_put_error.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_define_bonus.h"
+#include "rt_init_utils_bonus.h"
+#include "rt_put_error_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <float.h>
 #include <math.h>
 #include <stdio.h>

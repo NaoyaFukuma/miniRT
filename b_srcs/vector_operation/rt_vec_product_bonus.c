@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <math.h>
 
 double	rt_vec_dot(t_3d_vec a, t_3d_vec b)

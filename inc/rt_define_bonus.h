@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_define.h                                        :+:      :+:    :+:   */
+/*   rt_define_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:36:45 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:23:41 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_DEFINE_H
-# define RT_DEFINE_H
+#ifndef RT_DEFINE_BONUS_H
+# define RT_DEFINE_BONUS_H
 
 # define KEYPRESS 2
 # define DESTROYNOTIFY 17
@@ -51,10 +51,10 @@
 # define ER_PL_ORI "The norm of the orientation vector of a plane is not 1"
 # define ER_CY_ORI "The norm of the orientation vector of a cylinder is not 1"
 # define ER_CY_DIA "Cylinder diameter are not to the second decimal place"
-# define ER_CY_HEI "Cylinder height are not to the second decimal place"
+# define ER_CY_BONUS_HEI "Cylinder height are not to the second decimal place"
 # define ER_CN_ORI "The norm of the orientation vector of a cone is not 1"
 # define ER_CN_DIA "Cone diameter are not to the second decimal place"
-# define ER_CN_HEI "Cone height are not to the second decimal place"
+# define ER_CN_BONUS_HEI "Cone height are not to the second decimal place"
 # define ER_RANGE "Vector elements value are overflow"
 # define ER_DECIMAL "Vector elements value are not to the second decimal place"
 # define ER_ELE "Vector elements value range is lower or greater"

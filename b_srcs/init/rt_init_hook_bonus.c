@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init_hook.c                                     :+:      :+:    :+:   */
+/*   rt_init_hook_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:08:13 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:23:47 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "rt_define.h"
-#include "rt_draw.h"
-#include "rt_structs.h"
+#include "rt_define_bonus.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
 #include <stdlib.h>
 
 static int	rt_keypress_hook(int keycode, t_rt_data *rt);

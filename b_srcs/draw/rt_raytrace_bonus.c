@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_raytrace.c                                      :+:      :+:    :+:   */
+/*   rt_raytrace_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 14:50:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_draw.h"
-#include "rt_structs.h"
-#include "rt_vector.h"
+#include "rt_draw_bonus.h"
+#include "rt_structs_bonus.h"
+#include "rt_vector_bonus.h"
 #include <stdbool.h>
 
 t_lighting	rt_calc_lighting_at_intersection(t_p_lite_src *pls,

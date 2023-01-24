@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_vector.h                                        :+:      :+:    :+:   */
+/*   rt_vector_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 13:12:32 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_VECTOR_H
-# define RT_VECTOR_H
+#ifndef RT_VECTOR_BONUS_H
+# define RT_VECTOR_BONUS_H
 
 # include "rt_structs.h"
 
