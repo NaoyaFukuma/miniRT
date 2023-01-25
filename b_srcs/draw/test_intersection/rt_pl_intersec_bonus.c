@@ -26,30 +26,13 @@ t_3d_vec	rt_get_point(t_ray ray, double t)
 
 static t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
 {
-	if ((int)(x / 1.0) % 2 == 0)
-	{
-		if (x < 0)
-		{
-			if ((int)(y / 1.0) % 2 == 1)
-				color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0
-						- color.b);
-		}
-		else if (!((int)(y / 1.0) % 2 == 1))
-			color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0
-					- color.b);
-	}
-	else
-	{
-		if (x < 0)
-		{
-			if ((int)(y / 1.0) % 2 == 0)
-				color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0
-						- color.b);
-		}
-		else if (!((int)(y / 1.0) % 2 == 0))
-			color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0
-					- color.b);
-	}
+	if (x <= 0.0)
+		x = -x;
+	x += 0.5;
+	y += 0.5;
+	if (((int)(x / 1.0) % 2 == 0 && (int)(y / 1.0) % 2 == 1)
+		|| ((int)(x / 1.0) % 2 == 1 && (int)(y / 1.0) % 2 == 0))
+		color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0 - color.b);
 	return (color);
 }
 
