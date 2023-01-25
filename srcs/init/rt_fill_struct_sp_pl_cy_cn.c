@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/25 13:03:48 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/25 13:06:20 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 	if (rt_vec_mag(obj_ptr->cone->unit_orient_vec) != 1.0)
 		ft_putstr_fd("Cone orientation vec not normarized\n", 2);
 	obj_ptr->cone->unit_orient_vec
-			= rt_vec_to_unit(obj_ptr->cone->unit_orient_vec);
+		= rt_vec_to_unit(obj_ptr->cone->unit_orient_vec);
 	if (rt_check_decimal_point(tokens[3]) == false)
 		rt_put_rt_file_format_error_exit(ER_CN_DIA);
 	obj_ptr->cone->radius = ft_atof(tokens[3]);
