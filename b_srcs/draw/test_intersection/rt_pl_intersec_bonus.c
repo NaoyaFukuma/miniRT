@@ -32,7 +32,8 @@ static t_rgb_vec	rt_decide_color(double x, double y, t_rgb_vec color)
 	y += 0.5;
 	if (((int)(x / 1.0) % 2 == 0 && (int)(y / 1.0) % 2 == 1)
 		|| ((int)(x / 1.0) % 2 == 1 && (int)(y / 1.0) % 2 == 0))
-		color = rt_rgb_vec_constructor(1.0 - color.r, 1.0 - color.g, 1.0 - color.b);
+		color = rt_rgb_vec_constructor(1.0 - color.r, 1.0
+		- color.g, 1.0 - color.b);
 	return (color);
 }
 
