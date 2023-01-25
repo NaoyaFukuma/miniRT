@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/25 11:11:01 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/25 13:15:43 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	rt_fill_struct_c_sub(t_rt_data *rt, const char **tokens)
 	int	fov;
 
 	rt->scene.cam.cam_p_vec = rt_str_to_3dvector(tokens[1], -DBL_MAX, DBL_MAX);
-	rt->scene.cam.unit_cam_dir = rt_str_to_3dvector(tokens[2], -1.0, 1.0);
+	rt->scene.cam.unit_cam_dir = rt_str_to_3dvector(tokens[2], -DBL_MAX, DBL_MAX);
 	if (rt_vec_mag(rt->scene.cam.unit_cam_dir) != 1.0)
 	{
 		ft_putstr_fd("Camera orientation vec not normarized\n", 2);
