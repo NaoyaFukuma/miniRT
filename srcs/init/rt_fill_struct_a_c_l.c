@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:17:31 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 16:33:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/25 11:11:01 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	rt_fill_struct_c_sub(t_rt_data *rt, const char **tokens)
 	if (rt_vec_mag(rt->scene.cam.unit_cam_dir) != 1.0)
 	{
 		ft_putstr_fd("Camera orientation vec not normarized\n", 2);
-		rt_vec_to_unit(rt->scene.cam.unit_cam_dir);
+		rt->scene.cam.unit_cam_dir
+			= rt_vec_to_unit(rt->scene.cam.unit_cam_dir);
 	}
 	if (ft_strchar((char *)tokens[3], '.'))
 		rt_put_rt_file_format_error_exit("FOV is not integer type");
