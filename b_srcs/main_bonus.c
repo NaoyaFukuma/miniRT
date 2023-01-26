@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 22:49:07 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:37:54 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:10:18 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void destructor(void)
 {
 	system("leaks -q miniRT");
 } */
+t_rt_data	rt;
 
 int	main(int ac, char **av)
 {
-	t_rt_data	rt;
 
 	ft_bzero(&rt, sizeof(t_rt_data));
 	rt_check_arg(ac, av);

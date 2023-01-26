@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:01:21 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:44:26 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_plane
 {
 	t_3d_vec			p_vec;
 	t_3d_vec			unit_norm_vec;
+	t_3d_vec			defalt_unit_norm_vec;
 	t_rgb_vec			color;
 	t_rgb_vec			defalt_color;
 }						t_plane;
@@ -130,6 +131,8 @@ typedef struct s_mlx
 	void				*mlx;
 	void				*win;
 	t_img				image;
+	t_img				texture_xpm;
+	t_img				n_unit_vec_xpm;
 }						t_mlx;
 
 typedef struct s_rt_data
