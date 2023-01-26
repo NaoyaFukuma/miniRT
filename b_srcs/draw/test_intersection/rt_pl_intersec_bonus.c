@@ -52,12 +52,12 @@ t_3d_vec	rt_get_point(t_ray ray, double t)
 t_3d_vec	rt_decide_norm_unit_vec(double x, double y, t_plane *plane, t_3d_vec dx, t_3d_vec dy)
 {
 	extern t_rt_data	rt;
-	x = fmod(x, rt.mlx.n_unit_vec_xpm.width);
-	y = fmod(y, rt.mlx.n_unit_vec_xpm.height);
 
+	x = fmod(x, 1.0) * rt.mlx.n_unit_vec_xpm.width;
+	y = fmod(y , 1.0) * rt.mlx.n_unit_vec_xpm.height;
 	t_rgb_vec c = get_color_from_image(&rt.mlx.n_unit_vec_xpm, x, y);
 	t_3d_vec tangent = rt_vec_constructor((c.r * 2) - 1,(c.b * 2) - 1,  (c.g * 2) - 1);
-	// printf("n_vec x[%f] y[%f] z[%f]\n", tangent.x, tangent.y , tangent.z);
+	// printf("tangent_vec x[%f] y[%f] z[%f]\n", tangent.x, tangent.y , tangent.z);
 	t_3d_vec res_x = rt_vec_mult(dx, tangent.x);
 	t_3d_vec res_y = rt_vec_mult(dy, tangent.z);
 	t_3d_vec res_z = rt_vec_mult(plane->defalt_unit_norm_vec, tangent.y);
@@ -77,9 +77,9 @@ t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 	t_3d_vec	dx;
 	t_3d_vec	dy;
 	t_3d_vec	pw_pc;
-	double		dot;
-	double		x;
-	double		y;
+	// double		dot;
+	double	x;
+	double	y;
 
 	if (plane->unit_norm_vec.x == 0.0 && plane->unit_norm_vec.y == 1.0
 		&& plane->unit_norm_vec.z == 0.0)
@@ -96,11 +96,14 @@ t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 					plane->unit_norm_vec));
 	}
 	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
-	dot = rt_vec_dot(rt_vec_to_unit(pw_pc), dx);
-	x = rt_vec_mag(pw_pc) * dot;
-	if (x < 0.0)
-		x = -x;
-	y = rt_vec_mag(rt_vec_sub(pw_pc, rt_vec_mult(dx, x)));
+
+	x = fmod(rt_vec_dot(pw_pc ,dx), 1);
+	y = fmod(rt_vec_dot(pw_pc ,dy), 1);
+	if (x < 0)
+		x += 1;
+	if (y < 0)
+		y += 1;
+
 	plane->unit_norm_vec = rt_decide_norm_unit_vec(x, y, plane,dx,dy); // for bump
 	// printf("n_vec x[%f] y[%f] z[%f]\n", plane->unit_norm_vec.x, plane->unit_norm_vec.y , plane->unit_norm_vec.z);
 	// return (rt_decide_color(x, y, plane->defalt_color)); // for checker
