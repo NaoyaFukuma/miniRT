@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 17:09:00 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:50:50 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
 /*util*/
 double			rt_min(double a, double b);
 double			rt_max(double a, double b);
-double			rt_constrain(double num, double low, double high);
+t_rgb_vec		rt_get_color_from_image(const t_img *img, int x, int y);
 
 /* rt_randam.c */
 double			return_random_ratio(int seed, int bottom);

@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/25 15:44:26 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:59:26 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef struct s_plane
 {
 	t_3d_vec			p_vec;
 	t_3d_vec			unit_norm_vec;
-	t_3d_vec			defalt_unit_norm_vec;
+	t_3d_vec			dx;
+	t_3d_vec			dy;
 	t_rgb_vec			color;
 	t_rgb_vec			defalt_color;
 }						t_plane;

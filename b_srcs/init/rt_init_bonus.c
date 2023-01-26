@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/26 00:58:55 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:57:06 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	rt_init(t_rt_data *rt, const char *file)
 	rt->scene.material.amb_fact = rt_rgb_vec_constructor(0.50f, 0.50f, 0.50f);
 	rt->scene.material.spec_fact = rt_rgb_vec_constructor(0.30f, 0.30f, 0.30f);
 	rt->scene.material.shininess = 8.0f;
-	rt->mlx.texture_xpm.img = mlx_xpm_file_to_image(rt->mlx.mlx, "./image/tile_tx.xpm", &rt->mlx.texture_xpm.width, &rt->mlx.texture_xpm.height);
+	rt->mlx.texture_xpm.img = mlx_xpm_file_to_image(rt->mlx.mlx, "./image/earth_tx.xpm", &rt->mlx.texture_xpm.width, &rt->mlx.texture_xpm.height);
 	rt->mlx.texture_xpm.addr = mlx_get_data_addr(rt->mlx.texture_xpm.img, &rt->mlx.texture_xpm.bits_per_pixel, &rt->mlx.texture_xpm.line_length, &rt->mlx.texture_xpm.endian);
 
-	rt->mlx.n_unit_vec_xpm.img = mlx_xpm_file_to_image(rt->mlx.mlx, "./image/floor_n.xpm", &rt->mlx.n_unit_vec_xpm.width, &rt->mlx.n_unit_vec_xpm.height);
+	rt->mlx.n_unit_vec_xpm.img = mlx_xpm_file_to_image(rt->mlx.mlx, "./image/earth_n.xpm", &rt->mlx.n_unit_vec_xpm.width, &rt->mlx.n_unit_vec_xpm.height);
 	rt->mlx.n_unit_vec_xpm.addr = mlx_get_data_addr(rt->mlx.n_unit_vec_xpm.img, &rt->mlx.n_unit_vec_xpm.bits_per_pixel, &rt->mlx.n_unit_vec_xpm.line_length, &rt->mlx.n_unit_vec_xpm.endian);
 }
 
