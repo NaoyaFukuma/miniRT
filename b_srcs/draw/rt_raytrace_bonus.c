@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:37:14 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_rgb_vec	rt_add_spec_and_diffu_with_all(t_rt_data *rt, t_3d_vec eye_dir, \
 
 	pls = rt->scene.pls_s;
 	col = rt_rgb_vec_constructor_3(0);
+
+	if (result.obj->shape == e_SPHERE && result.obj->sphere->radius >= 1.5)
+		result.obj->sphere->color = rt_norm_tex_mapping(&result.insec_p, result.obj->sphere);
 	while (pls)
 	{
 		lighting = rt_calc_lighting_at_intersection(pls, result.insec_p.p_vec);
@@ -53,18 +56,92 @@ t_rgb_vec	rt_add_spec_and_diffu_with_all(t_rt_data *rt, t_3d_vec eye_dir, \
 	return (col);
 }
 
-t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
+#define MAX_RECURSION 8
+
+t_rgb_vec	ray_trace_recursive(t_rt_data *rt, t_ray ray, int recusion_lev);
+
+t_ray	rt_calc_re_ray(t_insec_res result, t_3d_vec unit_v, double n_dot_v)
 {
-	t_insec_res	result;
+	t_3d_vec	re;
+	t_ray		re_ray;
+
+	re = rt_vec_sub(rt_vec_mult(result.insec_p.unit_n_vec, 2 * n_dot_v), unit_v);
+	re_ray.start = rt_vec_add(result.insec_p.p_vec, rt_vec_mult(re, 1.0 / 512.0));
+	re_ray.unit_d_vec = re;
+	return (re_ray);
+}
+
+t_rgb_vec	rt_calc_r_m(t_rt_data *rt, int recusion_lev, t_ray re_ray)
+{
+	t_rgb_vec	r_re;
+
+	r_re = ray_trace_recursive(rt, re_ray, recusion_lev + 1);
+	if (r_re.r == NOT_INTERSECT)
+	{
+		r_re.r = 0;
+	}
+	return (rt_rgb_vec_mult(r_re, 0.8));
+}
+
+t_rgb_vec	rt_calc_comp_spec(t_rt_data *rt, t_ray ray, \
+								int recusion_lev, t_insec_res result)
+{
+	t_3d_vec	unit_v;
+	double		n_dot_v;
+	t_ray		re_ray;
+
+	unit_v = rt_vec_mult(ray.unit_d_vec, -1);
+	unit_v = rt_vec_to_unit(unit_v);
+	n_dot_v = rt_vec_dot(unit_v, result.insec_p.unit_n_vec);
+	if (n_dot_v <= 0)
+	{
+		return (rt_rgb_vec_constructor_3(0));
+	}
+	re_ray = rt_calc_re_ray(result, unit_v, n_dot_v);
+	return (rt_calc_r_m(rt, recusion_lev, re_ray));
+}
+
+t_rgb_vec	rt_calc_reflection(t_rt_data *rt, t_ray ray, \
+									int recusion_lev, t_insec_res result)
+{
 	t_rgb_vec	amb;
 	t_rgb_vec	spec_diffu;
+	t_rgb_vec	r_m;
+	t_rgb_vec	col;
 
-	result = rt_all_insec_ambient(rt->scene.objs, ray);
-	if (result.insec_p.unit_n_vec.x == NOT_INTERSECT)
-	{
-		return (rt_rgb_vec_constructor(NOT_INTERSECT, 0, 0));
-	}
 	amb = rt_rgb_vec_pi_2(rt->scene.amb_color, rt->scene.material.amb_fact);
 	spec_diffu = rt_add_spec_and_diffu_with_all(rt, ray.unit_d_vec, result);
-	return (rt_rgb_vec_add(amb, spec_diffu));
+	col = rt_rgb_vec_add(amb, spec_diffu);
+	if (result.obj->shape != e_CONE)
+	{
+		return (col);
+	}
+	r_m = rt_calc_comp_spec(rt, ray, recusion_lev, result);
+	return (rt_rgb_vec_add(col, r_m));
+}
+
+
+t_rgb_vec	ray_trace_recursive(t_rt_data *rt, t_ray ray, int recusion_lev)
+{
+	t_insec_res	result;
+
+	if (recusion_lev > MAX_RECURSION )
+	{
+		return rt_rgb_vec_constructor(NOT_INTERSECT, 0, 0);
+	}
+	else
+	{
+		result = rt_all_insec_ambient(rt->scene.objs, ray);
+		if (result.insec_p.unit_n_vec.x == NOT_INTERSECT)
+		{
+			return (rt_rgb_vec_constructor(NOT_INTERSECT, 0, 0));
+		}
+		return (rt_calc_reflection(rt, ray, recusion_lev, result));
+	}
+}
+
+
+t_rgb_vec	rt_raytrace(t_rt_data *rt, t_ray ray)
+{
+	return (ray_trace_recursive(rt, ray, 0));
 }

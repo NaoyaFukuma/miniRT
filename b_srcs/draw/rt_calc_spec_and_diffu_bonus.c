@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/26 15:44:17 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 13:27:50 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ double	rt_calc_n_dot_l(t_rt_data *rt, t_obj *obj, \
 		{
 			x_mult_y = 1;
 		}
-		// n_dot_l *= return_random_ratio(x_mult_y, 20);
 	}
 	return (n_dot_l);
 }
