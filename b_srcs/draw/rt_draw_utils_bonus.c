@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/26 13:49:32 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:39:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_rgb_vec	rt_get_color_from_image(const t_img *img, int x, int y)
 	const int			pixel = (y * img->line_length) + (x * 4);
 	const char			*dst = &img->addr[pixel];
 	const unsigned int	color = *(unsigned int *)dst;
-	t_rgb_vec				c;
+	t_rgb_vec			c;
 
 	c.b = (double)(color & 0xFF) / 255;
 	c.g = (double)((color >> 8) & 0xFF) / 255;

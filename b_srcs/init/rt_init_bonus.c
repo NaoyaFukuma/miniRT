@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:53:32 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/27 13:38:53 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:39:39 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ void	rt_init(t_rt_data *rt, const char *file)
 	if (rt->mlx.texture_xpm.img == NULL)
 		rt_put_error_exit("xpm file load error");
 	rt->mlx.texture_xpm.addr = mlx_get_data_addr(rt->mlx.texture_xpm.img,
-			&rt->mlx.texture_xpm.bits_per_pixel, &rt->mlx.texture_xpm.line_length,
-			&rt->mlx.texture_xpm.endian);
-	rt->mlx.n_unit_vec_xpm.img = mlx_xpm_file_to_image(rt->mlx.mlx, "./image/earth_n.xpm",
+			&rt->mlx.texture_xpm.bits_per_pixel,
+			&rt->mlx.texture_xpm.line_length, &rt->mlx.texture_xpm.endian);
+	rt->mlx.n_unit_vec_xpm.img = mlx_xpm_file_to_image(
+			rt->mlx.mlx, "./image/earth_n.xpm",
 			&rt->mlx.n_unit_vec_xpm.width, &rt->mlx.n_unit_vec_xpm.height);
 	if (rt->mlx.n_unit_vec_xpm.img == NULL)
 		rt_put_error_exit("xpm file load error");
 	rt->mlx.n_unit_vec_xpm.addr = mlx_get_data_addr(rt->mlx.n_unit_vec_xpm.img,
 			&rt->mlx.n_unit_vec_xpm.bits_per_pixel,
-			&rt->mlx.n_unit_vec_xpm.line_length, &rt->mlx.n_unit_vec_xpm.endian);
+			&rt->mlx.n_unit_vec_xpm.line_length,
+			&rt->mlx.n_unit_vec_xpm.endian);
 }
 
 static void	rt_mlx_init(t_rt_data *rt)

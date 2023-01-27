@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:24:48 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/26 17:27:25 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:40:57 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ t_3d_vec	rt_calc_pw(t_rt_data *rt, double fx, double fy)
 t_ray	rt_eye_ray_constructor(t_3d_vec position_on_screen, t_rt_data *rt)
 {
 	const double	epsilon = 1.0 / 512.0;
-	const t_ray	eye_ray = {
-		.start = rt_vec_add(rt->scene.cam.cam_p_vec, rt_vec_mult(rt->scene.cam.unit_cam_dir, epsilon)),
-		.unit_d_vec = rt_vec_to_unit(rt_vec_sub(position_on_screen, rt->scene.cam.cam_p_vec))
+	const t_ray		eye_ray = {
+		.start = rt_vec_add(rt->scene.cam.cam_p_vec, rt_vec_mult(
+				rt->scene.cam.unit_cam_dir, epsilon)),
+		.unit_d_vec = rt_vec_to_unit(rt_vec_sub(position_on_screen,
+				rt->scene.cam.cam_p_vec))
 	};
 
 	return (eye_ray);

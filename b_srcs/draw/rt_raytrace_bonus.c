@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/27 15:58:37 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:26:24 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_rgb_vec	rt_add_spec_and_diffu_with_all(t_rt_data *rt, t_3d_vec eye_dir, \
 	col = rt_rgb_vec_constructor_3(0);
 
 	if (result.obj->shape == e_SPHERE && result.obj->sphere->radius >= 1.5)
-		result.obj->sphere->color = rt_norm_tex_mapping(&result.insec_p, result.obj->sphere);
+		result.obj->sphere->color = rt_norm_tex_mapping(rt, &result.insec_p, result.obj->sphere);
 	while (pls)
 	{
 		lighting = rt_calc_lighting_at_intersection(pls, result.insec_p.p_vec);
