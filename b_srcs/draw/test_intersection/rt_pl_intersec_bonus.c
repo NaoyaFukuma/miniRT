@@ -24,29 +24,6 @@ t_3d_vec	rt_get_point(t_ray ray, double t)
 	return (rt_vec_add(ray.start, rt_vec_mult(ray.unit_d_vec, t)));
 }
 
-// t_3d_vec	rt_decide_norm_unit_vec(double x, double y, t_plane *plane, t_3d_vec dx, t_3d_vec dy)
-// {
-// 	extern t_rt_data	rt;
-//
-// 	x = fmod(x, 1.0) * rt.mlx.n_unit_vec_xpm.width;
-// 	y = fmod(y , 1.0) * rt.mlx.n_unit_vec_xpm.height;
-// 	t_rgb_vec c = rt_get_color_from_image(&rt.mlx.n_unit_vec_xpm, x, y);
-// 	t_3d_vec tangent = rt_vec_constructor((c.r * 2) - 1,(c.b * 2) - 1,  (c.g * 2) - 1);
-// 	// printf("tangent_vec x[%f] y[%f] z[%f]\n", tangent.x, tangent.y , tangent.z);
-// 	t_3d_vec res_x = rt_vec_mult(dx, tangent.x);
-// 	t_3d_vec res_y = rt_vec_mult(dy, tangent.z);
-// 	t_3d_vec res_z = rt_vec_mult(plane->defalt_unit_norm_vec, tangent.y);
-// 	return (rt_vec_to_unit(rt_vec_add(rt_vec_add(res_x, res_y) , res_z)));
-// }
-
-// static t_rgb_vec rt_decide_color(double x, double y)
-// {
-// 	extern t_rt_data	rt;
-// 	x = fmod(x, rt.mlx.texture_xpm.width);
-// 	y = fmod(y, rt.mlx.texture_xpm.height);
-// 	return (rt_get_color_from_image(&rt.mlx.texture_xpm, x, y));
-// }
-
 t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 {
 	const t_3d_vec	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
@@ -64,7 +41,7 @@ t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 	if (((int)(x / 1.0) % 2 == 0 && (int)(y / 1.0) % 2 == 1)
 		|| ((int)(x / 1.0) % 2 == 1 && (int)(y / 1.0) % 2 == 0))
 		return (rt_rgb_vec_constructor(1.0 - plane->defalt_color.r, 1.0
-		- plane->defalt_color.g, 1.0 - plane->defalt_color.b));
+				- plane->defalt_color.g, 1.0 - plane->defalt_color.b));
 	return (plane->defalt_color);
 }
 
