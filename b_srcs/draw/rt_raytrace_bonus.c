@@ -6,13 +6,14 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/27 14:37:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:58:37 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_draw_bonus.h"
 #include "rt_structs_bonus.h"
 #include "rt_vector_bonus.h"
+#include <math.h>
 #include <stdbool.h>
 
 t_lighting	rt_calc_lighting_at_intersection(t_p_lite_src *pls,
@@ -101,6 +102,37 @@ t_rgb_vec	rt_calc_comp_spec(t_rt_data *rt, t_ray ray, \
 	return (rt_calc_r_m(rt, recusion_lev, re_ray));
 }
 
+t_rgb_vec	rt_calc_refraction(t_rt_data *rt, t_ray ray, \
+								int recusion_lev, t_insec_res result)
+{
+	t_3d_vec	unit_v;
+	double		n_dot_v;
+	t_ray		re_ray;
+	double		eta1;
+	double		eta2;
+
+	eta1 = 0.80;
+	eta2 = 1.0;
+	unit_v = rt_vec_mult(ray.unit_d_vec, -1);
+	unit_v = rt_vec_to_unit(unit_v);
+	n_dot_v = rt_vec_dot(unit_v, result.insec_p.unit_n_vec);
+	if (n_dot_v < 0)
+	{
+		eta1 = 1.0;
+		eta2 = 0.80;
+		result.insec_p.unit_n_vec = rt_vec_mult(result.insec_p.unit_n_vec, -1);
+		n_dot_v = rt_vec_dot(unit_v, result.insec_p.unit_n_vec);
+	}
+	double eta = eta2 / eta1;
+	double cos1 = rt_vec_dot(unit_v, result.insec_p.unit_n_vec);
+	double cos2 = eta * sqrt((eta * eta) - (1 - cos1 * cos1));
+	double omega = eta * cos2 - cos1;
+	re_ray.unit_d_vec = rt_vec_sub(rt_vec_mult(ray.unit_d_vec, eta), rt_vec_mult(result.insec_p.unit_n_vec, eta * omega));
+	re_ray.unit_d_vec = rt_vec_to_unit(re_ray.unit_d_vec);
+	re_ray.start = rt_vec_add(result.insec_p.p_vec, rt_vec_mult(re_ray.unit_d_vec, 1.0 / 512.0));
+	return (rt_calc_r_m(rt, recusion_lev, re_ray));
+}
+
 t_rgb_vec	rt_calc_reflection(t_rt_data *rt, t_ray ray, \
 									int recusion_lev, t_insec_res result)
 {
@@ -112,12 +144,18 @@ t_rgb_vec	rt_calc_reflection(t_rt_data *rt, t_ray ray, \
 	amb = rt_rgb_vec_pi_2(rt->scene.amb_color, rt->scene.material.amb_fact);
 	spec_diffu = rt_add_spec_and_diffu_with_all(rt, ray.unit_d_vec, result);
 	col = rt_rgb_vec_add(amb, spec_diffu);
-	if (result.obj->shape != e_CONE)
+
+	if (result.obj->shape == e_CONE)
 	{
-		return (col);
+		r_m = rt_calc_comp_spec(rt, ray, recusion_lev, result);
+		return (rt_rgb_vec_add(col, r_m));
 	}
-	r_m = rt_calc_comp_spec(rt, ray, recusion_lev, result);
-	return (rt_rgb_vec_add(col, r_m));
+	if (result.obj->shape == e_SPHERE && result.obj->sphere->radius < 1.5)
+	{
+		r_m = rt_calc_refraction(rt, ray, recusion_lev, result);
+		return (rt_rgb_vec_add(col, r_m));
+	}
+	return (col);
 }
 
 
