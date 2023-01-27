@@ -50,7 +50,7 @@ B_SRCS =	main_bonus.c \
 			rt_init_utils2_bonus.c \
 			rt_draw_bonus.c \
 			rt_draw_utils_bonus.c \
-			rt_random_bonus.c \
+			rt_bump_mapping.c \
 			rt_eye_raytrace_bonus.c \
 			rt_raytrace_bonus.c \
 			rt_co_intersec_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/26 13:50:50 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 13:27:56 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_rgb_vec		rt_raytrace(t_rt_data *rt, t_ray ray);
 t_3d_vec		rt_get_point(t_ray ray, double t);
 t_insec_p		rt_pl_intersec(t_plane *plane, t_ray ray);
 t_insec_p		rt_sp_intersec(t_sphere *sphere, t_ray ray);
+t_rgb_vec		rt_norm_tex_mapping(t_insec_p *res, t_sphere *sphere);
 t_insec_p		rt_cy_intersec(t_cylinder *cylinder, t_ray ray);
 t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
 
@@ -68,9 +69,6 @@ t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
 double			rt_min(double a, double b);
 double			rt_max(double a, double b);
 t_rgb_vec		rt_get_color_from_image(const t_img *img, int x, int y);
-
-/* rt_randam.c */
-double			return_random_ratio(int seed, int bottom);
 
 /* rt_all_insec.c */
 t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);
