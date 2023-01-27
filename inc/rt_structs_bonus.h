@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_structs_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:54:16 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/27 13:37:01 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:57:34 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ enum					e_shapes
 	e_PLANE,
 	e_CYLINDER,
 	e_CONE,
+	e_DELTA,
 };
 
 typedef struct s_3d_vec
@@ -34,6 +35,7 @@ typedef struct s_rgb_vec
 	double				g;
 	double				b;
 }						t_rgb_vec;
+
 typedef struct s_material
 {
 	t_rgb_vec			amb_fact;
@@ -75,6 +77,16 @@ typedef struct s_cone
 	t_rgb_vec			color;
 }						t_cone;
 
+typedef struct s_delta
+{
+	t_3d_vec			a;
+	t_3d_vec			b;
+	t_3d_vec			c;
+	t_3d_vec			g;
+	t_rgb_vec			color;
+	t_3d_vec			unit_n_vec;
+}						t_delta;
+
 typedef struct s_obj
 {
 	int					shape;
@@ -82,6 +94,7 @@ typedef struct s_obj
 	t_sphere			*sphere;
 	t_cylinder			*cylinder;
 	t_cone				*cone;
+	t_delta				*delta;
 	void				*shape_ptr;
 	struct s_obj		*next;
 }						t_obj;

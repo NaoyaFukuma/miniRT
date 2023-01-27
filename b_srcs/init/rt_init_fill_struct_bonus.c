@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_init_fill_struct_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:59:00 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	rt_fill_struct_sp(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_pl(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens);
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens);
+void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens);
 int		rt_check_id(const char *str);
 
 enum e_funcs {
@@ -33,6 +34,7 @@ enum e_funcs {
 	e_pl,
 	e_cy,
 	e_cn,
+	e_dl,
 };
 
 void	rt_fill_struct(t_rt_data *rt, const char *line)
@@ -58,24 +60,26 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 		rt_fill_struct_pl(rt, (const char **)tokens);
 	else if (id == e_cy)
 		rt_fill_struct_cy(rt, (const char **)tokens);
-	else
+	else if (id == e_cn)
 		rt_fill_struct_cn(rt, (const char **)tokens);
+	else if (id == e_dl)
+		rt_fill_struct_dl(rt, (const char **)tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
 
 int	rt_check_id(const char *str)
 {
 	int			id;
-	const char	*id_set[] = {"A", "C", "L", "sp", "pl", "cy", "cn"};
+	const char	*id_set[] = {"A", "C", "L", "sp", "pl", "cy", "cn", "dl"};
 
 	id = 0;
-	while (id < 7)
+	while (id < 8)
 	{
 		if (!ft_strcmp(str, id_set[id]))
 			break ;
 		++id;
 	}
-	if (id == 7)
+	if (id == 8)
 	{
 		return (-1);
 	}

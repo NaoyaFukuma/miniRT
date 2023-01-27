@@ -61,6 +61,8 @@ B_SRCS =	main_bonus.c \
 			rt_shadow_intersection_bonus.c \
 			rt_calc_spec_and_diffu_bonus.c \
 			rt_calc_diffu_bonus.c \
+			rt_dl_intersec_bonus.c \
+			rt_fill_struct_dl_bonus.c \
 
 VPATH =	srcs:\
 		srcs/init:\

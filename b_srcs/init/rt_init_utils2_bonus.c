@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_init_utils2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:50:42 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 		new_obj->cylinder = malloc(sizeof(t_cylinder));
 	if (shapes_id == e_CONE)
 		new_obj->cone = malloc(sizeof(t_cone));
+	if (shapes_id == e_DELTA)
+		new_obj->delta = malloc(sizeof(t_delta));
 	if ((shapes_id == e_SPHERE && !new_obj->sphere) || (shapes_id == e_PLANE
 			&& !new_obj->plane) || (shapes_id == e_CYLINDER
-			&& !new_obj->cylinder) || (shapes_id == e_CONE && !new_obj->cone))
+			&& !new_obj->cylinder) || (shapes_id == e_CONE && !new_obj->cone) || (shapes_id == e_DELTA && !new_obj->delta))
 		rt_perror_exit(NULL);
 	rt_addback_objs_list(&rt->scene.objs, new_obj);
 	return (new_obj);

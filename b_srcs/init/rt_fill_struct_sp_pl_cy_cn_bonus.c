@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_fill_struct_sp_pl_cy_cn_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/27 17:00:21 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:58:48 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
