@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/24 17:36:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/29 00:49:40 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ bool	rt_check_decimal_point(const char *str)
 			break ;
 		++i;
 	}
-	if (3 < i)
+	if (i > 3)
+	{
 		return (false);
-	else
-		return (true);
+	}
+	return (true);
 }
 
 t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
@@ -71,7 +72,6 @@ t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 static void	rt_check_value(const char **elements, double min, double max)
 {
 	double	tmp;
-	double	mod;
 	int		i;
 
 	i = 0;
@@ -80,8 +80,7 @@ static void	rt_check_value(const char **elements, double min, double max)
 		tmp = ft_atof(elements[i]);
 		if (errno == ERANGE)
 			rt_put_rt_file_format_error_exit(ER_RANGE);
-		mod = fmod(tmp / 0.001, 10);
-		if (mod != 0)
+		if (rt_check_decimal_point(elements[i]) == false)
 			rt_put_rt_file_format_error_exit(ER_DECIMAL);
 		if (!(min <= tmp && tmp <= max))
 			rt_put_rt_file_format_error_exit("Vector elements not in range");
