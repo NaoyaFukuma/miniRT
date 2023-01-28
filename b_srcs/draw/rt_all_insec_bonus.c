@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_all_insec_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:47:22 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ static t_insec_p	rt_get_insec_p_form_objs(t_obj *objs, t_ray ray)
 	else if (e_CONE == objs->shape)
 	{
 		res = rt_co_intersec(objs->cone, ray);
+	}
+	else if (e_DELTA == objs->shape)
+	{
+		res = rt_dl_intersec(objs->delta, ray);
 	}
 	return (res);
 }

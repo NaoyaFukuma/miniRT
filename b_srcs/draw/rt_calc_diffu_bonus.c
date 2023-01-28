@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_calc_diffu_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:31 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:48:01 by kyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@ static t_rgb_vec	rt_get_obj_color(t_obj *obj)
 	{
 		return (obj->cylinder->color);
 	}
-	else
+	else if (e_CONE == obj->shape)
 	{
 		return (obj->cone->color);
+	}
+	else
+	{
+		return (obj->delta->color);
 	}
 }
 
