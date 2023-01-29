@@ -33,6 +33,7 @@ int	main(int ac, char **av)
 	rt_check_arg(ac, av);
 	rt_init(&rt, av[1]);
 	rt_draw(&rt);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	mlx_loop(rt.mlx.mlx);
 	return (ac);
 }

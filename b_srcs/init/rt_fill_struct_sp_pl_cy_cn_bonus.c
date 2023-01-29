@@ -101,6 +101,13 @@ void	rt_fill_struct_cy(t_rt_data *rt, const char **tokens)
 	if (obj_ptr->cylinder->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cylinder height invalid value");
 	obj_ptr->cylinder->color = rt_str_to_rbg(tokens[5]);
+	if (obj_ptr->cylinder->radius <= 1.0 / 512.0)
+		return ;
+	obj_ptr->cylinder->radius -= 1.0 / 512.0;
+	if (FLT_MAX - 1.0 / 512.0 < obj_ptr->cylinder->height)
+		return ;
+	obj_ptr->cylinder->height += 1.0 / 512.0;
+
 }
 
 void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
@@ -130,4 +137,10 @@ void	rt_fill_struct_cn(t_rt_data *rt, const char **tokens)
 	if (obj_ptr->cone->height <= 0 || errno == ERANGE)
 		rt_put_rt_file_format_error_exit("Cone height invalid value");
 	obj_ptr->cone->color = rt_str_to_rbg(tokens[5]);
+	if (obj_ptr->cone->radius <= 1.0 / 512.0)
+		return ;
+	obj_ptr->cone->radius -= 1.0 / 512.0;
+	if (FLT_MAX - 1.0 / 512.0 < obj_ptr->cone->height)
+		return ;
+	obj_ptr->cone->height += 1.0 / 512.0;
 }

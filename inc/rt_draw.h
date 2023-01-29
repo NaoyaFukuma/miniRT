@@ -58,15 +58,20 @@ t_rgb_vec		rt_raytrace(t_rt_data *rt, t_ray ray);
 
 # define NOT_INTERSECT 256.0
 
+double			rt_cam_to_orient_vec_len(t_3d_vec cam_p_vec, \
+						t_3d_vec center_p_vec, t_3d_vec unit_orient_vec);
 t_3d_vec		rt_get_point(t_ray ray, double t);
 t_insec_p		rt_pl_intersec(t_plane *plane, t_ray ray);
 t_insec_p		rt_sp_intersec(t_sphere *sphere, t_ray ray);
 t_insec_p		rt_cy_intersec(t_cylinder *cylinder, t_ray ray);
 t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
+double			rt_cam_to_orient_vec_len(t_3d_vec cam_p_vec, t_3d_vec center_p_vec, \
+								t_3d_vec unit_orient_vec);
 
 /*util*/
 double			rt_min(double a, double b);
 double			rt_max(double a, double b);
+void			rt_indicator(int height, int y);
 
 /* rt_all_insec.c */
 t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);

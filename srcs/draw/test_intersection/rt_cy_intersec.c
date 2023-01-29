@@ -103,6 +103,9 @@ t_insec_p	rt_cy_intersec(t_cylinder *cy, t_ray ray)
 	h_dis = rt_vec_dot(rt_vec_sub(pa, cy->center_p_vec), cy->unit_orient_vec);
 	if ((-1.0 * cy->height / 2.0f) <= h_dis && h_dis <= (cy->height / 2.0f))
 	{
+		if (rt_cam_to_orient_vec_len(ray.start, cy->center_p_vec, 
+										cy->unit_orient_vec) < cy->radius)
+			flag = -1.0;
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
 		res.unit_n_vec = rt_vec_to_unit(rt_calc_normal(flag, cy, pa));

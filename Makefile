@@ -3,7 +3,7 @@ B_NAME = miniRT_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11
+LIBS = -L$(MINILIB_PATH) -lmlx_Linux -L/usr/X11R6/lib -lXext -lX11 -lm
 INLCUDE = -I ./inc -I /usr/X11R6/inxlude -I$(MINILIB_PATH) -I$(LIBFT_PATH)
 
 #以下の2項目はベタ打ち
@@ -25,6 +25,7 @@ SRCS =	main.c \
 		rt_draw_utils.c \
 		rt_eye_raytrace.c \
 		rt_raytrace.c \
+		rt_intersec_utils.c\
 		rt_co_intersec.c \
 		rt_cy_intersec.c \
 		rt_pl_intersec.c \
@@ -54,6 +55,7 @@ B_SRCS =	main_bonus.c \
 			rt_eye_raytrace_bonus.c \
 			rt_raytrace_bonus.c \
 			rt_raytrace2_bonus.c \
+			rt_intersec_utils_bonus.c\
 			rt_co_intersec_bonus.c \
 			rt_cy_intersec_bonus.c \
 			rt_pl_intersec_bonus.c \
@@ -92,11 +94,11 @@ B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-MINILIB_PATH = ./minilibx_mms_20200219
-MINILIB = $(MINILIB_PATH)/libmlx.dylib
+# MINILIB_PATH = ./minilibx_mms_20200219
+# MINILIB = $(MINILIB_PATH)/libmlx.dylib
 
-# MINILIB_PATH = ./minilibx-linux
-# MINILIB = $(MINILIB_PATH)/libmlx_Linux.a
+MINILIB_PATH = ./minilibx-linux
+MINILIB = $(MINILIB_PATH)/libmlx_Linux.a
 
 
 ifeq ($(shell uname),Darwin)
