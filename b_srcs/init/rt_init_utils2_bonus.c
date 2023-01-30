@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:53:27 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/30 11:53:52 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:42:28 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_obj	*rt_new_obj(t_rt_data *rt, int shapes_id)
 	if ((shapes_id == e_SPHERE && !new_obj->sphere) || (shapes_id == e_PLANE
 			&& !new_obj->plane) || (shapes_id == e_CYLINDER
 			&& !new_obj->cylinder) || (shapes_id == e_CONE && !new_obj->cone)
-			|| (shapes_id == e_DELTA && !new_obj->delta))
+		|| (shapes_id == e_DELTA && !new_obj->delta))
 		rt_perror_exit(NULL);
 	rt_addback_objs_list(&rt->scene.objs, new_obj);
 	return (new_obj);
