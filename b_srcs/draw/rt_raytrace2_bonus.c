@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:20:53 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/30 12:31:14 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:40:29 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ t_rgb_vec	rt_calc_refraction(t_rt_data *rt, t_ray ray, int recusion_lev,
 		t_insec_res result)
 {
 	const t_3d_vec	unit_v = rt_vec_to_unit(rt_vec_mult(ray.unit_d_vec, -1));
-	double		n_dot_v;
-	double		eta1;
-	double		eta2;
-	double		omega;
+	double			n_dot_v;
+	double			eta1;
+	double			eta2;
+	double			omega;
 
 	eta1 = 0.80;
 	eta2 = 1.0;
@@ -96,11 +96,10 @@ t_rgb_vec	rt_calc_refraction(t_rt_data *rt, t_ray ray, int recusion_lev,
 		n_dot_v = rt_vec_dot(unit_v, result.insec_p.unit_n_vec);
 	}
 	omega = (eta2 / eta1) * (eta2 / eta1) * sqrt(((eta2 / eta1)
-			* (eta2 / eta1)) - (1 - (rt_vec_dot(unit_v, result.insec_p.unit_n_vec))
-			* (rt_vec_dot(unit_v, result.insec_p.unit_n_vec))))
-			- (rt_vec_dot(unit_v, result.insec_p.unit_n_vec));
+				* (eta2 / eta1)) - (1 - (rt_vec_dot(unit_v,
+		result.insec_p.unit_n_vec))
+		* (rt_vec_dot(unit_v, result.insec_p.unit_n_vec))))
+		- (rt_vec_dot(unit_v, result.insec_p.unit_n_vec));
 	return (rt_calc_r_m(rt, recusion_lev, rt_calc_re_ray2(ray, result,
 		(eta2 / eta1), omega)));
 }
-
-
