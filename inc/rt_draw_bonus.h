@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_draw_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/27 22:43:23 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:46:08 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_rgb_vec		rt_raytrace(t_rt_data *rt, t_ray ray);
 t_3d_vec		rt_get_point(t_ray ray, double t);
 t_insec_p		rt_pl_intersec(t_plane *plane, t_ray ray);
 t_insec_p		rt_sp_intersec(t_sphere *sphere, t_ray ray);
-t_rgb_vec		rt_norm_tex_mapping(t_rt_data *rt, t_insec_p *res, t_sphere *sphere);
+t_rgb_vec		rt_norm_tex_mapping(t_rt_data *rt,
+					t_insec_p *res, t_sphere *sphere);
 t_insec_p		rt_cy_intersec(t_cylinder *cylinder, t_ray ray);
 t_insec_p		rt_co_intersec(t_cone *cone, t_ray ray);
 t_insec_p		rt_dl_intersec(t_delta *delta, t_ray ray);
