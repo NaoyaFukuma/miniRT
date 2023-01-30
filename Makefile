@@ -150,7 +150,7 @@ sanitize: CFLAGS += -g -fsanitize=address
 sanitize: re
 
 norm :
-	norminette ./srcs ./b_srcs ./inc $(LIBFT_PATH)
+	norminette ./srcs ./b_srcs ./inc $(LIBFT_PATH) | grep Error
 
 re : fclean all
 
