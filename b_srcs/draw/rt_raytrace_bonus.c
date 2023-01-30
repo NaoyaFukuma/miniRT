@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:47 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/27 16:26:24 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/30 10:41:36 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "rt_vector_bonus.h"
 #include <math.h>
 #include <stdbool.h>
+
+#include <stdio.h>
 
 t_lighting	rt_calc_lighting_at_intersection(t_p_lite_src *pls,
 													t_3d_vec insect_p_vec)
