@@ -149,6 +149,9 @@ debug: re
 sanitize: CFLAGS += -g -fsanitize=address
 sanitize: re
 
+norm :
+	norminette $(OBJDIR) $(B_OBJDIR) $(INLCUDE) $(LIBFT_PATH)
+
 re : fclean all
 
 PHONY : clean fclean all debug sanitize re
