@@ -150,7 +150,7 @@ sanitize: CFLAGS += -g -fsanitize=address
 sanitize: re
 
 norm :
-	norminette $(OBJDIR) $(B_OBJDIR) $(INLCUDE) $(LIBFT_PATH)
+	norminette srcs b_srcs $(INLCUDE) $(LIBFT_PATH)
 
 re : fclean all
 
