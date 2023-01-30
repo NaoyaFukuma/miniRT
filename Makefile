@@ -154,4 +154,4 @@ norm :
 
 re : fclean all
 
-PHONY : clean fclean all debug sanitize re
+PHONY : clean fclean all debug sanitize re norm
