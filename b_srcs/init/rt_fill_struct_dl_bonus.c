@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_fill_struct_dl_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:18:36 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/27 22:58:42 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:59:34 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #include <float.h>
 #include <errno.h>
 #include <rt_define.h>
-
-#include <stdio.h>
 
 t_3d_vec	rt_calc_g_and_length(t_delta *delta)
 {
@@ -94,11 +92,4 @@ void	rt_fill_struct_dl(t_rt_data *rt, const char **tokens)
 	add_epsilon_all(obj_ptr->delta);
 	obj_ptr->delta->g = rt_calc_g_and_length(obj_ptr->delta);
 	obj_ptr->delta->unit_n_vec = rt_calc_dl_unit_n_vec(obj_ptr->delta);
-	// if (rt_vec_mag(obj_ptr->delta->unit_norm_vec) != 1.0)
-	// {
-	// 	ft_putstr_fd("delta orientation vec not normarized\n", 2);
-	// 	obj_ptr->delta->unit_norm_vec
-	// 		= rt_vec_to_unit(obj_ptr->delta->unit_norm_vec);
-	// }
 }
-

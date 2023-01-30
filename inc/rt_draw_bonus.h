@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:27:55 by kyamagis          #+#    #+#             */
-/*   Updated: 2023/01/30 11:46:08 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:30:41 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ t_insec_p		rt_dl_intersec(t_delta *delta, t_ray ray);
 double			rt_min(double a, double b);
 double			rt_max(double a, double b);
 t_rgb_vec		rt_get_color_from_image(const t_img *img, int x, int y);
+
+/* rt_raytrace2_bonus.c */
+t_rgb_vec		rt_calc_comp_spec(t_rt_data *rt, t_ray ray,
+					int recusion_lev, t_insec_res result);
+t_rgb_vec		rt_calc_refraction(t_rt_data *rt, t_ray ray,
+					int recusion_lev, t_insec_res result);
 
 /* rt_all_insec.c */
 t_insec_res		rt_all_insec_ambient(t_obj *objs, t_ray ray);

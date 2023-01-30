@@ -53,6 +53,7 @@ B_SRCS =	main_bonus.c \
 			rt_bump_mapping.c \
 			rt_eye_raytrace_bonus.c \
 			rt_raytrace_bonus.c \
+			rt_raytrace2_bonus.c \
 			rt_co_intersec_bonus.c \
 			rt_cy_intersec_bonus.c \
 			rt_pl_intersec_bonus.c \

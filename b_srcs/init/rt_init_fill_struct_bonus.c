@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_init_fill_struct_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyamagis <kyamagis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:07:15 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/27 22:59:00 by kyamagis         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:58:50 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,9 @@ enum e_funcs {
 	e_dl,
 };
 
-void	rt_fill_struct(t_rt_data *rt, const char *line)
+static void	rt_call_func(t_rt_data *rt, int id, char **tokens)
 {
-	int				id;
-	char			**tokens;
-
-	tokens = ft_split(line, ' ');
-	if (tokens == NULL)
-		rt_perror_exit(NULL);
-	id = rt_check_id(tokens[0]);
-	if (id < 0)
-		rt_put_rt_file_format_error_exit("Contains invalid identifier");
-	else if (id == e_A)
+	if (id == e_A)
 		rt_fill_struct_a(rt, (const char **)tokens);
 	else if (id == e_C)
 		rt_fill_struct_c(rt, (const char **)tokens);
@@ -64,6 +55,20 @@ void	rt_fill_struct(t_rt_data *rt, const char *line)
 		rt_fill_struct_cn(rt, (const char **)tokens);
 	else if (id == e_dl)
 		rt_fill_struct_dl(rt, (const char **)tokens);
+}
+
+void	rt_fill_struct(t_rt_data *rt, const char *line)
+{
+	int				id;
+	char			**tokens;
+
+	tokens = ft_split(line, ' ');
+	if (tokens == NULL)
+		rt_perror_exit(NULL);
+	id = rt_check_id(tokens[0]);
+	if (id < 0)
+		rt_put_rt_file_format_error_exit("Contains invalid identifier");
+	rt_call_func(rt, id, tokens);
 	rt_double_ptr_free((const char **)tokens);
 }
 
