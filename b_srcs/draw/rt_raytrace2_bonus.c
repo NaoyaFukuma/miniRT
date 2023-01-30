@@ -6,7 +6,7 @@
 /*   By: nfukuma <nfukuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 12:20:53 by nfukuma           #+#    #+#             */
-/*   Updated: 2023/01/30 12:40:29 by nfukuma          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:41:16 by nfukuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ t_rgb_vec	rt_calc_refraction(t_rt_data *rt, t_ray ray, int recusion_lev,
 	}
 	omega = (eta2 / eta1) * (eta2 / eta1) * sqrt(((eta2 / eta1)
 				* (eta2 / eta1)) - (1 - (rt_vec_dot(unit_v,
-		result.insec_p.unit_n_vec))
-		* (rt_vec_dot(unit_v, result.insec_p.unit_n_vec))))
-		- (rt_vec_dot(unit_v, result.insec_p.unit_n_vec));
+			result.insec_p.unit_n_vec))
+			* (rt_vec_dot(unit_v, result.insec_p.unit_n_vec))))
+			- (rt_vec_dot(unit_v, result.insec_p.unit_n_vec));
 	return (rt_calc_r_m(rt, recusion_lev, rt_calc_re_ray2(ray, result,
-		(eta2 / eta1), omega)));
+			(eta2 / eta1), omega)));
 }
