@@ -19,11 +19,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-t_3d_vec	rt_get_point(t_ray ray, double t)
-{
-	return (rt_vec_add(ray.start, rt_vec_mult(ray.unit_d_vec, t)));
-}
-
 t_insec_p	rt_pl_intersec(t_plane *plane, t_ray ray)
 {
 	double		dn_dot;

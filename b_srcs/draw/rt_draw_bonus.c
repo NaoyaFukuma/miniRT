@@ -88,6 +88,7 @@ void	rt_draw(t_rt_data *rt)
 		rt->scene.current_y = y;
 		rt_x_draw(rt, y, width, fy);
 		++y;
+		rt_indicator(height, y);
 	}
 	mlx_put_image_to_window(rt->mlx.mlx, rt->mlx.win, rt->mlx.image.img, 0, 0);
 }

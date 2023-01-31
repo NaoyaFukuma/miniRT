@@ -19,11 +19,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-t_3d_vec	rt_get_point(t_ray ray, double t)
-{
-	return (rt_vec_add(ray.start, rt_vec_mult(ray.unit_d_vec, t)));
-}
-
 t_rgb_vec	rt_checker_board(t_insec_p *res, t_plane *plane)
 {
 	const t_3d_vec	pw_pc = rt_vec_sub(res->p_vec, plane->p_vec);
