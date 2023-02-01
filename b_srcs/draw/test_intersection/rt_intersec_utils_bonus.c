@@ -35,3 +35,23 @@ double	rt_cam_to_orient_vec_len(t_3d_vec cam_p_vec, t_3d_vec center_p_vec, \
 	r_vec = rt_vec_sub(cam_p_vec, h_vec);
 	return (rt_vec_mag(r_vec));
 }
+
+bool	rt_discrim_co_n_vev_negative(t_cone *cone, t_ray ray)
+{
+	double	h;
+	double	r;
+	
+	h = rt_vec_dot(rt_vec_sub(ray.start, cone->center_p_vec), cone->unit_orient_vec);
+	r = cone->radius * h / cone->height;
+	if (r < 0.0)
+		r *= -1.0;
+	if (r < rt_cam_to_orient_vec_len(ray.start, cone->center_p_vec, cone->unit_orient_vec) )
+	{
+		return (false);
+	}
+	if (0.0 < h)
+	{
+		return (false);
+	}
+	return (true);
+}

@@ -55,7 +55,7 @@ static double	rt_co_calc_dir_vec_t(t_cone *cone, t_ray ray, double *flag)
 	if (d < 0.0)
 		return (rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a)));
 	if (!((-b - sqrt(d)) / (2.0 * a) > 0 && (-b + sqrt(d)) / (2.0 * a) > 0))
-		return (-1.0);
+		return (rt_max((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a)));
 	t = rt_min((-b - sqrt(d)) / (2.0 * a), (-b + sqrt(d)) / (2.0 * a));
 	h_dis = rt_vec_dot(rt_vec_sub(rt_get_point(ray, t),
 				cone->center_p_vec), cone->unit_orient_vec);
@@ -128,13 +128,8 @@ t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 			cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
-		if (rt_cam_to_orient_vec_len_co(ray.start, cone->center_p_vec, 
-										cone->unit_orient_vec) < cone->radius)
-		{
-			if(rt_vec_dot(rt_vec_sub(ray.start, cone->center_p_vec), cone->unit_orient_vec) <= 0)
-				flag = -1.0;
-		}
-			
+		if(rt_discrim_co_n_vev_negative(cone, ray) == true)
+			flag = -1.0;
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
 		res.unit_n_vec = rt_calc_unit_n_vec(cone, ray, flag, t);

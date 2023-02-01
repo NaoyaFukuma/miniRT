@@ -60,6 +60,7 @@ t_rgb_vec		rt_raytrace(t_rt_data *rt, t_ray ray);
 
 double			rt_cam_to_orient_vec_len(t_3d_vec cam_p_vec, \
 						t_3d_vec center_p_vec, t_3d_vec unit_orient_vec);
+bool			rt_discrim_co_n_vev_negative(t_cone *cone, t_ray ray);
 t_3d_vec		rt_get_point(t_ray ray, double t);
 t_insec_p		rt_pl_intersec(t_plane *plane, t_ray ray);
 t_insec_p		rt_sp_intersec(t_sphere *sphere, t_ray ray);
