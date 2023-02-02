@@ -116,7 +116,7 @@ t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 			cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
-		if(rt_discrim_co_n_vev_negative(cone, ray) == true)
+		if (rt_discrim_co_n_vev_negative(cone, ray) == true)
 			flag = -1.0;
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;

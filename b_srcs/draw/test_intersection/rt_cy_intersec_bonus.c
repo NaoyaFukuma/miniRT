@@ -62,29 +62,18 @@ static double	rt_cy_calc_dir_vec_t(t_cylinder *cy, t_ray ray, double *flag)
 	return (t);
 }
 
-static t_3d_vec	rt_calc_normal(double flag, t_cylinder *cy, t_3d_vec pa)
+static t_3d_vec	rt_calc_normal(double flag, t_cylinder *cy, double t, t_ray ray)
 {
-	t_3d_vec	tmp_normal;
+	t_3d_vec	pa_minus_pc;
+	t_3d_vec	h_mult_v;
+	double		height;
+	t_3d_vec	n_vec;
 
-	tmp_normal.x = 2 * flag * (cy->unit_orient_vec.z
-			* (cy->unit_orient_vec.z * (pa.x - cy->center_p_vec.x)
-				- cy->unit_orient_vec.x * (pa.z - cy->center_p_vec.z))
-			- cy->unit_orient_vec.y * (cy->unit_orient_vec.x * (pa.y
-					- cy->center_p_vec.y) - cy->unit_orient_vec.y * (pa.x
-					- cy->center_p_vec.x)));
-	tmp_normal.y = 2 * flag * (cy->unit_orient_vec.x
-			* (cy->unit_orient_vec.x * (pa.y - cy->center_p_vec.y)
-				- cy->unit_orient_vec.y * (pa.x - cy->center_p_vec.x))
-			- cy->unit_orient_vec.z * (cy->unit_orient_vec.y * (pa.z
-					- cy->center_p_vec.z) - cy->unit_orient_vec.z * (pa.y
-					- cy->center_p_vec.y)));
-	tmp_normal.z = 2 * flag * (cy->unit_orient_vec.y
-			* (cy->unit_orient_vec.y * (pa.z - cy->center_p_vec.z)
-				- cy->unit_orient_vec.z * (pa.y - cy->center_p_vec.y))
-			- cy->unit_orient_vec.x * (cy->unit_orient_vec.z * (pa.x
-					- cy->center_p_vec.x) - cy->unit_orient_vec.x * (pa.z
-					- cy->center_p_vec.z)));
-	return (tmp_normal);
+	pa_minus_pc = rt_vec_sub(rt_get_point(ray, t), cy->center_p_vec);
+	height = rt_vec_dot(pa_minus_pc, cy->unit_orient_vec);
+	h_mult_v = rt_vec_mult(cy->unit_orient_vec, height);
+	n_vec = rt_vec_mult(rt_vec_sub(pa_minus_pc, h_mult_v), flag);
+	return (rt_vec_to_unit(n_vec));
 }
 
 t_insec_p	rt_cy_intersec(t_cylinder *cy, t_ray ray)
@@ -104,12 +93,12 @@ t_insec_p	rt_cy_intersec(t_cylinder *cy, t_ray ray)
 	h_dis = rt_vec_dot(rt_vec_sub(pa, cy->center_p_vec), cy->unit_orient_vec);
 	if ((-1.0 * cy->height / 2.0f) <= h_dis && h_dis <= (cy->height / 2.0f))
 	{
-		if (rt_cam_to_orient_vec_len(ray.start, cy->center_p_vec, 
+		if (rt_cam_to_orient_vec_len(ray.start, cy->center_p_vec, \
 										cy->unit_orient_vec) < cy->radius)
 			flag = -1.0;
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;
-		res.unit_n_vec = rt_vec_to_unit(rt_calc_normal(flag, cy, pa));
+		res.unit_n_vec = rt_vec_to_unit(rt_calc_normal(flag, cy, t, ray));
 		return (res);
 	}
 	return (res);

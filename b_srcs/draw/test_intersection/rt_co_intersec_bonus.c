@@ -97,19 +97,6 @@ t_3d_vec	rt_calc_unit_n_vec(t_cone *cone, t_ray ray, double flag, double t)
 	return (rt_vec_to_unit(n_vec));
 }
 
-double	rt_cam_to_orient_vec_len_co(t_3d_vec cam_p_vec, t_3d_vec center_p_vec, \
-								t_3d_vec unit_orient_vec)
-{
-	double		h;
-	t_3d_vec	h_vec;
-	t_3d_vec	r_vec;
-
-	h = rt_vec_dot(rt_vec_sub(cam_p_vec, center_p_vec), unit_orient_vec);
-	h_vec = rt_vec_add(center_p_vec, rt_vec_mult(unit_orient_vec, h));
-	r_vec = rt_vec_sub(cam_p_vec, h_vec);
-	return (rt_vec_mag(r_vec));
-}
-
 t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 {
 	double					t;
@@ -128,7 +115,7 @@ t_insec_p	rt_co_intersec(t_cone *cone, t_ray ray)
 			cone->unit_orient_vec);
 	if (-cone->height <= h_dis && h_dis <= 0)
 	{
-		if(rt_discrim_co_n_vev_negative(cone, ray) == true)
+		if (rt_discrim_co_n_vev_negative(cone, ray) == true)
 			flag = -1.0;
 		res.dist = t * rt_vec_mag(ray.unit_d_vec);
 		res.p_vec = pa;

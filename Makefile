@@ -16,7 +16,8 @@ SRCS =	main.c \
 		rt_rgv_vec_pi.c \
 		rt_vec_product.c \
 		rt_fill_struct_a_c_l.c \
-		rt_fill_struct_sp_pl_cy_cn.c \
+		rt_fill_struct_cn.c\
+		rt_fill_struct_sp_pl_cy.c \
 		rt_init_fill_struct.c \
 		rt_init_hook.c \
 		rt_init_utils.c \
@@ -44,7 +45,8 @@ B_SRCS =	main_bonus.c \
 			rt_rgv_vec_pi_bonus.c \
 			rt_vec_product_bonus.c \
 			rt_fill_struct_a_c_l_bonus.c \
-			rt_fill_struct_sp_pl_cy_cn_bonus.c \
+			rt_fill_struct_cn_bonus.c\
+			rt_fill_struct_sp_pl_cy_bonus.c \
 			rt_init_fill_struct_bonus.c \
 			rt_init_hook_bonus.c \
 			rt_init_utils_bonus.c \
@@ -94,11 +96,11 @@ B_OBJS = $(addprefix $(B_OBJDIR)/, $(B_SRCS:.c=.o))
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-# MINILIB_PATH = ./minilibx_mms_20200219
-# MINILIB = $(MINILIB_PATH)/libmlx.dylib
+MINILIB_PATH = ./minilibx_mms_20200219
+MINILIB = $(MINILIB_PATH)/libmlx.dylib
 
-MINILIB_PATH = ./minilibx-linux
-MINILIB = $(MINILIB_PATH)/libmlx_Linux.a
+# MINILIB_PATH = ./minilibx-linux
+# MINILIB = $(MINILIB_PATH)/libmlx_Linux.a
 
 
 ifeq ($(shell uname),Darwin)

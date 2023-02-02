@@ -40,12 +40,14 @@ bool	rt_discrim_co_n_vev_negative(t_cone *cone, t_ray ray)
 {
 	double	h;
 	double	r;
-	
-	h = rt_vec_dot(rt_vec_sub(ray.start, cone->center_p_vec), cone->unit_orient_vec);
+
+	h = rt_vec_dot(rt_vec_sub(ray.start, cone->center_p_vec), \
+									cone->unit_orient_vec);
 	r = cone->radius * h / cone->height;
 	if (r < 0.0)
 		r *= -1.0;
-	if (r < rt_cam_to_orient_vec_len(ray.start, cone->center_p_vec, cone->unit_orient_vec) )
+	if (r < rt_cam_to_orient_vec_len(ray.start, cone->center_p_vec, \
+											cone->unit_orient_vec))
 	{
 		return (false);
 	}
